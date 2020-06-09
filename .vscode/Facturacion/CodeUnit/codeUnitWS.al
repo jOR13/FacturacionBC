@@ -183,7 +183,11 @@ codeunit 50503 codeUnitWS
             ft.TotalText := SelectJsonToken(JsonObject, '$.Total').AsValue.AsText();
             ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
 
-            ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
+            if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
+                ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
+            end;
+
+
 
             //Message(SelectJsonToken(JsonObject, '$.CfdiRelacionados').AsValue.AsText());
             /*                if SelectJsonToken(JsonObject, '$.CfdiRelacionados').AsValue.AsText() = 'null' then begin

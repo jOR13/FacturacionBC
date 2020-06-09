@@ -12,14 +12,14 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                 var
                 begin
                     show := false;
-                    "UUID Relation HG" := '';
 
-                    if (UUIDHG = '') and ("UUID Relation HG" = '') then begin
+
+                    if (UUIDHG = '') then begin
                         stat := true;
-                    end else begin
-                        Message('Esta factura ya ha sido timbrada.');
-                        "Tipo relacion" := 0;
                         "UUID Relation HG" := '';
+                    end else begin
+                        Message('Esta factura ya ha sido timbrada, no puede agregar o modificar');
+                        "Tipo relacion" := 0;
                         stat := false;
                     end;
 
