@@ -87,13 +87,13 @@ report 50516 HG_ReporteCFDI
             column(Subtotal; Subtotal)
             {
             }
-            column(SystemId; SystemId)
-            {
-            }
             column(Total; Total)
             {
             }
             column(UUID; UUID)
+            {
+            }
+            column(UUIDRelacionado; "UUID Relacionado")
             {
             }
             column(UsoCFDI; UsoCFDI)

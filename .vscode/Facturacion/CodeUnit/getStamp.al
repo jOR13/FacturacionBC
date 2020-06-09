@@ -53,6 +53,7 @@ codeunit 50504 getStamp
         end;
     end;
 
+
     var
         myInt: Integer;
 }
