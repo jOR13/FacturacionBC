@@ -183,11 +183,13 @@ codeunit 50503 codeUnitWS
             ft.TotalText := SelectJsonToken(JsonObject, '$.Total').AsValue.AsText();
             ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
 
-            // if SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsBoolean() then begin
+            ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
 
-            //  end;
-
-
+            //Message(SelectJsonToken(JsonObject, '$.CfdiRelacionados').AsValue.AsText());
+            /*                if SelectJsonToken(JsonObject, '$.CfdiRelacionados').AsValue.AsText() = 'null' then begin
+                            ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
+                        end;
+            */
             if SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() = 'MXN' then
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Peso Mexicano'
             else

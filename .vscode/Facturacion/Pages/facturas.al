@@ -121,6 +121,10 @@ page 50508 facturas
                 {
                     ApplicationArea = All;
                 }
+                field("UUID Relacionado"; "UUID Relacionado")
+                {
+                    ApplicationArea = All;
+                }
                 field(UsoCFDI; UsoCFDI)
                 {
                     ApplicationArea = All;
