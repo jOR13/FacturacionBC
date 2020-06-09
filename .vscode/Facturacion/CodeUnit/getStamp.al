@@ -19,7 +19,9 @@ codeunit 50504 getStamp
                     repeat begin
                         if sh."No." = ft.Folio then begin
                             sh.UUIDHG := ft.UUID;
-                            sh."UUID Relation HG" := ft."UUID Relacionado";
+                            if sh."UUID Relation HG" = '' then begin
+                                sh."UUID Relation HG" := ft."UUID Relacionado";
+                            end;
                             sh.Modify();
                         end;
                     end until ft.Next() = 0;
