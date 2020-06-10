@@ -34,8 +34,10 @@ codeunit 50503 codeUnitWS
         //ftc.DeleteAll;
         //ft.DeleteAll;
         HttpClient.DefaultRequestHeaders.Add('User-Agent', 'Dynamics 365');
-        //if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
-        if not HttpClient.Get('http://hgwebapp.azurewebsites.net/api/factura', ResponseMessage)
+        //sandbox
+        if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
+        //produccion
+        // if not HttpClient.Get('http://hgwebapp.azurewebsites.net/api/factura', ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -186,7 +188,8 @@ codeunit 50503 codeUnitWS
             ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
             ft."RFC provedor" := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@RfcProvCertif').AsValue.AsText;
             ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
-            ft.CertificadoCadena := ft.Version + ft.UUID + ft.FechaTimbrado + ft."RFC provedor" + ft.SelloDigitalCFD + ft.NoCertificadoSAT;
+
+            ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';
 
 
 
