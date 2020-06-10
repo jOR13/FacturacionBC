@@ -96,12 +96,6 @@ table 50523 facturas_Timbradas
         {
             DataClassification = ToBeClassified;
         }
-
-        field(26; CertificadoCadenaPart2; Text[2048])
-        {
-            DataClassification = ToBeClassified;
-        }
-
         field(21; NoCertificadoSAT; Text[250])
         {
             DataClassification = ToBeClassified;
@@ -154,6 +148,26 @@ table 50523 facturas_Timbradas
         {
             DataClassification = ToBeClassified;
         }
+
+
+        field(40; "Tipo relacion"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+        field(41; "RFC provedor"; Text[50])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(42; "Version"; Text[20])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+
 
 
 

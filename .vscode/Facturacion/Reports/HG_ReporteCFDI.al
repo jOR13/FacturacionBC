@@ -24,9 +24,13 @@ report 50516 HG_ReporteCFDI
             column(CertificadoCadena; CertificadoCadena)
             {
             }
-            column(CertificadoCadenaPart2; CertificadoCadenaPart2)
+            column(RFCprovedor; "RFC provedor")
             {
             }
+            column(Version; Version)
+            {
+            }
+
             column(Descripcion; Descripcion)
             {
             }
@@ -96,6 +100,10 @@ report 50516 HG_ReporteCFDI
             column(UUIDRelacionado; "UUID Relacionado")
             {
             }
+            column(Tiporelacion; "Tipo relacion")
+            {
+            }
+
             column(UsoCFDI; UsoCFDI)
             {
             }

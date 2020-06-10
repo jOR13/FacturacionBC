@@ -15,8 +15,6 @@ query 50513 QrySIL
             //column(No_; "No.") { }
 
             //column(ImporteDescuento; ImporteDescuento) { }
-
-
             column(Cantidad; Quantity) { }
             //column(NoIdentificacion; "No.") { }
             column(ValorUnitario; "Unit Price") { }

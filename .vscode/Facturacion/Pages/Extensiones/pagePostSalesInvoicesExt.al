@@ -1,5 +1,7 @@
 pageextension 50506 pagePostSalesInvoicesExt extends 143
 {
+    Editable = true;
+
     layout
     {
         modify("No.")

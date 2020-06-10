@@ -49,18 +49,23 @@ page 50508 facturas
                 {
                     ApplicationArea = All;
                 }
-                field(CantidadLetra; CantidadLetra)
-                {
-                    // ApplicationArea = All;
-                }
                 field(CertificadoCadena; CertificadoCadena)
                 {
                     ApplicationArea = All;
                 }
-                field(CertificadoCadenaPart2; CertificadoCadenaPart2)
+                field(CantidadLetra; CantidadLetra)
                 {
                     ApplicationArea = All;
                 }
+                field("RFC provedor"; "RFC provedor")
+                {
+                    ApplicationArea = All;
+                }
+                field(Version; Version)
+                {
+                    ApplicationArea = All;
+                }
+
                 field(FormaDePago; FormaDePago)
                 {
                     ApplicationArea = All;
@@ -125,6 +130,12 @@ page 50508 facturas
                 {
                     ApplicationArea = All;
                 }
+                field("Tipo relacion"; "Tipo relacion")
+                {
+                    ApplicationArea = All;
+                }
+
+
                 field(UsoCFDI; UsoCFDI)
                 {
                     ApplicationArea = All;

@@ -1,6 +1,7 @@
 pageextension 50507 pmtTermsExt extends "Payment Terms"
 {
     Editable = true;
+
     layout
     {
         addafter(Description)

@@ -50,12 +50,14 @@ codeunit 50503 codeUnitWS
             //e := (SelectJsonToken(JsonObject, '$.[').AsArray().Count());
             JsonObject := JsonToken.AsObject;
             ft.init;
-            txtSplitCer := SelectJsonToken(JsonObject, '$.Certificado').AsValue.AsText();
-            Lenght := StrLen(txtSplitCer);
-            txtSplit := txtSplitCer.Substring(1, Lenght / 2);
-            txtSplit2 := txtSplitCer.Substring(Lenght / 2);
-            ft.CertificadoCadena := (txtSplit);
-            ft.CertificadoCadenaPart2 := (txtSplit2);
+            // txtSplitCer := SelectJsonToken(JsonObject, '$.Certificado').AsValue.AsText();
+            //Lenght := StrLen(txtSplitCer);
+            //txtSplit := txtSplitCer.Substring(1, Lenght / 2);
+            //txtSplit2 := txtSplitCer.Substring(Lenght / 2);
+            //ft.CertificadoCadena := (txtSplit);
+            //ft.CertificadoCadenaPart2 := (txtSplit2);
+
+
 
             ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
 
@@ -182,9 +184,16 @@ codeunit 50503 codeUnitWS
             ft.RFCReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
             ft.TotalText := SelectJsonToken(JsonObject, '$.Total').AsValue.AsText();
             ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
+            ft."RFC provedor" := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@RfcProvCertif').AsValue.AsText;
+            ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
+            ft.CertificadoCadena := ft.Version + ft.UUID + ft.FechaTimbrado + ft."RFC provedor" + ft.SelloDigitalCFD + ft.NoCertificadoSAT;
+
+
+
 
             if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
                 ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
+                ft."Tipo relacion" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText();
             end;
 
             if SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() = 'MXN' then
@@ -198,6 +207,8 @@ codeunit 50503 codeUnitWS
             ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=03316950';
 
             cont := (SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count());
+
+
 
             for j := 0 to cont - 1 do begin
                 ftc.Init();

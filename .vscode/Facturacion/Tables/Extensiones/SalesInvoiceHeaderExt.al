@@ -24,7 +24,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        field(505223; "Tipo relacion"; Option)
+        field(50523; "Tipo relacion"; Option)
         {
             DataClassification = ToBeClassified;
             OptionMembers = "Seleccione","Facturas","Notas de credito";

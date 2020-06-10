@@ -4,6 +4,7 @@ page 50509 pageTraslados
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = traslado;
+    Permissions = tabledata 50526 = rimd;
 
     layout
     {
