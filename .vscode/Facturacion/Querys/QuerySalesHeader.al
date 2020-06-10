@@ -40,16 +40,19 @@ query 50512 QrySIH
                 SqlJoinType = InnerJoin;
                 DataItemLink = Code = Sales_Invoice_Header."Payment Method Code";
 
-                column(FormaPago; Description) { }
+                //column(FormaPago; Description) { }
+
+                column(MetodoPago; "SAT Method of Payment") { }
 
                 dataitem(Payment_Terms1; "Payment Terms")
                 {
                     DataItemLink = Code = Sales_Invoice_Header."Payment Terms Code";
                     SqlJoinType = InnerJoin;
-                    column(MetodoPago; "SAT Payment Term")
-                    {
-                    }
 
+
+                    column(FormaPago; "SAT Payment Term")
+
+                    { }
                 }
             }
 

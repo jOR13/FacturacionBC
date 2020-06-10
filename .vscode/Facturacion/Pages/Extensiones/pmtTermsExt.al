@@ -1,4 +1,4 @@
-pageextension 50507 pmtTermsExt extends "Payment Terms"
+/*pageextension 50507 pmtTermsExt extends "Payment Terms"
 {
     Editable = true;
 
@@ -98,3 +98,4 @@ page 50861 terminoDepagos
         myInt: Integer;
 }
 
+*/

@@ -36,9 +36,9 @@ codeunit 50503 codeUnitWS
         //ft.DeleteAll;
         HttpClient.DefaultRequestHeaders.Add('User-Agent', 'Dynamics 365');
         //sandbox
-        if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
+        //if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
         //produccion
-        // if not HttpClient.Get('http://hgwebapp.azurewebsites.net/api/factura', ResponseMessage)
+        if not HttpClient.Get('http://hgwebapp.azurewebsites.net/api/factura', ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
