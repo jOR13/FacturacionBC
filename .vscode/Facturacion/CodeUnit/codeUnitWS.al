@@ -1,6 +1,7 @@
 codeunit 50503 codeUnitWS
 {
     //[EventSubscriber(ObjectType::page, page::facturas, 'OnOpenPageEvent', '', true, true)]
+    //Permissions = tabledata 112 = rimd;
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
 
 

@@ -1,6 +1,7 @@
 table 50523 facturas_Timbradas
 {
 
+    Permissions = tabledata 50523 = rimd;
     fields
     {
         field(1; id; Integer)
@@ -96,6 +97,12 @@ table 50523 facturas_Timbradas
         {
             DataClassification = ToBeClassified;
         }
+
+        field(26; CertificadoCadenaPart2; Text[2048])
+        {
+            DataClassification = ToBeClassified;
+        }
+
         field(21; NoCertificadoSAT; Text[250])
         {
             DataClassification = ToBeClassified;

@@ -12,8 +12,6 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                 var
                 begin
                     show := false;
-
-
                     if (UUIDHG = '') then begin
                         stat := true;
                         "UUID Relation HG" := '';

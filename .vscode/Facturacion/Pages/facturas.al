@@ -6,6 +6,8 @@ page 50508 facturas
     Editable = false;
     SourceTableView = order(descending);
 
+
+
     layout
     {
         area(content)
