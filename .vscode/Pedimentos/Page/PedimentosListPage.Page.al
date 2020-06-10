@@ -85,11 +85,13 @@ page 50538 PedimentosListPageHG
     {
         area(Processing)
         {
-            action(ActionName)
+            action(copiar)
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+
                 begin
                 end;
             }

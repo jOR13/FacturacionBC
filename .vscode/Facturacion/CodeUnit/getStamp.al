@@ -31,20 +31,20 @@ codeunit 50504 getStamp
     end;
 
 
-    //[EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
+    [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
     var
         sh: Record "Sales Cr.Memo Header";
         ft: Record facturas_Timbradas;
 
     begin
-        sh.SetFilter(sh.UUIDRelacionadoHG, '');
+        sh.SetFilter(sh.UUIDRelacionadoNC, '');
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin
                     repeat begin
                         if sh."Applies-to Doc. No." = ft.Folio then begin
-                            sh.UUIDRelacionadoHG := ft.UUID;
+                            sh.UUIDRelacionadoNC := ft.UUID;
                             sh.Modify();
                         end;
                     end until ft.Next() = 0;

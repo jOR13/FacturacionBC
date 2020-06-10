@@ -8,7 +8,7 @@ tableextension 50518 SalesCMHeaderExt extends "Sales Cr.Memo Header"
             Caption = 'UUID';
             //TableRelation = facturas_Timbradas.UUID where(Folio = field("No."));
         }
-        field(50519; UUIDRelacionadoHG; Text[250])
+        field(50519; UUIDRelacionadoNC; Text[250])
         {
             Caption = 'UUID Relacionado';
             TableRelation = facturas_Timbradas.UUID where(Folio = field("Applies-to Doc. No."));
@@ -29,7 +29,7 @@ pageextension 50626 PageSalesCMHeader extends "Posted Sales Credit Memos"
                 ApplicationArea = all;
             }
 
-            field(UUIDRelacionado; UUIDRelacionadoHG)
+            field(UUIDRelacionado; UUIDRelacionadoNC)
             {
                 ApplicationArea = all;
             }

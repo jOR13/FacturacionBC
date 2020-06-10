@@ -25,7 +25,7 @@ query 50531 QrySCH
             column(CFDIRelation; "CFDI Relation") { }
             column(FolioRelacionado; "Applies-to Doc. No.") { }
 
-            column(UUIDRelacionado; UUIDRelacionadoHG)
+            column(UUIDRelacionado; UUIDRelacionadoNC)
             {
 
             }

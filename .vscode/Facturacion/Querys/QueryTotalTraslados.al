@@ -38,7 +38,7 @@ query 50515 QueryTotalTraslados
 
     end;
 }
-
+/*
 page 50645 psiv
 {
     PageType = List;
@@ -616,4 +616,4 @@ page 50645 psiv
 
     var
         myInt: Integer;
-}
+}*/
