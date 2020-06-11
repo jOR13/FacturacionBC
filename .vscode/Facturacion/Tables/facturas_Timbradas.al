@@ -174,6 +174,13 @@ table 50523 facturas_Timbradas
         }
 
 
+        field(49; "Descuento"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+
 
 
 
