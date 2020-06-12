@@ -53,21 +53,19 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         temp: Record temporal;
                         facturas: Record facturas_Timbradas;
                     begin
-                        if facturas.FindSet() then begin
-                            repeat begin
-                                if (facturas.Folio = rec."No.") then begin
-                                    temp.Init();
-                                    temp.getRec := Rec."No.";
-                                    temp.DocNo := Rec."Order No.";
-                                    temp.Insert();
-                                    Commit();
-                                    reporte.RunModal();
-                                    temp.DeleteAll();
-                                    Clear(reporte);
-                                end;
-                            end until facturas.Next = 0;
-                        end else
+                        if rec.UUIDHG = '' then begin
                             Message('La factura no se ha timbrado');
+                        end else begin
+                            facturas.SetFilter(facturas.Folio, rec."No.");
+                            temp.Init();
+                            temp.getRec := Rec."No.";
+                            temp.DocNo := Rec."Order No.";
+                            temp.Insert();
+                            Commit();
+                            reporte.RunModal();
+                            temp.DeleteAll();
+                            Clear(reporte);
+                        end;
                     end;
                 }
 
@@ -101,6 +99,8 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         c.Refresh();
                         CurrPage.Update;
                         Commit();
+
+
                     end;
                 }
 

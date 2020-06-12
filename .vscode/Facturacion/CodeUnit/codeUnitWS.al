@@ -28,13 +28,13 @@ codeunit 50503 codeUnitWS
         base: Codeunit base64;
         rfcReceptor: Text;
         cod: Codeunit getStamp;
-        txt: text;
+        URL: text;
+        URLSANDBOX: text;
     begin
-        HttpClient.DefaultRequestHeaders.Add('User-Agent', 'Dynamics 365');
-        //sandbox
-        //if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
-        //produccion
-        if not HttpClient.Get('http://hgwebapp.azurewebsites.net/api/factura', ResponseMessage)
+        URLSANDBOX := 'https://jor13.github.io/ALCurso/';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura';
+
+        if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -49,12 +49,6 @@ codeunit 50503 codeUnitWS
             //e := (SelectJsonToken(JsonObject, '$.[').AsArray().Count());
             JsonObject := JsonToken.AsObject;
             ft.init;
-            // txtSplitCer := SelectJsonToken(JsonObject, '$.Certificado').AsValue.AsText();
-            //Lenght := StrLen(txtSplitCer);
-            //txtSplit := txtSplitCer.Substring(1, Lenght / 2);
-            //txtSplit2 := txtSplitCer.Substring(Lenght / 2);
-            //ft.CertificadoCadena := (txtSplit);
-            //ft.CertificadoCadenaPart2 := (txtSplit2);
 
             ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
 
@@ -71,7 +65,6 @@ codeunit 50503 codeUnitWS
                 ft."Metodo de pago" += '- Pago en una sola exhibición';
 
             ft."Lugar de expedición" := SelectJsonToken(JsonObject, '$.LugarExpedicion').AsValue.AsText();
-            //ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText();
             ft."Regimen Fiscal" := SelectJsonToken(JsonObject, '$.Emisor.RegimenFiscal').AsValue.AsText();
             ft.UsoCFDI := SelectJsonToken(JsonObject, '$.Receptor.UsoCFDI').AsValue.AsText();
 
@@ -205,6 +198,7 @@ codeunit 50503 codeUnitWS
                 ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
                 ftc.Unidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Unidad').AsValue.AsText;
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
+                ftc.Importe := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Importe').AsValue.AsDecimal();
 
                 if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].DescuentoSpecified').AsValue.AsText = 'false' then begin
                     ftc.BaseTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Base').AsValue.AsDecimal();
@@ -212,6 +206,10 @@ codeunit 50503 codeUnitWS
                     ftc.TasaOCuotaTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TasaOCuota').AsValue.AsText();
                     ftc.TipoFactor := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TipoFactor').AsValue.AsText();
                     ftc.ImporteTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Importe').AsValue.AsDecimal();
+
+                end else begin
+                    ftc.Descuento := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descuento').AsValue.AsDecimal();
+                    ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                 end;
 
                 ftc.Folio := ft.Folio;
@@ -222,7 +220,6 @@ codeunit 50503 codeUnitWS
             if ft.Insert() then begin
                 ft.id := ft.id + 1;
                 i += 1;
-                //FactReady(txt);
             end else begin
                 ft.Next();
             end;

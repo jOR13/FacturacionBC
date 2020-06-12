@@ -124,6 +124,9 @@ report 50516 HG_ReporteCFDI
             column(CantidadLetra; CantidadLetra)
             {
             }
+            column(DescuentoTotal; DescuentoTotal)
+            {
+            }
             column(temp; temp.blob) { }
 
             trigger OnAfterGetRecord()
@@ -236,7 +239,7 @@ report 50516 HG_ReporteCFDI
             column(ValorUnitario; ValorUnitario)
             {
             }
-            column(ImpuestoPDF; ImpuestoPDF)
+            column(Descuento; Descuento)
             {
             }
 

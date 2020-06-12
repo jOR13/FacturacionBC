@@ -174,10 +174,12 @@ table 50523 facturas_Timbradas
         }
 
 
-        field(49; "Descuento"; Decimal)
+        field(45; "DescuentoTotal"; Decimal)
         {
             DataClassification = ToBeClassified;
         }
+
+
 
 
 
@@ -198,11 +200,5 @@ table 50523 facturas_Timbradas
 
     }
 
-    procedure RefreshList();
-    var
-        refreshList: Codeunit codeUnitWS;
-    begin
-        refreshList.Refresh();
-    end;
 
 }

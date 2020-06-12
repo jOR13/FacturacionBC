@@ -83,7 +83,8 @@ table 50522 Conceptos
             DataClassification = ToBeClassified;
         }
 
-        field(16; ImpuestoPDF; Text[250])
+
+        field(49; "Descuento"; Decimal)
         {
             DataClassification = ToBeClassified;
         }

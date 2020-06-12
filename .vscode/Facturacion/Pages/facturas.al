@@ -168,10 +168,9 @@ page 50508 facturas
                 trigger OnAction();
 
                 begin
-                    RefreshList();
+                    cod.Refresh();
                     CurrPage.Update;
                     cod.calCImporteTraslado();
-                    if FindFirst then;
                 end;
             }
 
@@ -190,35 +189,11 @@ page 50508 facturas
                     ft.DeleteAll();
                     ftc.DeleteAll();
                     CurrPage.Update;
-                    if FindFirst then;
-                end;
-            }
-
-
-            action(lletra)
-            {
-                ApplicationArea = all;
-                CaptionML = ENU = 'Letra';
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = Delete;
-                trigger OnAction();
-                var
-                    total: decimal;
-                    NumText: text;
-                begin
-
                 end;
             }
 
         }
     }
-
-    trigger OnOpenPage();
-    begin
-        //RefreshIssues();
-        //if FindFirst then;
-    end;
 
     var
         cod: Codeunit codeUnitWS;
