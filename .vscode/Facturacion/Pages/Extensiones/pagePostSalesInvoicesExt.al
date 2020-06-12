@@ -2,7 +2,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
 {
     Editable = true;
 
-
     layout
     {
         modify("No.")
@@ -14,15 +13,16 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
         {
             field(UUID; UUIDHG)
             {
+                Caption = 'UUID';
                 ApplicationArea = all;
             }
         }
 
         addafter(UUID)
         {
-
             field("UUID Relation"; "UUID Relation HG")
             {
+                CaptionML = ENU = 'UUID Relation', ESP = 'UUID Relacionado';
                 ApplicationArea = All;
                 Visible = true;
                 Style = Favorable;
@@ -47,14 +47,14 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     Image = Report;
                     trigger OnAction()
                     var
-                        //reporte: Report ReporteCFDI;
                         reporte: Report HG_ReporteCFDI;
                         cod: Codeunit codeUnitWS;
                         temp: Record temporal;
                         facturas: Record facturas_Timbradas;
+                        msg: TextConst ESP = 'La factura no se ha timbrado', ENU = 'The invoice has not been stamped';
                     begin
                         if rec.UUIDHG = '' then begin
-                            Message('La factura no se ha timbrado');
+                            Message(msg);
                         end else begin
                             facturas.SetFilter(facturas.Folio, rec."No.");
                             temp.Init();
@@ -73,6 +73,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 {
                     ApplicationArea = All;
                     Image = AddAction;
+                    CaptionML = ENU = 'Stamp invoice', ESP = 'Timbrar facturas';
                     trigger OnAction()
                     var
                         cod: Codeunit getStamp;
@@ -87,7 +88,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 action("Refrescar timbradas")
                 {
                     ApplicationArea = all;
-                    CaptionML = ENU = 'Refrescar lista';
+                    CaptionML = ENU = 'Refresh list', ESP = 'Refrescar lista';
                     Promoted = true;
                     PromotedCategory = Process;
                     Image = CalculateLines;
@@ -108,7 +109,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 {
                     image = CreateXMLFile;
                     ApplicationArea = All;
-
+                    CaptionML = ENU = 'Download XML', ESP = 'Descargar XML';
                     trigger onAction()
                     var
                         myInt: Integer;

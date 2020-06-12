@@ -2,7 +2,7 @@ page 50508 facturas
 {
     PageType = List;
     SourceTable = facturas_Timbradas;
-    CaptionML = ENU = 'Facturas timbradas';
+    CaptionML = ENU = 'Stamped invoices', ESP = 'Facturas timbradas';
     Editable = false;
     SourceTableView = order(descending);
 

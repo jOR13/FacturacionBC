@@ -7,16 +7,18 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
             field("Tipo relacion"; "Tipo relacion")
             {
                 ApplicationArea = all;
-                Caption = 'Tipo de documento a relacionar';
+                //Caption = 'Tipo de documento a relacionar';
+                CaptionML = ENG = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
                 trigger OnValidate()
                 var
+                    msg: TextConst ESP = 'Esta factura ya ha sido timbrada, no puede agregar o modificar', ENU = 'This invoice has already been stamped, it cannot be insert or modified';
                 begin
                     show := false;
                     if (UUIDHG = '') then begin
                         stat := true;
                         "UUID Relation HG" := '';
                     end else begin
-                        Message('Esta factura ya ha sido timbrada, no puede agregar o modificar');
+                        Message(msg);
                         "Tipo relacion" := 0;
                         stat := false;
                     end;
