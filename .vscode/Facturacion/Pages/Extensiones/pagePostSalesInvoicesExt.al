@@ -39,10 +39,12 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
             group("Facturación electrónica HG")
             {
                 Image = Invoice;
+                CaptionML = ENU = 'Electronic invoice', ESP = 'Facturación electrónica';
                 action("PDF de la Factura")
                 {
                     ApplicationArea = All;
                     Promoted = true;
+                    CaptionML = ENU = 'Invoice PDF', ESP = 'PDF de la factura';
                     PromotedCategory = Process;
                     Image = Report;
                     trigger OnAction()
@@ -77,12 +79,13 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     trigger OnAction()
                     var
                         cod: Codeunit getStamp;
+                        qry: Query QrySIH;
+                        CurrentDate: date;
                     begin
                         HYPERLINK('http://192.168.1.73');
                         c.calCImporteTraslado();
                         c.calCImporteTrasladoNC();
-                        cod.NCtimbradas();
-
+                        // cod.NCtimbradas();
                     end;
                 }
                 action("Refrescar timbradas")
@@ -110,11 +113,24 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     image = CreateXMLFile;
                     ApplicationArea = All;
                     CaptionML = ENU = 'Download XML', ESP = 'Descargar XML';
-                    trigger onAction()
+                    /*trigger onAction()
                     var
                         myInt: Integer;
                     begin
+                        HYPERLINK('http://192.168.1.73/timbrado/xmlasync/$' + rec."No.");
+                    end;*/
 
+                    trigger onAction()
+                    var
+                        myInt: Integer;
+                        myPage: Page "Detailed Cust. Ledg. Entries";
+                    begin
+                        mitabla.Get("Entry No.");
+                        mitabla.CalcFields(mitabla.XML);
+                        mitabla.XML.CreateInStream(mystream, tipocode::UTF8);
+                        myInt := mystream.Read(texto);
+                        txt := mitabla."Document No." + '.xml';
+                        DownloadFromStream(mystream, '', '', '', txt);
                     end;
                 }
             }
@@ -134,7 +150,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
 
     var
 
-        mitabla: Record "Sales Invoice Header";
+        mitabla: Record "Detailed Cust. Ledg. Entry";
         OutStr: OutStream;
         myInt: Integer;
         mystream: InStream;

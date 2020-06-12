@@ -253,9 +253,12 @@ codeunit 50503 codeUnitWS
         lol: Decimal;
         IC: Record "Item Charge";
         en: Enum "Sales Line Type";
+        CurrentDate: date;
     begin
         t.DeleteAll();
         tt.DeleteAll();
+        CurrentDate := Today();
+        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
         if sil.FindSet() then begin
             repeat begin
                 t.Init();
@@ -319,6 +322,8 @@ codeunit 50503 codeUnitWS
     begin
         r.DeleteAll();
         tr.DeleteAll();
+        CurrentDate := Today();
+        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
         if sil.FindSet() then begin
             repeat begin
                 IF (sil."No." = '111-03-03-01') then begin
@@ -371,6 +376,8 @@ codeunit 50503 codeUnitWS
         iva: Decimal;
         lol: Decimal;
     begin
+        CurrentDate := Today();
+        sml.SetFilter(sml."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
         t.DeleteAll();
         tt.DeleteAll();
         if sml.FindSet() then begin
@@ -443,18 +450,6 @@ codeunit 50503 codeUnitWS
 
     end;
 
-    procedure getDiscount()
-    var
-        sil: Record "Sales Invoice Line";
-    begin
-        if sil.FindSet() then begin
-            repeat begin
-                //sil.Descuento := sil.Amount + sil."Line Discount Amount";
-                sil.Modify();
-            end until sil.Next() = 0;
-        end;
-    end;
-
 
 
     procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
@@ -496,6 +491,6 @@ codeunit 50503 codeUnitWS
         ResponseMessage: HttpResponseMessage;
         bool: Boolean;
         existe: Boolean;
-
+        CurrentDate: date;
 
 }
