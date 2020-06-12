@@ -10,7 +10,8 @@ codeunit 50504 getStamp
     var
         sh: Record "Sales Invoice Header";
         ft: Record facturas_Timbradas;
-
+        page: Page "Posted Sales Invoices";
+        c: Codeunit codeUnitWS;
     begin
         sh.SetFilter(sh.UUIDHG, '');
         if sh.FindSet() then begin
@@ -25,6 +26,9 @@ codeunit 50504 getStamp
                             sh.Modify();
                         end;
                     end until ft.Next() = 0;
+                end else begin
+                    c.Refresh();
+                    page.Update;
                 end;
             end until sh.Next() = 0;
         end;

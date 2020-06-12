@@ -97,12 +97,10 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     var
                         page: Page facturas;
                     begin
+                        page.RunModal();
                         c.Refresh();
                         CurrPage.Update;
-                        c.calCImporteTraslado();
                         Commit();
-                        page.RunModal();
-
                     end;
                 }
 

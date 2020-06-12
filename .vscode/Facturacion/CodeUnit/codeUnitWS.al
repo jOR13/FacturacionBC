@@ -1,9 +1,7 @@
 codeunit 50503 codeUnitWS
 {
-    //[EventSubscriber(ObjectType::page, page::facturas, 'OnOpenPageEvent', '', true, true)]
-    //Permissions = tabledata 112 = rimd;
-    [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
 
+    //[EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
 
     procedure Refresh();
     var
@@ -32,8 +30,6 @@ codeunit 50503 codeUnitWS
         cod: Codeunit getStamp;
         txt: text;
     begin
-        //ftc.DeleteAll;
-        //ft.DeleteAll;
         HttpClient.DefaultRequestHeaders.Add('User-Agent', 'Dynamics 365');
         //sandbox
         //if not HttpClient.Get('https://jor13.github.io/ALCurso/', ResponseMessage)
@@ -59,8 +55,6 @@ codeunit 50503 codeUnitWS
             //txtSplit2 := txtSplitCer.Substring(Lenght / 2);
             //ft.CertificadoCadena := (txtSplit);
             //ft.CertificadoCadenaPart2 := (txtSplit2);
-
-
 
             ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
 
@@ -189,63 +183,40 @@ codeunit 50503 codeUnitWS
             ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
             ft."RFC provedor" := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@RfcProvCertif').AsValue.AsText;
             ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
-
             ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';
-
-
-
-
             if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
                 ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
                 ft."Tipo relacion" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText();
             end;
-
             if SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() = 'MXN' then
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Peso Mexicano'
             else
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Dolar Americano';
-
-
             rfcReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
-
             ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=03316950';
-
             cont := (SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count());
-
-
 
             for j := 0 to cont - 1 do begin
                 ftc.Init();
-
-
-
-
                 ftc.Descripcion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descripcion').AsValue.AsText;
                 ftc.Cantidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Cantidad').AsValue.AsDecimal();
                 ftc.ClaveProdServ := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveProdServ').AsValue.AsText;
                 ftc.ClaveUnidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveUnidad').AsValue.AsText;
-
-
-
                 ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
                 ftc.Unidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Unidad').AsValue.AsText;
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
 
                 if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].DescuentoSpecified').AsValue.AsText = 'false' then begin
-
                     ftc.BaseTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Base').AsValue.AsDecimal();
                     ftc.ImpuestoTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Impuesto').AsValue().AsText();
                     ftc.TasaOCuotaTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TasaOCuota').AsValue.AsText();
                     ftc.TipoFactor := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TipoFactor').AsValue.AsText();
                     ftc.ImporteTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Importe').AsValue.AsDecimal();
-
                 end;
-
 
                 ftc.Folio := ft.Folio;
                 ftc.Insert();
                 ftc.id := ftc.id + 1;
-
             end;
 
             if ft.Insert() then begin
