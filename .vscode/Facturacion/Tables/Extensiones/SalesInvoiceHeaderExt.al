@@ -10,13 +10,11 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        /*        field(50521; XML; Blob)
-                {
-                    Caption = 'XML';
-                    DataClassification = ToBeClassified;
-                }
-
-        */
+        field(50521; XML; Blob)
+        {
+            Caption = 'XML';
+            DataClassification = ToBeClassified;
+        }
         field(50522; "UUID Relation HG"; Text[250])
         {
             //TableRelation = UUIDRelacionados."UUID Relacionado" where(Folio = field("No."));

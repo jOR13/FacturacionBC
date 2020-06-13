@@ -123,15 +123,20 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     trigger onAction()
                     var
                         myInt: Integer;
-                        myPage: Page "Detailed Cust. Ledg. Entries";
                     begin
-                        mitabla.Get("Entry No.");
+                        mitabla.Get("No.");
                         mitabla.CalcFields(mitabla.XML);
                         mitabla.XML.CreateInStream(mystream, tipocode::UTF8);
                         myInt := mystream.Read(texto);
-                        txt := mitabla."Document No." + '.xml';
+                        if texto = '' then begin
+                            Error('Factura no timbrada, favor de timbrar para generar XML');
+                        end;
+                        txt := mitabla."No." + '.xml';
                         DownloadFromStream(mystream, '', '', '', txt);
                     end;
+
+
+
                 }
             }
         }
@@ -150,7 +155,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
 
     var
 
-        mitabla: Record "Detailed Cust. Ledg. Entry";
+        mitabla: Record "Sales Invoice Header";
         OutStr: OutStream;
         myInt: Integer;
         mystream: InStream;

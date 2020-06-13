@@ -1,12 +1,12 @@
-codeunit 50503 codeUnitWS
+codeunit 50603 GetJsonNC
 {
 
-    //[EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
+    [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
 
     procedure Refresh();
     var
-        ft: Record facturas_Timbradas;
-        ftc: Record Conceptos;
+        ft: Record NCTimbradas;
+        ftc: Record ConceptosNC;
         HttpClient: HttpClient;
         ResponseMessage: HttpResponseMessage;
         JsonToken: JsonToken;
@@ -32,7 +32,7 @@ codeunit 50503 codeUnitWS
         URLSANDBOX: text;
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/E';
 
         if not HttpClient.Get(URL, ResponseMessage)
         then
@@ -195,7 +195,7 @@ codeunit 50503 codeUnitWS
                 ftc.Cantidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Cantidad').AsValue.AsDecimal();
                 ftc.ClaveProdServ := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveProdServ').AsValue.AsText;
                 ftc.ClaveUnidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveUnidad').AsValue.AsText;
-                ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
+                // ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
                 ftc.Unidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Unidad').AsValue.AsText;
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
                 ftc.Importe := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Importe').AsValue.AsDecimal();
@@ -244,128 +244,6 @@ codeunit 50503 codeUnitWS
             Error('No se puede encontrar el nodo en  la ruta  %1', Path);
     end;
 
-    procedure calCImporteTraslado()
-    var
-        sil: Record "Sales Invoice Line";
-        t: Record traslado;
-        tt: Record totalTraslados;
-        iva: Decimal;
-        lol: Decimal;
-        IC: Record "Item Charge";
-        en: Enum "Sales Line Type";
-        CurrentDate: date;
-    begin
-        t.DeleteAll();
-        tt.DeleteAll();
-        CurrentDate := Today();
-        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-        if sil.FindSet() then begin
-            repeat begin
-                t.Init();
-                t.Folio := sil."Document No.";
-                t.Base := sil.Amount;
-                t.impuesto := '002';
-
-                if sil."VAT Identifier" = 'IVA8' then begin
-                    T.TasaOCuota := '0.08';
-                end else
-                    if sil."VAT Identifier" = 'IVA16' then begin
-                        T.TasaOCuota := '0.16';
-                    end;
-
-                if sil."VAT Identifier" = '' then begin
-                    T.TasaOCuota := '0.00';
-                end;
-
-                if t.tasaoCuota <> '' then begin
-                    EVALUATE(iva, t.tasaoCuota);
-                    t.Importe := (sil."Amount Including VAT" - sil."Amount");
-                end;
-
-                T.tipoFactor := 'Tasa';
-                t.Insert();
-                t.id += 1;
-            end until sil.Next() = 0;
-            getTotalTraslados();
-            CalcRetenciones();
-        end;
-    end;
-
-    local procedure getTotalTraslados()
-    var
-        t: Record traslado;
-        tt: Record totalTraslados;
-        Importe: Decimal;
-
-    begin
-        if t.FindSet() then begin
-            repeat begin
-                tt.Init();
-                tt.Folio := t.Folio;
-                tt.TotalImpuestosTrasladados += t.importe;
-                tt.TasaOCuota := t.TasaOCuota;
-                tt.tipoFactor := t.tipoFactor;
-                tt.impuesto := t.impuesto;
-                tt.importe += t.importe;
-                tt.Insert();
-                tt.id += 1;
-            end until t.Next() = 0;
-        end;
-    end;
-
-    procedure CalcRetenciones()
-    var
-        sil: Record "Sales Invoice Line";
-        r: Record Retenciones;
-        tr: Record totalRetenciones;
-        iva: Decimal;
-    begin
-        r.DeleteAll();
-        tr.DeleteAll();
-        CurrentDate := Today();
-        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-        if sil.FindSet() then begin
-            repeat begin
-                IF (sil."No." = '111-03-03-01') then begin
-                    r.Init();
-                    r.Folio := sil."Document No.";
-                    r.Base := sil.Amount;
-                    r.impuesto := '002';
-                    r.TasaOCuota := '0.04';
-                    if r.tasaoCuota <> '' then begin
-                        EVALUATE(iva, r.tasaoCuota);
-                        r.importe := (sil."Amount Including VAT");
-                        r.importe := ABS(r.importe);
-                    end;
-                    r.tipoFactor := 'Tasa';
-                    r.Insert();
-                    r.id += 1;
-                end;
-            end until sil.Next() = 0;
-            getTotalRetenciones()
-        end;
-    end;
-
-    local procedure getTotalRetenciones()
-    var
-        r: Record Retenciones;
-        tr: Record totalRetenciones;
-        Importe: Decimal;
-    begin
-        if r.FindSet() then begin
-            repeat begin
-                tr.Init();
-                tr.Folio := r.Folio;
-                tr.importe += r.importe;
-                tr.TotalImpuestosRetenidos += r.importe;
-                tr.TasaOCuota := r.TasaOCuota;
-                tr.tipoFactor := r.tipoFactor;
-                tr.impuesto := r.impuesto;
-                tr.Insert();
-                tr.id += 1;
-            end until r.Next() = 0;
-        end;
-    end;
 
 
     procedure calCImporteTrasladoNC()
@@ -431,24 +309,6 @@ codeunit 50503 codeUnitWS
         end;
     end;
 
-
-    procedure FactReady(var mensaje: Text)
-    var
-        myInt: Integer;
-        URL: Text;
-        Client: HttpClient;
-        Response: HttpResponseMessage;
-        JsonText: Text;
-        JsonObj: JsonObject;
-    begin
-        // URL := 'https://wsresponse.azurewebsites.net/api/ready?code=2t9OBvSSo8MgLVNJ5PntR24sKl8PKE0jQuZIo163J4YxCcrdZ3mbNw==&name=';
-        URL := 'http://localhost:7071/api/Function1?name=';
-        Client.Get(URL + mensaje, Response);
-        Response.Content().ReadAs(JsonText);
-
-        //JsonObj.ReadFrom(JsonText);
-
-    end;
 
 
 

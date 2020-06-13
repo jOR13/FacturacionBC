@@ -39,22 +39,48 @@ codeunit 50504 getStamp
     procedure NCtimbradas()
     var
         sh: Record "Sales Cr.Memo Header";
-        ft: Record facturas_Timbradas;
+        ft: Record NCTimbradas;
+        page: Page "Posted Sales Credit Memos";
+        c: Codeunit GetJsonNC;
 
     begin
-        sh.SetFilter(sh.UUIDRelacionadoNC, '');
+        /*
+          sh.SetFilter(sh.UUIDRelacionadoNC, '');
+          if sh.FindSet() then begin
+              repeat begin
+                  if ft.FindSet() then begin
+                      repeat begin
+                          if sh."Applies-to Doc. No." = ft.Folio then begin
+                              sh.UUIDRelacionadoNC := ft.UUID;
+                              sh.Modify();
+                          end;
+                      end until ft.Next() = 0;
+                  end;
+              end until sh.Next() = 0;
+          end;
+        */
+
+        //sh.SetFilter(sh.UUIDNCHG, '');
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin
                     repeat begin
-                        if sh."Applies-to Doc. No." = ft.Folio then begin
-                            sh.UUIDRelacionadoNC := ft.UUID;
-                            sh.Modify();
+                        if sh."No." = ft.Folio then begin
+                            sh.UUIDNCHG := ft.UUID;
+                            if sh."Applies-to Doc. No." = ft.Folio then begin
+                                sh.UUIDRelacionadoNC := ft.UUID;
+                                sh.Modify();
+                            end;
                         end;
                     end until ft.Next() = 0;
+                end else begin
+                    c.Refresh();
+                    page.Update;
                 end;
             end until sh.Next() = 0;
         end;
+
+
     end;
 
 

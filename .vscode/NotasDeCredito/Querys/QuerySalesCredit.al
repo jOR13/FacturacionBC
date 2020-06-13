@@ -12,7 +12,7 @@ query 50531 QrySCH
 
             //DataItemTableFilter = Cancelled = filter(<> 'Yes');
             column(PreAssignedNo; "Pre-Assigned No.") { }
-            column(FolioNotaCredito; "No.") { }
+            column(Folio; "No.") { }
             column(Fecha; "Posting Date") { }
             column(CondicionesDePago; "Due Date") { }
             column(Subtotal; Amount) { }
@@ -29,21 +29,18 @@ query 50531 QrySCH
             {
 
             }
-            /*
-                        dataitem(Payment_Method; "Payment Method")
-                        {
-                            //SqlJoinType = InnerJoin;
-                            DataItemLink = Code = Sales_Cr_Memo_Header."Payment Method Code";
-
-                            column(FormaPago; Description) { }
-
-                            dataitem(Payment_Terms1; "Payment Terms")
-                            {
-                                DataItemLink = Code = Sales_Cr_Memo_Header."Payment Terms Code";
-                                SqlJoinType = InnerJoin;
-                                column(MetodoPago; MetodoDePago) { }
-                            }
-                        }*/
+            dataitem(Payment_Method; "Payment Method")
+            {
+                SqlJoinType = InnerJoin;
+                DataItemLink = Code = Sales_Cr_Memo_Header."Payment Method Code";
+                column(MetodoPago; "SAT Method of Payment") { }
+                dataitem(Payment_Terms1; "Payment Terms")
+                {
+                    DataItemLink = Code = Sales_Cr_Memo_Header."Payment Terms Code";
+                    SqlJoinType = InnerJoin;
+                    column(FormaPago; "SAT Payment Term") { }
+                }
+            }
 
         }
     }

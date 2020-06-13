@@ -17,31 +17,3 @@ tableextension 50518 SalesCMHeaderExt extends "Sales Cr.Memo Header"
 
     }
 }
-
-pageextension 50626 PageSalesCMHeader extends "Posted Sales Credit Memos"
-{
-    layout
-    {
-        addafter("Location Code")
-        {
-            field(UUID; UUIDNCHG)
-            {
-                ApplicationArea = all;
-            }
-
-            field(UUIDRelacionado; UUIDRelacionadoNC)
-            {
-                ApplicationArea = all;
-            }
-        }
-
-    }
-
-    actions
-    {
-        // Add changes to page actions here
-    }
-
-    var
-        myInt: Integer;
-}
