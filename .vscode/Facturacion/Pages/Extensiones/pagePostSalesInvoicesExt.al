@@ -88,25 +88,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         // cod.NCtimbradas();
                     end;
                 }
-                action("Refrescar timbradas")
-                {
-                    ApplicationArea = all;
-                    CaptionML = ENU = 'Refresh list', ESP = 'Refrescar lista';
-                    Promoted = true;
-                    PromotedCategory = Process;
-                    Image = CalculateLines;
-                    trigger OnAction();
-                    var
-                        page: Page facturas;
-                    begin
-                        page.RunModal();
-                        c.Refresh();
-                        CurrPage.Update;
-                        Commit();
-
-
-                    end;
-                }
 
                 action("Descargar XML")
                 {

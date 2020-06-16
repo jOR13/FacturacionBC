@@ -16,6 +16,9 @@ codeunit 50504 getStamp
         CurrentDate: Date;
     begin
 
+        c.Refresh();
+        page.Update;
+
         sh.SetFilter(sh.UUIDHG, '');
         CurrentDate := Today();
         sh.SetFilter(sh."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
@@ -32,9 +35,6 @@ codeunit 50504 getStamp
                             sh.Modify();
                         end;
                     end until ft.Next() = 0;
-                end else begin
-                    c.Refresh();
-                    page.Update;
                 end;
             end until sh.Next() = 0;
         end;
@@ -57,6 +57,8 @@ codeunit 50845 CREDITMEMOS
         c: Codeunit GetJsonNC;
         CurrentDate: Date;
     begin
+        c.Refresh();
+        page.Update;
 
         scm.SetFilter(scm.UUIDNCHG, '');
         CurrentDate := Today();
