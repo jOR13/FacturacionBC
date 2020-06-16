@@ -19,9 +19,10 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                 StyleExpr = color;
             }
 
-            field(UUIDRelacionado; UUIDRelacionadoNC)
+            field(UUIDRelacionadoNC; UUIDRelacionadoNC)
             {
                 ApplicationArea = all;
+
             }
         }
     }
@@ -42,6 +43,8 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
             color := false;
         end;
     end;
+
+
 
     var
         color: Boolean;

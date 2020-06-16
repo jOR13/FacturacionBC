@@ -9,6 +9,7 @@ codeunit 50504 getStamp
     local procedure timbradas()
     var
         sh: Record "Sales Invoice Header";
+        scm: Record "Sales Cr.Memo Header";
         ft: Record facturas_Timbradas;
         page: Page "Posted Sales Invoices";
         c: Codeunit codeUnitWS;
@@ -49,52 +50,48 @@ codeunit 50845 CREDITMEMOS
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
     var
-        sh: Record "Sales Cr.Memo Header";
-        ft: Record NCTimbradas;
+        nct: Record NCTimbradas;
+        scm: Record "Sales Cr.Memo Header";
+        sih: Record "Sales Invoice Header";
         page: Page "Posted Sales Credit Memos";
         c: Codeunit GetJsonNC;
         CurrentDate: Date;
     begin
-        sh.SetFilter(sh.UUIDNCHG, '');
+
+        scm.SetFilter(scm.UUIDNCHG, '');
         CurrentDate := Today();
-        sh.SetFilter(sh."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-        /*
-                sh.SetFilter(sh.UUIDRelacionadoNC, '');
-                if sh.FindSet() then begin
-                    repeat begin
-                        if ft.FindSet() then begin
-                            repeat begin
-                                if sh."Applies-to Doc. No." = ft.Folio then begin
-                                    sh.UUIDRelacionadoNC := ft.UUID;
-                                    sh.Modify();
-                                end;
-                            end until ft.Next() = 0;
-                        end;
-                    end until sh.Next() = 0;
-                end;
-        */
+        scm.SetFilter(scm."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
 
-        //sh.SetFilter(sh.UUIDNCHG, '');
 
-        if sh.FindSet() then begin
+        sih.SetFilter(sih.UUIDHG, '<> ""');
+        if sih.FindSet() then begin
             repeat begin
-                if ft.FindSet() then begin
+                if scm.FindSet() then begin
                     repeat begin
-                        if sh."No." = ft.Folio then begin
-                            sh.UUIDNCHG := ft.UUID;
-                            if sh."Applies-to Doc. No." = ft.Folio then begin
-                                sh.UUIDRelacionadoNC := ft.UUID;
-                                sh.Modify();
+                        if sih."No." = scm."Applies-to Doc. No." then begin
+                            if sih.UUIDHG <> '' then begin
+                                scm.UUIDRelacionadoNC := sih.UUIDHG;
+                                scm.Modify();
                             end;
                         end;
-                    end until ft.Next() = 0;
-                end else begin
-                    c.Refresh();
-                    page.Update;
+                    end until scm.Next() = 0;
                 end;
-            end until sh.Next() = 0;
+
+            end until sih.Next() = 0;
         end;
 
+        if nct.FindSet() then begin
+            repeat begin
+                if scm.FindSet() then begin
+                    repeat begin
+                        if nct.Folio = scm."No." then begin
+                            scm.UUIDNCHG := nct.UUID;
+                            scm.Modify();
+                        end;
+                    end until scm.Next() = 0;
+                end;
+            end until nct.Next() = 0;
+        end;
 
     end;
 

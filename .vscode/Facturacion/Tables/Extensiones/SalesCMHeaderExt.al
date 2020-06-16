@@ -10,9 +10,10 @@ tableextension 50518 SalesCMHeaderExt extends "Sales Cr.Memo Header"
         }
         field(50519; UUIDRelacionadoNC; Text[250])
         {
-            Caption = 'UUID Relacionado';
-            TableRelation = facturas_Timbradas.UUID where(Folio = field("Applies-to Doc. No."));
-            DataClassification = ToBeClassified;
+            // Caption = 'UUID Relacionado';
+
+
+
         }
 
     }

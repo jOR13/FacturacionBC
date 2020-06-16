@@ -52,7 +52,6 @@ table 50522 Conceptos
         field(9; id; Integer)
         {
             DataClassification = ToBeClassified;
-            AutoIncrement = true;
         }
         field(10; Folio; Text[50])
         {
