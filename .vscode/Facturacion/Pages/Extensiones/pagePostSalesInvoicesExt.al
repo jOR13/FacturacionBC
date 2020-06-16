@@ -89,7 +89,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     end;
                 }
 
-                action("Descargar XML")
+                action("DownloadXML")
                 {
                     image = CreateXMLFile;
                     ApplicationArea = All;

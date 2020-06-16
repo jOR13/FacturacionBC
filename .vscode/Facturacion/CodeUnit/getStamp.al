@@ -98,6 +98,14 @@ codeunit 50845 CREDITMEMOS
     end;
 
 
+    [EventSubscriber(ObjectType::Page, Page::"Sales Order", 'OnAfterActionEvent', 'Post', true, true)]
+    local procedure MyProcedure()
+    begin
+        c.calCImporteTraslado();
+        c.calCImporteTrasladoNC();
+    end;
+
+
     var
-        myInt: Integer;
+        c: Codeunit codeUnitWS;
 }
