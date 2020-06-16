@@ -99,6 +99,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         myInt: Integer;
                     begin
                         HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
+
                     end;
 
 
