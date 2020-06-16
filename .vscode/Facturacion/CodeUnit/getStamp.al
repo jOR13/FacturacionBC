@@ -18,6 +18,7 @@ codeunit 50504 getStamp
         sh.SetFilter(sh.UUIDHG, '');
         CurrentDate := Today();
         sh.SetFilter(sh."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin

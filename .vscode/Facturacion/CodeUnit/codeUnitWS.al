@@ -213,15 +213,8 @@ codeunit 50503 codeUnitWS
                 end;
 
                 ftc.Folio := ft.Folio;
-                if ftc.Insert() then begin
-                    ftc.id := ftc.id + 1;
-                    i += 1;
-                end else begin
-                    ftc.Next();
-                end;
-
-
-
+                ftc.Insert();
+                ftc.id := ftc.id + 1;
             end;
 
             if ft.Insert() then begin
