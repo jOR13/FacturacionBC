@@ -34,10 +34,6 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                 else
                 if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
 
-
-                //TableRelation = "Sales Cr.Memo Header".UUID where("Sell-to Customer No." = field("Sell-to Customer No."));
-                // TableRelation = "Sales Cr.Memo Header".UUID where("Sell-to Customer No." = field("Sell-to Customer No."));
-                //TableRelation = "Sales Cr.Memo Header"."No." where(UUID = filter(<> ''));
             }
         }
     }

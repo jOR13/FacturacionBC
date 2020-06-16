@@ -245,8 +245,7 @@ report 50516 HG_ReporteCFDI
 
 
         }
-        dataitem(PedimentosTable; PedimentosTableHG
-        )
+        dataitem(PedimentosTable; PedimentosTableHG)
         {
 
             DataItemLinkReference = temporal;

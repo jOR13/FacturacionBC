@@ -82,7 +82,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         qry: Query QrySIH;
                         CurrentDate: date;
                     begin
-                        HYPERLINK('http://192.168.1.73');
+                        HYPERLINK('http://192.168.1.73/timbrado/facturas');
                         c.calCImporteTraslado();
                         c.calCImporteTrasladoNC();
                         // cod.NCtimbradas();
@@ -113,26 +113,11 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     image = CreateXMLFile;
                     ApplicationArea = All;
                     CaptionML = ENU = 'Download XML', ESP = 'Descargar XML';
-                    /*trigger onAction()
-                    var
-                        myInt: Integer;
-                    begin
-                        HYPERLINK('http://192.168.1.73/timbrado/xmlasync/$' + rec."No.");
-                    end;*/
-
                     trigger onAction()
                     var
                         myInt: Integer;
                     begin
-                        mitabla.Get("No.");
-                        mitabla.CalcFields(mitabla.XML);
-                        mitabla.XML.CreateInStream(mystream, tipocode::UTF8);
-                        myInt := mystream.Read(texto);
-                        if texto = '' then begin
-                            Error('Factura no timbrada, favor de timbrar para generar XML');
-                        end;
-                        txt := mitabla."No." + '.xml';
-                        DownloadFromStream(mystream, '', '', '', txt);
+                        HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
                     end;
 
 

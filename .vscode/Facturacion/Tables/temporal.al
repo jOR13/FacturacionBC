@@ -1,3 +1,50 @@
+page 50525 PageTemp
+{
+    PageType = Card;
+    ApplicationArea = All;
+    UsageCategory = Administration;
+    SourceTable = temporal;
+    Editable = TRUE;
+
+
+    layout
+    {
+        area(Content)
+        {
+            group(GroupName)
+            {
+                field(DocNo; DocNo)
+                {
+                    ApplicationArea = All;
+                }
+                field(getRec; getRec)
+                {
+                    ApplicationArea = All;
+                }
+            }
+        }
+    }
+
+    actions
+    {
+        area(Processing)
+        {
+            action(ActionName)
+            {
+                ApplicationArea = All;
+
+                trigger OnAction()
+                begin
+
+                end;
+            }
+        }
+    }
+
+    var
+        myInt: Integer;
+}
+
 table 50525 temporal
 {
     DataClassification = ToBeClassified;
