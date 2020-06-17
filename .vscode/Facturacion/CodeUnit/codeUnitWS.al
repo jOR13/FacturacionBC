@@ -271,10 +271,10 @@ codeunit 50503 codeUnitWS
                 t.impuesto := '002';
 
                 if sil."VAT Identifier" = 'IVA8' then begin
-                    T.TasaOCuota := '0.08';
+                    T.TasaOCuota := '0.080000';
                 end else
                     if sil."VAT Identifier" = 'IVA16' then begin
-                        T.TasaOCuota := '0.16';
+                        T.TasaOCuota := '0.160000';
                     end;
 
                 if sil."VAT Identifier" = '' then begin
@@ -335,7 +335,7 @@ codeunit 50503 codeUnitWS
                     r.Folio := sil."Document No.";
                     r.Base := sil.Amount;
                     r.impuesto := '002';
-                    r.TasaOCuota := '0.04';
+                    r.TasaOCuota := '0.040000';
                     if r.tasaoCuota <> '' then begin
                         EVALUATE(iva, r.tasaoCuota);
                         r.importe := (sil."Amount Including VAT");
