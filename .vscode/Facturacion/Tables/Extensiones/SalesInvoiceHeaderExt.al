@@ -35,12 +35,6 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50851; Pedimento; Text[150])
-        {
-            CaptionML = ENG = 'Pedimento', ESP = 'Pedimento';
-            DataClassification = ToBeClassified;
-        }
-
         field(50852; NoTanque; Text[150])
         {
             CaptionML = ENG = 'Tank number', ESP = 'Numero de tanque';
@@ -64,7 +58,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
 
         field(50855; Remision; text[250])
         {
-            CaptionML = ESP = 'Remision', ENG = 'Remisión';
+            CaptionML = ENG = 'Remision', ESP = 'Remisión';
             DataClassification = ToBeClassified;
         }
 

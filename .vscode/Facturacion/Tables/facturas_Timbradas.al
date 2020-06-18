@@ -180,6 +180,10 @@ table 50523 facturas_Timbradas
         }
 
 
+        field(46; "RetencionesTotales"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
 
 
 

@@ -88,6 +88,13 @@ table 50522 Conceptos
             DataClassification = ToBeClassified;
         }
 
+        field(50; "Retencion"; Decimal)
+        {
+            DataClassification = ToBeClassified;
+        }
+
+
+
     }
 
     keys

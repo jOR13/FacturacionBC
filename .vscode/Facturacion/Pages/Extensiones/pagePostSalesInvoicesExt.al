@@ -58,6 +58,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     begin
                         if rec.UUIDHG = '' then begin
                             Message(msg);
+                            temp.DeleteAll();
                         end else begin
                             facturas.SetFilter(facturas.Folio, rec."No.");
                             temp.Init();

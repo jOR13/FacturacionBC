@@ -23,50 +23,24 @@ query 50512 QrySIH
             column(TipoRelacion; "CFDI Relation") { }
             column(UUIDRelation; "UUID Relation HG") { }
             column(UUID; UUIDHG) { }
-            column(BOL; BOL)
-            {
-            }
-            column(Pedimento; Pedimento)
-            {
-            }
-            column(PeriodoFact; PeriodoFact)
-            {
-            }
-            column(ProductoTrasnportado; ProductoTrasnportado)
-            {
-            }
-            column(Tanque; Tanque)
-            {
-            }
-
-            column(aeropuerto; aeropuerto)
-            {
-            }
-            column(WorkDescription; "Work Description")
-            {
-            }
-            column(Remision; Remision)
-            {
-            }
-            column(OrigenDestino; OrigenDestino)
-            {
-            }
-            column(NoTanque; NoTanque)
-            {
-            }
-            column(FechaDeEntrega; FechaDeEntrega)
-            {
-            }
-
+            column(BOL; BOL) { }
+            column(PeriodoFact; PeriodoFact) { }
+            column(ProductoTrasnportado; ProductoTrasnportado) { }
+            column(Tanque; Tanque) { }
+            column(aeropuerto; aeropuerto) { }
+            column(Remision; Remision) { }
+            column(OrigenDestino; OrigenDestino) { }
+            column(NoTanque; NoTanque) { }
+            column(FechaDeEntrega; FechaDeEntrega) { }
             dataitem(Payment_Method; "Payment Method")
             {
-                // SqlJoinType = InnerJoin;
+                SqlJoinType = InnerJoin;
                 DataItemLink = Code = Sales_Invoice_Header."Payment Method Code";
                 column(FormaPago; "SAT Method of Payment") { }
                 dataitem(Payment_Terms1; "Payment Terms")
                 {
                     DataItemLink = Code = Sales_Invoice_Header."Payment Terms Code";
-                    //SqlJoinType = InnerJoin;
+                    SqlJoinType = InnerJoin;
                     column(MetodoPago; "SAT Payment Term") { }
                 }
             }
