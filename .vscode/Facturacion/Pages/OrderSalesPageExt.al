@@ -25,6 +25,8 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             OptionMembers = "Seleccione","Facturas","Notas de credito";
 
         }
+
+        //turbosina
         field(50849; aeropuerto; Text[150])
         {
             DataClassification = ToBeClassified;
@@ -49,6 +51,43 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
         {
             DataClassification = ToBeClassified;
         }
+
+        //trasnportadora
+
+        field(50854; OrigenDestino; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50855; Remision; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50856; FechaDeEntrega; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50857; Tanque; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50858; ProductoTrasnportado; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+    }
+
+    fieldgroups
+    {
+        addlast(DropDown; aeropuerto)
+        {
+
+        }
+
     }
 
     var
@@ -109,37 +148,65 @@ pageextension 50848 MyExtension extends "Sales Order"
             {
                 field(aeropuerto; aeropuerto)
                 {
-                    CaptionML = ENG = 'Airport', ESP = 'Aeropuerto';
+                    CaptionML = ESP = 'Aeropuerto', ENG = 'Airport';
                     ApplicationArea = all;
                     TableRelation = Aeropuertos.aeropuerto;
                 }
 
                 field(BOL; BOL)
                 {
-                    CaptionML = ENG = 'Bill of Landing', ESP = 'BOL';
+                    CaptionML = ESP = 'BOL', ENG = 'Bill of Landing';
                     ApplicationArea = all;
                     TableRelation = BillOfLanding.NoBol;
                 }
 
                 field(Pedimento; Pedimento)
                 {
-                    CaptionML = ENG = 'Pedimento', ESP = 'Pedimento';
+                    CaptionML = ESP = 'Pedimento', ENG = 'Pedimento';
                     ApplicationArea = all;
                     TableRelation = PedimentosTableHG.Pedimento;
                 }
 
                 field(NoTanque; NoTanque)
                 {
-                    CaptionML = ENG = 'Tank number', ESP = 'Numero de tanque';
+                    CaptionML = ESP = 'Numero de tanque', ENG = 'Tank number';
                     ApplicationArea = all;
                     TableRelation = tanque.NoTanque;
                 }
 
                 field(PeriodoFact; PeriodoFact)
                 {
-                    CaptionML = ENG = 'Billing period', ESP = 'Periodo de facturación';
+                    CaptionML = ESP = 'Periodo de facturación', ENG = 'Billing period';
                     ApplicationArea = all;
 
+                }
+            }
+
+            group(Transportadora)
+            {
+                field(OrigenDestino; OrigenDestino)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(Remision; Remision)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(FechaDeEntrega; FechaDeEntrega)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(Tanque; Tanque)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(ProductoTrasnportado; ProductoTrasnportado)
+                {
+                    ApplicationArea = all;
                 }
             }
 

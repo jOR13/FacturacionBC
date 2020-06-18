@@ -1,7 +1,10 @@
 pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
 {
+
     layout
     {
+
+
         addafter("Work Description")
         {
             field("Tipo relacion"; "Tipo relacion")
@@ -19,11 +22,15 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
 
         }
 
+
+
+
         addbefore("Work Description")
         {
 
             group(Turbosina)
             {
+
                 Description = 'Seccion para agregar al PDF de la factura';
 
                 field(aeropuerto; aeropuerto)
@@ -59,6 +66,34 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                     CaptionML = ENG = 'Billing period', ESP = 'Periodo de facturación';
                     ApplicationArea = all;
 
+                }
+            }
+
+            group(Transportadora)
+            {
+                field(OrigenDestino; OrigenDestino)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(Remision; Remision)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(FechaDeEntrega; FechaDeEntrega)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(Tanque; Tanque)
+                {
+                    ApplicationArea = all;
+                }
+
+                field(ProductoTrasnportado; ProductoTrasnportado)
+                {
+                    ApplicationArea = all;
                 }
             }
 

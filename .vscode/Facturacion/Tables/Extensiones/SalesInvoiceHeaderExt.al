@@ -22,6 +22,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
 
         }
 
+        //turbosina
         field(50849; aeropuerto; Text[150])
         {
             CaptionML = ENG = 'Airport', ESP = 'Aeropuerto';
@@ -49,6 +50,39 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
         field(50853; PeriodoFact; Text[150])
         {
             CaptionML = ENG = 'Billing period', ESP = 'Periodo de facturación';
+            DataClassification = ToBeClassified;
+        }
+
+        //transportadora
+
+
+        field(50854; OrigenDestino; text[250])
+        {
+            CaptionML = ESP = 'Origen - Destino', ENG = 'Origen - Destino';
+            DataClassification = ToBeClassified;
+        }
+
+        field(50855; Remision; text[250])
+        {
+            CaptionML = ESP = 'Remision', ENG = 'Remisión';
+            DataClassification = ToBeClassified;
+        }
+
+        field(50856; FechaDeEntrega; text[250])
+        {
+            CaptionML = ESP = 'Delivery date', ENG = 'Fecha entrega';
+            DataClassification = ToBeClassified;
+        }
+
+        field(50857; Tanque; text[250])
+        {
+            CaptionML = ESP = 'Tank No.', ENG = 'Numero de tanque';
+            DataClassification = ToBeClassified;
+        }
+
+        field(50858; ProductoTrasnportado; text[250])
+        {
+            CaptionML = ESP = 'Transported item', ENG = 'Producto transportado';
             DataClassification = ToBeClassified;
         }
 
