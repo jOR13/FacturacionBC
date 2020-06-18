@@ -23,6 +23,40 @@ query 50512 QrySIH
             column(TipoRelacion; "CFDI Relation") { }
             column(UUIDRelation; "UUID Relation HG") { }
             column(UUID; UUIDHG) { }
+            column(BOL; BOL)
+            {
+            }
+            column(Pedimento; Pedimento)
+            {
+            }
+            column(PeriodoFact; PeriodoFact)
+            {
+            }
+            column(ProductoTrasnportado; ProductoTrasnportado)
+            {
+            }
+            column(Tanque; Tanque)
+            {
+            }
+
+            column(aeropuerto; aeropuerto)
+            {
+            }
+            column(WorkDescription; "Work Description")
+            {
+            }
+            column(Remision; Remision)
+            {
+            }
+            column(OrigenDestino; OrigenDestino)
+            {
+            }
+            column(NoTanque; NoTanque)
+            {
+            }
+            column(FechaDeEntrega; FechaDeEntrega)
+            {
+            }
 
             dataitem(Payment_Method; "Payment Method")
             {

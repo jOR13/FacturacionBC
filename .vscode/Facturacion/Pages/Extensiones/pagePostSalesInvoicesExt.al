@@ -50,6 +50,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     trigger OnAction()
                     var
                         reporte: Report HG_ReporteCFDI;
+                        reporteTransportadora: Report HG_ReportTrasnportadoraFact;
                         cod: Codeunit codeUnitWS;
                         temp: Record temporal;
                         facturas: Record facturas_Timbradas;
@@ -64,9 +65,23 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                             temp.DocNo := Rec."Order No.";
                             temp.Insert();
                             Commit();
-                            reporte.RunModal();
-                            temp.DeleteAll();
-                            Clear(reporte);
+                            if (Rec.Remision <> '') or (rec.ProductoTrasnportado <> '') or (Rec.FechaDeEntrega <> '') or (Rec.OrigenDestino <> '') or (rec.Tanque <> '') then begin
+                                reporteTransportadora.RunModal();
+                                temp.DeleteAll();
+                                Clear(reporteTransportadora);
+                            end else
+
+                                if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
+                                    reporteTransportadora.RunModal();
+                                    temp.DeleteAll();
+                                    Clear(reporteTransportadora);
+
+                                end else begin
+                                    reporte.RunModal();
+                                    temp.DeleteAll();
+                                    Clear(reporte);
+                                end;
+
                         end;
                     end;
                 }

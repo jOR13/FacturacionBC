@@ -1,10 +1,10 @@
-report 50516 HG_ReporteCFDI
+report 50846 HG_ReportTrasnportadoraFact
 {
     UsageCategory = ReportsAndAnalysis;
     ApplicationArea = All;
     DefaultLayout = Word;
     //EnableExternalImages = true;
-    WordLayout = 'ReporteFacturasCFDI.docx';
+    WordLayout = 'HG_ReportTrasnportadoraFact.docx';
     //EnableHyperlinks = true;
 
     dataset
