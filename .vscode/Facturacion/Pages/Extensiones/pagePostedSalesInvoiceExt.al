@@ -11,7 +11,7 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
             {
                 ApplicationArea = all;
                 //Caption = 'Tipo de documento a relacionar';
-                CaptionML = ENG = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
+                CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
 
             }
             field("UUID Relation"; "UUID Relation HG")
@@ -28,25 +28,25 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                 Description = 'Seccion para agregar al PDF de la factura';
                 field(aeropuerto; aeropuerto)
                 {
-                    CaptionML = ENG = 'Airport', ESP = 'Aeropuerto';
+                    CaptionML = ENU = 'Airport', ESP = 'Aeropuerto';
                     ApplicationArea = all;
                     TableRelation = Aeropuertos.aeropuerto;
                 }
                 field(BOL; BOL)
                 {
-                    CaptionML = ENG = 'Bill of Landing', ESP = 'BOL';
+                    CaptionML = ENU = 'Bill of Landing', ESP = 'BOL';
                     ApplicationArea = all;
                     TableRelation = BillOfLanding.NoBol;
                 }
                 field(NoTanque; NoTanque)
                 {
-                    CaptionML = ENG = 'Tank number', ESP = 'Numero de tanque';
+                    CaptionML = ENU = 'Tank number', ESP = 'Numero de tanque';
                     ApplicationArea = all;
                     TableRelation = tanque.NoTanque;
                 }
                 field(PeriodoFact; PeriodoFact)
                 {
-                    CaptionML = ENG = 'Billing period', ESP = 'Periodo de facturación';
+                    CaptionML = ENU = 'Billing period', ESP = 'Periodo de facturación';
                     ApplicationArea = all;
                 }
             }

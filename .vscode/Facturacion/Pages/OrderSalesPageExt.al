@@ -37,10 +37,6 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50851; Pedimento; Text[150])
-        {
-            DataClassification = ToBeClassified;
-        }
 
         field(50852; NoTanque; Text[150])
         {
@@ -79,16 +75,16 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-    }
-
-    fieldgroups
-    {
-        addlast(DropDown; aeropuerto)
+        field(50859; DescAdicional; Text[2040])
         {
-
+            DataClassification = ToBeClassified;
         }
 
+
+
     }
+
+
 
     var
         myInt: Integer;
@@ -98,13 +94,14 @@ pageextension 50848 MyExtension extends "Sales Order"
 {
     layout
     {
+
         addafter("Work Description")
         {
             field("Tipo relacion"; "Tipo relacion")
             {
                 ApplicationArea = all;
                 //Caption = 'Tipo de documento a relacionar';
-                CaptionML = ENG = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
+                CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
 
                 trigger OnValidate()
                 var
@@ -144,39 +141,34 @@ pageextension 50848 MyExtension extends "Sales Order"
         addafter("CFDI Relation")
         {
 
+
             group(Turbosina)
             {
                 field(aeropuerto; aeropuerto)
                 {
-                    CaptionML = ESP = 'Aeropuerto', ENG = 'Airport';
+                    CaptionML = ESP = 'Aeropuerto', ENU = 'Airport';
                     ApplicationArea = all;
                     TableRelation = Aeropuertos.aeropuerto;
                 }
 
                 field(BOL; BOL)
                 {
-                    CaptionML = ESP = 'BOL', ENG = 'Bill of Landing';
+                    CaptionML = ESP = 'BOL', ENU = 'Bill of Landing';
                     ApplicationArea = all;
                     TableRelation = BillOfLanding.NoBol;
                 }
 
-                field(Pedimento; Pedimento)
-                {
-                    CaptionML = ESP = 'Pedimento', ENG = 'Pedimento';
-                    ApplicationArea = all;
-                    TableRelation = PedimentosTableHG.Pedimento;
-                }
 
                 field(NoTanque; NoTanque)
                 {
-                    CaptionML = ESP = 'Numero de tanque', ENG = 'Tank number';
+                    CaptionML = ESP = 'Numero de tanque', ENU = 'Tank number';
                     ApplicationArea = all;
                     TableRelation = tanque.NoTanque;
                 }
 
                 field(PeriodoFact; PeriodoFact)
                 {
-                    CaptionML = ESP = 'Periodo de facturación', ENG = 'Billing period';
+                    CaptionML = ESP = 'Periodo de facturación', ENU = 'Billing period';
                     ApplicationArea = all;
 
                 }

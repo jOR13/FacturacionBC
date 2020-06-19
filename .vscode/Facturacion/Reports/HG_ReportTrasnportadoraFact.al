@@ -127,6 +127,9 @@ report 50846 HG_ReportTrasnportadoraFact
             column(DescuentoTotal; DescuentoTotal)
             {
             }
+            column(RetencionesTotales; RetencionesTotales)
+            {
+            }
             column(temp; temp.blob) { }
 
             trigger OnAfterGetRecord()
@@ -222,6 +225,9 @@ report 50846 HG_ReportTrasnportadoraFact
             column(FechaDeEntrega; FechaDeEntrega)
             {
             }
+            column(GetWorkDescription; GetWorkDescription)
+            {
+            }
 
 
 
@@ -278,6 +284,10 @@ report 50846 HG_ReportTrasnportadoraFact
             column(Descuento; Descuento)
             {
             }
+            column(Retencion; Retencion)
+            {
+            }
+
 
 
         }

@@ -127,6 +127,8 @@ report 50516 HG_ReporteCFDI
             column(DescuentoTotal; DescuentoTotal)
             {
             }
+
+
             column(temp; temp.blob) { }
 
             trigger OnAfterGetRecord()
@@ -220,6 +222,10 @@ report 50516 HG_ReporteCFDI
             {
             }
             column(FechaDeEntrega; FechaDeEntrega)
+            {
+            }
+
+            column(GetWorkDescription; GetWorkDescription)
             {
             }
 

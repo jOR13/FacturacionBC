@@ -12,26 +12,26 @@ table 50872 TurbosinaDetailsTable
 
         field(2; aeropuerto; Text[150])
         {
+            CaptionML = ESP = 'Aeropuerto', ENU = 'Airport';
             DataClassification = ToBeClassified;
         }
 
         field(3; BOL; Text[150])
         {
+            CaptionML = ENU = 'Bill of Landing', ESP = 'BOL';
             DataClassification = ToBeClassified;
         }
 
-        field(4; Pedimento; Text[150])
-        {
-            DataClassification = ToBeClassified;
-        }
 
         field(5; NoTanque; Text[150])
         {
+            CaptionML = ENU = 'Tank number', ESP = 'Numero de tanque';
             DataClassification = ToBeClassified;
         }
 
         field(6; PeriodoFact; Text[150])
         {
+            CaptionML = ENU = 'Billing period', ESP = 'Periodo de facturación';
             DataClassification = ToBeClassified;
         }
     }
@@ -76,7 +76,7 @@ page 50871 Aeropuertos
     UsageCategory = Administration;
     SourceTable = Aeropuertos;
     Editable = true;
-    CaptionML = ENG = 'Airports', ESP = 'Aeropuertos';
+    CaptionML = ENU = 'Airports', ESP = 'Aeropuertos';
 
     layout
     {

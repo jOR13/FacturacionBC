@@ -222,6 +222,9 @@ report 50879 HG_ReprteTurbosina
             column(FechaDeEntrega; FechaDeEntrega)
             {
             }
+            column(GetWorkDescription; GetWorkDescription)
+            {
+            }
 
 
 
