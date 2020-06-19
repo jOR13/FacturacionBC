@@ -35,7 +35,7 @@ codeunit 50503 codeUnitWS
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
         //URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
 
-        if not HttpClient.Get(URL, ResponseMessage)
+        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then

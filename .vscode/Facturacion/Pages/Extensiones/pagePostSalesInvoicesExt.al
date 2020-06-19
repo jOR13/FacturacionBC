@@ -117,10 +117,9 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
 
                     end;
-
-
-
                 }
+
+
             }
         }
     }
@@ -148,6 +147,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
         txt: text;
         c: Codeunit codeUnitWS;
         color: Boolean;
+
 }
 
 
