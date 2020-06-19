@@ -32,7 +32,7 @@ codeunit 50603 GetJsonNC
         URLSANDBOX: text;
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/E';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/E,true';
 
         if not HttpClient.Get(URL, ResponseMessage)
         then
