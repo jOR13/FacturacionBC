@@ -29,7 +29,77 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
 
     actions
     {
-        // Add changes to page actions here
+        addfirst(processing)
+        {
+            group("Facturación electrónica HG")
+            {
+                Image = Invoice;
+                CaptionML = ENU = 'Electronic invoice', ESP = 'Facturación electrónica';
+                action("PDF de la NC")
+                {
+                    ApplicationArea = All;
+                    Promoted = true;
+                    CaptionML = ENU = 'Invoice PDF', ESP = 'PDF de la NC';
+                    PromotedCategory = Process;
+                    Image = Report;
+                    trigger OnAction()
+                    var
+                        reporte: Report HG_NotaDeCredito;
+                        cod: Codeunit GetJsonNC;
+                        temp: Record temporal;
+                        nc: Record NCTimbradas;
+                        msg: TextConst ESP = 'La NC no se ha timbrado', ENU = 'The invoice has not been stamped';
+                    begin
+                        if rec.UUIDNCHG = '' then begin
+                            Message(msg);
+                            temp.DeleteAll();
+                        end else begin
+                            nc.SetFilter(nc.Folio, rec."No.");
+                            temp.Init();
+                            temp.getRec := Rec."No.";
+                            temp.Insert();
+                            Commit();
+                            reporte.RunModal();
+                            temp.DeleteAll();
+                            Clear(reporte);
+                        end;
+                    end;
+                }
+
+                action("Timbrar facturas")
+                {
+                    ApplicationArea = All;
+                    Image = AddAction;
+                    CaptionML = ENU = 'Stamp invoice', ESP = 'Timbrar NC';
+                    trigger OnAction()
+                    var
+                        cod: Codeunit getStamp;
+                        qry: Query QrySIH;
+                        CurrentDate: date;
+                    begin
+                        HYPERLINK('http://192.168.1.73/timbrado/notasdecredito');
+                        // cod.NCtimbradas();
+                    end;
+                }
+
+                action("DownloadXML")
+                {
+                    image = CreateXMLFile;
+                    ApplicationArea = All;
+                    CaptionML = ENU = 'Download XML', ESP = 'Descargar XML';
+                    trigger onAction()
+                    var
+                        myInt: Integer;
+                    begin
+                        HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
+
+                    end;
+
+
+
+                }
+            }
+        }
     }
 
 

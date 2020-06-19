@@ -3,7 +3,7 @@ report 50540 PedimentosReportHG
     UsageCategory = Administration;
     ApplicationArea = All;
     DefaultLayout = Word;
-    WordLayout = 'PedimentosReport.docx';
+    WordLayout = 'Docs\PedimentosReport.docx';
 
     dataset
     {

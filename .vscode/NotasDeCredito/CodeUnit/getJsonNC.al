@@ -33,9 +33,8 @@ codeunit 50603 GetJsonNC
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/E,true';
-
         if not HttpClient.Get(URL, ResponseMessage)
-        then
+               then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
             error('El servicio web devolvió el siguiente mensaje:\\' + 'Respuesta: %1\' + 'Description: %2',
@@ -65,8 +64,192 @@ codeunit 50603 GetJsonNC
                 ft."Metodo de pago" += '- Pago en una sola exhibición';
 
             ft."Lugar de expedición" := SelectJsonToken(JsonObject, '$.LugarExpedicion').AsValue.AsText();
-            ft."Regimen Fiscal" := SelectJsonToken(JsonObject, '$.Emisor.RegimenFiscal').AsValue.AsText();
-            ft.UsoCFDI := SelectJsonToken(JsonObject, '$.Receptor.UsoCFDI').AsValue.AsText();
+
+            case SelectJsonToken(JsonObject, '$.Emisor.RegimenFiscal').AsValue.AsText() of
+                '601':
+                    begin
+                        ft."Regimen Fiscal" := '601 - General de Ley Personas Morales';
+                    end;
+                '603':
+                    begin
+                        ft."Regimen Fiscal" := '603 - Personas Morales con Fines no Lucrativos';
+                    end;
+                '605':
+                    begin
+                        ft."Regimen Fiscal" := '605 - Sueldos y Salarios e Ingresos Asimilados a Salarios';
+                    end;
+                '606':
+                    begin
+                        ft."Regimen Fiscal" := '606 - Arrendamiento';
+                    end;
+                '608':
+                    begin
+                        ft."Regimen Fiscal" := '608 - Demás ingresos';
+                    end;
+                '609':
+                    begin
+                        ft."Regimen Fiscal" := '609 - Consolidación';
+                    end;
+                '610':
+                    begin
+                        ft."Regimen Fiscal" := '610 - Residentes en el Extranjero sin Establecimiento Permanente en México';
+                    end;
+                '611':
+                    begin
+                        ft."Regimen Fiscal" := '611 - Ingresos por Dividendos (socios y accionistas)';
+                    end;
+                '612':
+                    begin
+                        ft."Regimen Fiscal" := '612 - Personas Físicas con Actividades Empresariales y Profesionales';
+                    end;
+                '614':
+                    begin
+                        ft."Regimen Fiscal" := '614 - Ingresos por intereses';
+                    end;
+                '616':
+                    begin
+                        ft."Regimen Fiscal" := '616 - Sin obligaciones fiscales';
+                    end;
+                '620':
+                    begin
+                        ft."Regimen Fiscal" := '620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos';
+                    end;
+                '621':
+                    begin
+                        ft."Regimen Fiscal" := '621 - Incorporación Fiscal';
+                    end;
+                '622':
+                    begin
+                        ft."Regimen Fiscal" := '622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras';
+                    end;
+                '623':
+                    begin
+                        ft."Regimen Fiscal" := '623 - Opcional para Grupos de Sociedades';
+                    end;
+                '624':
+                    begin
+                        ft."Regimen Fiscal" := '624 - Coordinados';
+                    end;
+                '628':
+                    begin
+                        ft."Regimen Fiscal" := '628 - Hidrocarburos';
+                    end;
+                '607':
+                    begin
+                        ft."Regimen Fiscal" := '607 - Régimen de Enajenación o Adquisición de Bienes';
+                    end;
+                '629':
+                    begin
+                        ft."Regimen Fiscal" := '629 - De los Regímenes Fiscales Preferentes y de las Empresas Multinacionales';
+                    end;
+                '630':
+                    begin
+                        ft."Regimen Fiscal" := '630 - Enajenación de acciones en bolsa de valores';
+                    end;
+                '615':
+                    begin
+                        ft."Regimen Fiscal" := '615 - Régimen de los ingresos por obtención de premios';
+                    end;
+            end;
+
+
+
+
+
+
+            case SelectJsonToken(JsonObject, '$.Receptor.UsoCFDI').AsValue.AsText() of
+                'G01':
+                    begin
+                        ft.UsoCFDI := 'G01 - Adquisición de mercancias';
+                    end;
+                'G02':
+                    begin
+                        ft.UsoCFDI := 'G02 - Devoluciones, descuentos o bonificaciones';
+                    end;
+                'G03':
+                    begin
+                        ft.UsoCFDI := 'G03 - Gastos en general';
+                    end;
+                'I01':
+                    begin
+                        ft.UsoCFDI := 'I01 - Construcciones';
+                    end;
+                'I02':
+                    begin
+                        ft.UsoCFDI := 'I02 - Mobilario y equipo de oficina por inversiones';
+                    end;
+                'I03':
+                    begin
+                        ft.UsoCFDI := 'I03 - Equipo de transporte';
+                    end;
+                'I04':
+                    begin
+                        ft.UsoCFDI := 'I04 - Equipo de computo y accesorios';
+                    end;
+                'I05':
+                    begin
+                        ft.UsoCFDI := 'I05 - Dados, troqueles, moldes, matrices y herramental';
+                    end;
+                'I06':
+                    begin
+                        ft.UsoCFDI := 'I06 - Comunicaciones telefónicas';
+                    end;
+                'I07':
+                    begin
+                        ft.UsoCFDI := 'I07 - Comunicaciones satelitales';
+                    end;
+                'I08':
+                    begin
+                        ft.UsoCFDI := 'I08 - Otra maquinaria y equipo';
+                    end;
+                'D01':
+                    begin
+                        ft.UsoCFDI := 'D01 - Honorarios médicos, dentales y gastos hospitalarios.';
+                    end;
+                'D02':
+                    begin
+                        ft.UsoCFDI := 'D02 - Gastos médicos por incapacidad o discapacidad';
+                    end;
+                'D03':
+                    begin
+                        ft.UsoCFDI := 'D03 - Gastos funerales.';
+                    end;
+                'D04':
+                    begin
+                        ft.UsoCFDI := 'D04 - Donativos.';
+                    end;
+                'D05':
+                    begin
+                        ft.UsoCFDI := 'D05 - Intereses reales efectivamente pagados por créditos hipotecarios (casa habitación).';
+                    end;
+                'D06':
+                    begin
+                        ft.UsoCFDI := 'D06 - Aportaciones voluntarias al SAR.';
+                    end;
+                'D07':
+                    begin
+                        ft.UsoCFDI := 'D07 - Primas por seguros de gastos médicos.';
+                    end;
+                'D08':
+                    begin
+                        ft.UsoCFDI := 'D08 - Gastos de transportación escolar obligatoria.';
+                    end;
+                'D09':
+                    begin
+                        ft.UsoCFDI := 'D09 - Depósitos en cuentas para el ahorro, primas que tengan como base planes de pensiones.';
+                    end;
+                'D10':
+                    begin
+                        ft.UsoCFDI := 'D10 - Pagos por servicios educativos (colegiaturas)';
+                    end;
+                'P01':
+                    begin
+                        ft.UsoCFDI := 'P01 - Por definir';
+                    end;
+            end;
+
+
+
 
             ft.FormaDePago := SelectJsonToken(JsonObject, '$.FormaPago').AsValue.AsText();
 
@@ -177,6 +360,8 @@ codeunit 50603 GetJsonNC
             ft."RFC provedor" := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@RfcProvCertif').AsValue.AsText;
             ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
             ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';
+
+
             if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
                 ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
                 ft."Tipo relacion" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText();
@@ -195,7 +380,7 @@ codeunit 50603 GetJsonNC
                 ftc.Cantidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Cantidad').AsValue.AsDecimal();
                 ftc.ClaveProdServ := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveProdServ').AsValue.AsText;
                 ftc.ClaveUnidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ClaveUnidad').AsValue.AsText;
-                // ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
+                ftc.NoIdentificacion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].NoIdentificacion').AsValue.AsText;
                 ftc.Unidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Unidad').AsValue.AsText;
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
                 ftc.Importe := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Importe').AsValue.AsDecimal();
@@ -213,8 +398,12 @@ codeunit 50603 GetJsonNC
                 end;
 
                 ftc.Folio := ft.Folio;
-                ftc.Insert();
-                ftc.id := ftc.id + 1;
+                if ftc.Insert() then begin
+                    ftc.id := ftc.id + 1;
+                end else begin
+                    ftc.Next();
+                end;
+
             end;
 
             if ft.Insert() then begin
@@ -226,7 +415,6 @@ codeunit 50603 GetJsonNC
         end;
         Commit();
         //getDiscount();
-
     end;
 
     procedure GetJsonToken(JsonObject: JsonObject; TokenKey: text) JsonToken: JsonToken;
@@ -243,7 +431,6 @@ codeunit 50603 GetJsonNC
         if not JsonObject.SelectToken(Path, JsonToken) then
             Error('No se puede encontrar el nodo en  la ruta  %1', Path);
     end;
-
 
 
     procedure calCImporteTrasladoNC()

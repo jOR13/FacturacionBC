@@ -4,7 +4,7 @@ report 50846 HG_ReportTrasnportadoraFact
     ApplicationArea = All;
     DefaultLayout = Word;
     //EnableExternalImages = true;
-    WordLayout = 'HG_ReportTrasnportadoraFact.docx';
+    WordLayout = 'Docs\HG_ReportTrasnportadoraFact.docx';
     //EnableHyperlinks = true;
 
     dataset

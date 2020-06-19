@@ -4,7 +4,7 @@ report 50516 HG_ReporteCFDI
     ApplicationArea = All;
     DefaultLayout = Word;
     //EnableExternalImages = true;
-    WordLayout = 'ReporteFacturasCFDI.docx';
+    WordLayout = 'Docs\HG_ReporteFacturasCFDI.docx';
     //EnableHyperlinks = true;
 
     dataset

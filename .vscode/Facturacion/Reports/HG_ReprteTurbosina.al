@@ -4,7 +4,7 @@ report 50879 HG_ReprteTurbosina
     ApplicationArea = All;
     DefaultLayout = Word;
     //EnableExternalImages = true;
-    WordLayout = 'HG_ReprteTurbosina.docx';
+    WordLayout = 'Docs\HG_ReprteTurbosina.docx';
     //EnableHyperlinks = true;
 
     dataset

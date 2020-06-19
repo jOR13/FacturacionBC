@@ -27,7 +27,7 @@ query 50512 QrySIH
             column(PeriodoFact; PeriodoFact) { }
             column(ProductoTrasnportado; ProductoTrasnportado) { }
             column(Tanque; Tanque) { }
-            column(aeropuerto; aeropuerto) { }
+            column(Aeropuerto; aeropuerto) { }
             column(Remision; Remision) { }
             column(OrigenDestino; OrigenDestino) { }
             column(NoTanque; NoTanque) { }
