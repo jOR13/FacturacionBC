@@ -119,6 +119,25 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     end;
                 }
 
+                group("Enviar PDF")
+                {
+                    Image = SendMail;
+
+                    action("Envio por correo")
+                    {
+                        Image = SendEmailPDF;
+                        ApplicationArea = all;
+                        CaptionML = ENU = 'Send Email', ESP = 'Enviar correo';
+                        trigger OnAction()
+                        var
+                            myInt: Integer;
+                            myclass: Codeunit ControlEventos;
+                        begin
+                            myclass.abrirFactura(Rec);
+                        end;
+                    }
+                }
+
 
             }
         }

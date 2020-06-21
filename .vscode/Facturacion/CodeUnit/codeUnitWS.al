@@ -32,10 +32,10 @@ codeunit 50503 codeUnitWS
         URLSANDBOX: text;
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
-        //URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
 
-        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
+        if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -363,7 +363,7 @@ codeunit 50503 codeUnitWS
             ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
             ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';
 
-            ft.RetencionesTotales := SelectJsonToken(JsonObject, '$.Impuestos.Retenciones[0].Importe').AsValue.AsDecimal();
+            //ft.RetencionesTotales := SelectJsonToken(JsonObject, '$.Impuestos.Retenciones[0].Importe').AsValue.AsDecimal();
 
             if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
                 ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
@@ -388,7 +388,10 @@ codeunit 50503 codeUnitWS
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
                 ftc.Importe := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Importe').AsValue.AsDecimal();
 
-                ftc.Retencion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Retenciones.[0].Importe').AsValue.AsDecimal();
+                if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Retenciones').AsArray().Count > 0 then begin
+                    ftc.Retencion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Retenciones.[0].Importe').AsValue.AsDecimal();
+                    ft.RetencionesTotales := SelectJsonToken(JsonObject, '$.Impuestos.Retenciones[0].Importe').AsValue.AsDecimal();
+                end;
 
                 if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].DescuentoSpecified').AsValue.AsText = 'false' then begin
                     ftc.BaseTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Base').AsValue.AsDecimal();
@@ -435,6 +438,7 @@ codeunit 50503 codeUnitWS
     begin
         if not JsonObject.SelectToken(Path, JsonToken) then
             Error('No se puede encontrar el nodo en  la ruta  %1', Path);
+
     end;
 
     procedure calCImporteTraslado()
