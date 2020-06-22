@@ -73,7 +73,10 @@ codeunit 60120 ControlEventos
                 body := '';
                 mail.CreateMessage('', mailSetup."User ID", Recipients, mytable.Asunto, body);
                 if mytable.cc <> '' then begin
-                    Recipients.Add(mytable.Cc);
+                    copias := mytable.Cc.Split(';');
+                    foreach copiaItem in copias do begin
+                        Recipients.Add(copiaItem);
+                    end;
                     mail.AddRecipients(Recipients);
                 end;
                 if mytable.CCo <> '' then begin
@@ -168,7 +171,10 @@ codeunit 60120 ControlEventos
                 body := '';
                 mail.CreateMessage('', mailSetup."User ID", Recipients, mytable.Asunto, body);
                 if mytable.cc <> '' then begin
-                    Recipients.Add(mytable.Cc);
+                    copias := mytable.Cc.Split(';');
+                    foreach copiaItem in copias do begin
+                        Recipients.Add(copiaItem);
+                    end;
                     mail.AddRecipients(Recipients);
                 end;
                 if mytable.CCo <> '' then begin
@@ -253,7 +259,8 @@ codeunit 60120 ControlEventos
 
         ImportXmlFile: File;
         XmlINStream: InStream;
-
+        copias: List of [Text];
+        copiaItem: Text[250];
         XMLIStream: InStream;
         FileName: Text;
         TempBlob: Record TempBlob temporary;

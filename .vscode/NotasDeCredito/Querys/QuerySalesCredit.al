@@ -31,13 +31,13 @@ query 50531 QrySCH
             }
             dataitem(Payment_Method; "Payment Method")
             {
-                SqlJoinType = InnerJoin;
+                //SqlJoinType = InnerJoin;
                 DataItemLink = Code = Sales_Cr_Memo_Header."Payment Method Code";
                 column(MetodoPago; "SAT Method of Payment") { }
                 dataitem(Payment_Terms1; "Payment Terms")
                 {
                     DataItemLink = Code = Sales_Cr_Memo_Header."Payment Terms Code";
-                    SqlJoinType = InnerJoin;
+                    //SqlJoinType = InnerJoin;
                     column(FormaPago; "SAT Payment Term") { }
                 }
             }
