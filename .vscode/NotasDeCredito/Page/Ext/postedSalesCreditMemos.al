@@ -103,11 +103,26 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                         end else begin
                             Error('Esta NC no se ha timbrado');
                         end;
-
                     end;
+                }
 
+                group("Enviar PDF")
+                {
+                    Image = SendMail;
 
-
+                    action("Envio por correo")
+                    {
+                        Image = SendEmailPDF;
+                        ApplicationArea = all;
+                        CaptionML = ENU = 'Send Email', ESP = 'Enviar correo';
+                        trigger OnAction()
+                        var
+                            myInt: Integer;
+                            myclass: Codeunit ControlEventos;
+                        begin
+                            myclass.abrirNC(Rec);
+                        end;
+                    }
                 }
             }
         }
