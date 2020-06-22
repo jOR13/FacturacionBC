@@ -80,7 +80,15 @@ page 60108 EnviarCorreoPage
                     eventos: Codeunit ControlEventos;
                     answer: Boolean;
                 begin
-                    eventos.envioCorreo(Cliente, Factura, "Entry No");
+
+                    if rec.tipo = 'fac' then begin
+                        eventos.envioCorreo(Cliente, Factura, "Entry No");
+                    end;
+
+                    if rec.tipo = 'nc' then begin
+                        eventos.envioCorreoNC(Cliente, Factura);
+                    end;
+
                     answer := Dialog.Confirm('Desea salir?', true);
                     if answer = true then begin
                         CurrPage.Close();

@@ -13,6 +13,7 @@ codeunit 60120 ControlEventos
         mytable.Factura := Invoice."No.";
         mytable.Archivo := mytable.Archivo::xmlYpdf;
         mytable.importe := Format(Invoice."Amount Including VAT", 0, '<Sign><Integer Thousand><Decimals><Comma,.>');
+        mytable.tipo := 'fac';
         mytable.Insert(true);
         Commit();
         mypage.Run();
@@ -33,6 +34,7 @@ codeunit 60120 ControlEventos
         mytable.Factura := NotaCredito."No.";
         mytable.Archivo := mytable.Archivo::xmlYpdf;
         mytable.importe := Format(NotaCredito."Amount Including VAT", 0, '<Sign><Integer Thousand><Decimals><Comma,.>');
+        mytable.tipo := 'nc';
         mytable.Insert(true);
         Commit();
         mypage.Run();
@@ -90,7 +92,7 @@ codeunit 60120 ControlEventos
                     temp.Insert();
                     TempoBlob.Blob.CreateOutStream(OutstreamPdf);
                     TempoBlob.Blob.CreateInStream(InstreamPDF);
-                    Reporte.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                    ReporteNC.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
                     clear(TempBlob);
                     TempBlob.Blob.CreateInStream(XMLIStream);
                     FileName := creditMemo."No." + '.XML';
@@ -280,7 +282,7 @@ codeunit 60120 ControlEventos
         xmlTexto: text;
         TempoBlob: Record TempBlob;
         Reporte: report HG_ReporteCFDI;
-        ReporteNC: report HG_ReporteCFDI;
+        ReporteNC: report HG_NotaDeCredito;
         ReportePago: Report HG_ReporteCFDI;
         //Begin Adjustment version 4.0
         Recipients: List of [text];

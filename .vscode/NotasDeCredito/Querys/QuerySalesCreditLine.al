@@ -15,10 +15,7 @@ query 50532 QrySCL
             {
                 Method = sum;
             }
-            column(Descripcion; "Description")
-            {
-
-            }
+            column(Descripcion; "Description") { }
             column(Base; amount)
             {
                 Method = sum;

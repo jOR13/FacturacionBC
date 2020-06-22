@@ -80,6 +80,11 @@ table 60113 EnviarCorreoTable
         {
             DataClassification = ToBeClassified;
         }
+
+        field(16; tipo; text[30])
+        {
+            DataClassification = ToBeClassified;
+        }
     }
     keys
     {

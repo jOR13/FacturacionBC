@@ -11,6 +11,8 @@ query 50531 QrySCH
             //DataItemLink = "No." = totalTraslados.Folio;
 
             //DataItemTableFilter = Cancelled = filter(<> 'Yes');
+
+            DataItemTableFilter = UUIDNCHG = filter(= '');
             column(PreAssignedNo; "Pre-Assigned No.") { }
             column(Folio; "No.") { }
             column(Fecha; "Posting Date") { }
