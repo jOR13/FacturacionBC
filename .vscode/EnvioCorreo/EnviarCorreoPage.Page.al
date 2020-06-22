@@ -23,7 +23,7 @@ page 60108 EnviarCorreoPage
                     field(Cc; Cc)
                     {
                         ApplicationArea = all;
-                        ToolTipML = ENG = 'for add more emails use ; at the end example: firstmail@mail.com;secondmail@mail.com', ESP = 'Pare agregar mas destinatarios usa ; al final de cada email, ejemplo: primermail@mail.com;segundomail@mail.com';
+                        ToolTipML = ENG = 'For add more emails use ; at the end of each. Example: firstmail@mail.com;secondmail@mail.com', ESP = 'Pare agregar mas destinatarios usa ; al final de cada email, ejemplo: primermail@mail.com;segundomail@mail.com';
                     }
                     field(CCo; CCo)
                     {
