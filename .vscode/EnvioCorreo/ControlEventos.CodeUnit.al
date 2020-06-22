@@ -347,7 +347,7 @@ codeunit 60120 ControlEventos
                     TempBlob.Blob.CreateInStream(XMLIStream);
                     FileName := SalesInvoice."No." + '.XML';
 
-                    if TempBlob.TryDownloadFromUrl(' http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.") then begin
+                    if TempBlob.TryDownloadFromUrl('http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.") then begin
                         //DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
 
                         mail.AddAttachmentStream(InstreamPDF, 'Factura_' + invoice + '.pdf');
@@ -357,32 +357,28 @@ codeunit 60120 ControlEventos
                     end;
                 end
                 else
-                    if mytable.Archivo = mytable.Archivo::PDF then begin
+                    if mytable.Archivo = mytable.Archivo::XML then begin
+                        clear(TempBlob);
+                        TempBlob.Blob.CreateInStream(XMLIStream);
+                        FileName := SalesInvoice."No." + '.XML';
 
-                        TempoBlob.Blob.CreateOutStream(OutstreamPdf);
-                        TempoBlob.Blob.CreateInStream(InstreamPDF);
+                        TempBlob.TryDownloadFromUrl(' http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.");
 
-                        nc.SetFilter(nc.Folio, SalesInvoice."No.");
-                        temp.Init();
-                        temp.getRec := SalesInvoice."No.";
-                        temp.Insert();
+                        DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
 
-                        Reporte.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
-
-                        mail.AddAttachmentStream(InstreamPDF, 'Factura_' + invoice + '.pdf');
-
-                        //clear(TempBlob);
-                        //TempBlob.Blob.CreateInStream(XMLIStream);
-                        //FileName := SalesInvoice."No." + '.XML';
-
-                        //TempBlob.TryDownloadFromUrl(' http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.");
-
-                        //DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
-
-                        //mail.AddAttachmentStream(XMLIStream, SalesInvoice."Bill-to Customer No." + '_' + SalesInvoice."No." + '.xml');
-
+                        mail.AddAttachmentStream(XMLIStream, SalesInvoice."Bill-to Customer No." + '_' + SalesInvoice."No." + '.xml');
 
                     end;
+                if mytable.Archivo = mytable.Archivo::PDF then begin
+                    TempoBlob.Blob.CreateOutStream(OutstreamPdf);
+                    TempoBlob.Blob.CreateInStream(InstreamPDF);
+                    nc.SetFilter(nc.Folio, SalesInvoice."No.");
+                    temp.Init();
+                    temp.getRec := SalesInvoice."No.";
+                    temp.Insert();
+                    Reporte.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                    mail.AddAttachmentStream(InstreamPDF, 'Factura_' + invoice + '.pdf');
+                end;
 
 
                 if mytable.TipoContenido = mytable.TipoContenido::"Plantilla del cuerpo del correo electrónico del remitente" then begin
@@ -430,9 +426,12 @@ codeunit 60120 ControlEventos
                 //Message('%1 %2 %3 %4', mytable.Cc, fechaVencimiento, mytable.importe, mytable.TipoContenido);
                 mail.Send;
                 Message('Se ha enviado el correo electrónico');
+
             end;
         end;
+
     end;
+
 
     var
         myInt: Integer;

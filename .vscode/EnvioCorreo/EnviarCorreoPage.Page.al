@@ -76,12 +76,25 @@ page 60108 EnviarCorreoPage
                 var
                     class: Codeunit 397;
                     eventos: Codeunit ControlEventos;
+                    answer: Boolean;
                 begin
-
                     eventos.envioCorreo(Cliente, Factura, "Entry No");
-                    CurrPage.Close();
+                    answer := Dialog.Confirm('Desea salir?', true);
+                    if answer = true then begin
+                        CurrPage.Close();
+                    end
+                    else begin
+                        Rec.Para := '';
+                        Rec.Cc := '';
+                        Rec.CCo := '';
+                        Rec.Asunto := '';
+                        Rec.Archivo := 0;
+                        Rec.Cuerpo := '';
+                        rec.TipoContenido := 0;
+                    end;
                 end;
             }
+
 
         }
     }

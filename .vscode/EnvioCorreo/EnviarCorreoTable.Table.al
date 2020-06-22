@@ -33,8 +33,8 @@ table 60113 EnviarCorreoTable
         {
             Caption = 'Archivo adjunto';
             DataClassification = ToBeClassified;
-            OptionMembers = "",xmlYpdf,PDF;
-            OptionCaption = ' ,XML y PDF, Solo PDF';
+            OptionMembers = "",xmlYpdf,PDF,XML;
+            OptionCaption = ' ,XML y PDF,PDF,XML';
             Editable = true;
         }
         field(7; Cuerpo; Text[250])
