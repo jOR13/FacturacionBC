@@ -107,24 +107,9 @@ pageextension 50848 MyExtension extends "Sales Order"
                 var
                     myInt: Integer;
                 begin
+                    "UUID Relation HG" := '';
                     stat := true;
                 end;
-
-                /* trigger OnValidate()
-                 var
-                     msg: TextConst ESP = 'Esta factura ya ha sido timbrada, no puede agregar o modificar', ENU = 'This invoice has already been stamped, it cannot be insert or modified';
-                 begin
-                     show := false;
-                     if (UUIDHG = '') then begin
-                         stat := true;
-                         "UUID Relation HG" := '';
-                     end else begin
-                         Message(msg);
-                         "Tipo relacion" := 0;
-                         stat := false;
-                     end;
-
-                 end;*/
             }
             field("UUID Relation"; "UUID Relation HG")
             {
@@ -250,7 +235,16 @@ pageextension 50848 MyExtension extends "Sales Order"
                 if rec."CFDI Purpose" = '' then begin
                     Error('Por favor llene los campos requeridos');
                 end;
+
+                if rec."Currency Code" = '' then begin
+                    Error('Por favor llene los campos requeridos');
+                end;
             end;
+        }
+
+        modify("Currency Code")
+        {
+            ShowMandatory = true;
         }
 
 
@@ -285,7 +279,6 @@ pageextension 50848 MyExtension extends "Sales Order"
                 begin
                     rec."Payment Method Code" := rec.pagos;
                 end;
-
             }
         }
     }
