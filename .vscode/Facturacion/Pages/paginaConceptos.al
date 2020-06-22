@@ -74,10 +74,6 @@ page 50684 PaginaConceptos
                 {
                     ApplicationArea = All;
                 }
-                field(id; id)
-                {
-                    ApplicationArea = All;
-                }
             }
         }
     }

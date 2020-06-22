@@ -49,10 +49,6 @@ table 50522 Conceptos
 
         }
 
-        field(9; id; Integer)
-        {
-            DataClassification = ToBeClassified;
-        }
         field(10; Folio; Text[50])
         {
             DataClassification = ToBeClassified;
@@ -99,10 +95,8 @@ table 50522 Conceptos
 
     keys
     {
-        key(MyKey; id)
+        key(MyKey; Folio)
         {
-            Clustered = true;
-            Enabled = true;
         }
     }
 

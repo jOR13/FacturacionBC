@@ -405,9 +405,9 @@ codeunit 50503 codeUnitWS
                     ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                 end;
 
+
                 ftc.Folio := ft.Folio;
                 if ftc.Insert() then begin
-                    ftc.id := ftc.id + 1;
                 end else begin
                     ftc.Next();
                 end;

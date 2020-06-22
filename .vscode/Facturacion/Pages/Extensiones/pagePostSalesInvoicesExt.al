@@ -51,6 +51,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     var
                         reporte: Report HG_ReporteCFDI;
                         reporteTransportadora: Report HG_ReportTrasnportadoraFact;
+                        reporteTurbosina: Report HG_ReprteTurbosina;
                         cod: Codeunit codeUnitWS;
                         temp: Record temporal;
                         facturas: Record facturas_Timbradas;
@@ -75,9 +76,9 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                             end else
 
                                 if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
-                                    reporteTransportadora.RunModal();
+                                    reporteTurbosina.RunModal();
                                     temp.DeleteAll();
-                                    Clear(reporteTransportadora);
+                                    Clear(reporteTurbosina);
 
                                 end else begin
                                     reporte.RunModal();
