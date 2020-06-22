@@ -64,7 +64,9 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                             temp.Init();
                             temp.getRec := Rec."No.";
                             temp.DocNo := Rec."Order No.";
-                            temp.Insert();
+                            if temp.Insert() = false then begin
+                                temp.DeleteAll();
+                            end;
                             Commit();
                             if (Rec.Remision <> '') or (rec.ProductoTrasnportado <> '') or (Rec.FechaDeEntrega <> '') or (Rec.OrigenDestino <> '') or (rec.Tanque <> '') then begin
                                 reporteTransportadora.RunModal();

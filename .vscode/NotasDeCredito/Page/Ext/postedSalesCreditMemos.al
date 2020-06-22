@@ -90,8 +90,19 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                     trigger onAction()
                     var
                         myInt: Integer;
+                        TempBlob: Record TempBlob temporary;
+                        XMLIStream: InStream;
+                        FileName: Text;
                     begin
-                        HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
+                        //HYPERLINK('http://192.168.1.73/timbrado/xmlasync/' + rec."No.");
+                        clear(TempBlob);
+                        TempBlob.Blob.CreateInStream(XMLIStream);
+                        FileName := Rec."No." + '.XML';
+                        if TempBlob.TryDownloadFromUrl('http://hgwebapp.azurewebsites.net/api/xml/' + Rec."No.") then begin
+                            DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
+                        end else begin
+                            Error('Esta NC no se ha timbrado');
+                        end;
 
                     end;
 
