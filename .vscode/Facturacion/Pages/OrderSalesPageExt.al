@@ -247,7 +247,6 @@ pageextension 50848 MyExtension extends "Sales Order"
             ShowMandatory = true;
         }
 
-
         modify("Sell-to Customer No.")
         {
             trigger OnAfterValidate()
@@ -282,11 +281,7 @@ pageextension 50848 MyExtension extends "Sales Order"
             }
         }
     }
-
-
-
     var
-
         show: Boolean;
         stat: Boolean;
 }

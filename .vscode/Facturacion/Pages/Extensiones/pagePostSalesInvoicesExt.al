@@ -97,13 +97,13 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     CaptionML = ENU = 'Stamp invoice', ESP = 'Timbrar facturas';
                     trigger OnAction()
                     var
-                        cod: Codeunit getStamp;
+                        cod: Codeunit GetJsonNC;
                         qry: Query QrySIH;
                         CurrentDate: date;
                     begin
                         HYPERLINK('http://192.168.1.73/timbrado/facturas');
                         c.calCImporteTraslado();
-                        c.calCImporteTrasladoNC();
+                        cod.calCImporteTrasladoNC();
                         // cod.NCtimbradas();
                     end;
                 }

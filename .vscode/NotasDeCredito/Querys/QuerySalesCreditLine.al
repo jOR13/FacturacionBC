@@ -20,6 +20,9 @@ query 50532 QrySCL
             {
                 Method = sum;
             }
+            column(LineNo; "Line No.")
+            {
+            }
             dataitem(ArticuloInfo; Item)
             {
                 DataItemLink = "No." = Sales_Cr_Memo_Line."No.";

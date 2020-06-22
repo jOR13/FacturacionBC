@@ -14,13 +14,14 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
             field(UUID; UUIDNCHG)
             {
                 ApplicationArea = all;
-
+                Caption = 'UUID';
                 Style = Favorable;
                 StyleExpr = color;
             }
 
             field(UUIDRelacionadoNC; UUIDRelacionadoNC)
             {
+                Caption = 'UUID Relacionado';
                 ApplicationArea = all;
 
             }
@@ -73,12 +74,12 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                     CaptionML = ENU = 'Stamp invoice', ESP = 'Timbrar NC';
                     trigger OnAction()
                     var
-                        cod: Codeunit getStamp;
+                        cod: Codeunit GetJsonNC;
                         qry: Query QrySIH;
                         CurrentDate: date;
                     begin
                         HYPERLINK('http://192.168.1.73/timbrado/notasdecredito');
-                        // cod.NCtimbradas();
+                        cod.calCImporteTrasladoNC();
                     end;
                 }
 

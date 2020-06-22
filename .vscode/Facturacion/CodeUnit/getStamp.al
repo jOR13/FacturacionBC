@@ -102,10 +102,15 @@ codeunit 50845 CREDITMEMOS
     local procedure MyProcedure()
     begin
         c.calCImporteTraslado();
-        c.calCImporteTrasladoNC();
+        //c.calCImporteTrasladoNC();
+        cod.calCImporteTrasladoNC();
+        NCtimbradas();
+
     end;
 
 
     var
         c: Codeunit codeUnitWS;
+        cod: Codeunit GetJsonNC;
+
 }

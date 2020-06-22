@@ -564,90 +564,90 @@ codeunit 50503 codeUnitWS
         end;
     end;
 
-
-    procedure calCImporteTrasladoNC()
-    var
-        sml: Record "Sales Cr.Memo Line";
-        t: Record trasladoNC;
-        tt: Record totalTrasladosNC;
-        iva: Decimal;
-        lol: Decimal;
-    begin
-        CurrentDate := Today();
-        sml.SetFilter(sml."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-        t.DeleteAll();
-        tt.DeleteAll();
-        if sml.FindSet() then begin
-            repeat begin
-                t.Init();
-                t.Folio := sml."Document No.";
-                t.Base := sml.Amount;
-                t.impuesto := '002';
-                if sml."VAT Identifier" = 'IVA8' then begin
-                    T.TasaOCuota := '0.08';
-                end else
-                    if sml."VAT Identifier" = 'IVA16' then begin
-                        T.TasaOCuota := '0.16';
+    /*
+        procedure calCImporteTrasladoNC()
+        var
+            sml: Record "Sales Cr.Memo Line";
+            t: Record trasladoNC;
+            tt: Record totalTrasladosNC;
+            iva: Decimal;
+            lol: Decimal;
+        begin
+            CurrentDate := Today();
+            sml.SetFilter(sml."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+            t.DeleteAll();
+            tt.DeleteAll();
+            if sml.FindSet() then begin
+                repeat begin
+                    t.Init();
+                    t.Folio := sml."Document No.";
+                    t.Base := sml.Amount;
+                    t.impuesto := '002';
+                    if sml."VAT Identifier" = 'IVA8' then begin
+                        T.TasaOCuota := '0.08';
+                    end else
+                        if sml."VAT Identifier" = 'IVA16' then begin
+                            T.TasaOCuota := '0.16';
+                        end;
+                    if t.tasaoCuota <> '' then begin
+                        EVALUATE(iva, t.tasaoCuota);
+                        t.Importe := (sml."Amount Including VAT" - sml."Amount");
                     end;
-                if t.tasaoCuota <> '' then begin
-                    EVALUATE(iva, t.tasaoCuota);
-                    t.Importe := (sml."Amount Including VAT" - sml."Amount");
-                end;
 
 
-                T.tipoFactor := 'Tasa';
-                if t.base <> 0 then begin
-                    t.Insert();
-                end;
-                t.id += 1;
-            end until sml.Next() = 0;
-            getTotalTrasladosNC();
+                    T.tipoFactor := 'Tasa';
+                    if t.base <> 0 then begin
+                        t.Insert();
+                    end;
+                    t.id += 1;
+                end until sml.Next() = 0;
+                getTotalTrasladosNC();
+            end;
         end;
-    end;
 
-    local procedure getTotalTrasladosNC()
-    var
-        t: Record trasladoNC;
-        tt: Record totalTrasladosNC;
-        Importe: Decimal;
-    begin
-        if t.FindSet() then begin
-            repeat begin
-                tt.Init();
-                tt.Folio := t.Folio;
-                tt.importe += t.importe;
-                tt.TotalImpuestosTrasladados += t.importe;
-                tt.TasaOCuota := t.TasaOCuota;
-                tt.tipoFactor := t.tipoFactor;
-                tt.impuesto := t.impuesto;
-                if tt.importe <> 0 then begin
-                    tt.Insert();
-                end;
-                tt.id += 1;
-            end until t.Next() = 0;
+        local procedure getTotalTrasladosNC()
+        var
+            t: Record trasladoNC;
+            tt: Record totalTrasladosNC;
+            Importe: Decimal;
+        begin
+            if t.FindSet() then begin
+                repeat begin
+                    tt.Init();
+                    tt.Folio := t.Folio;
+                    tt.importe += t.importe;
+                    tt.TotalImpuestosTrasladados += t.importe;
+                    tt.TasaOCuota := t.TasaOCuota;
+                    tt.tipoFactor := t.tipoFactor;
+                    tt.impuesto := t.impuesto;
+                    if tt.importe <> 0 then begin
+                        tt.Insert();
+                    end;
+                    tt.id += 1;
+                end until t.Next() = 0;
+            end;
         end;
-    end;
 
 
-    procedure FactReady(var mensaje: Text)
-    var
-        myInt: Integer;
-        URL: Text;
-        Client: HttpClient;
-        Response: HttpResponseMessage;
-        JsonText: Text;
-        JsonObj: JsonObject;
-    begin
-        // URL := 'https://wsresponse.azurewebsites.net/api/ready?code=2t9OBvSSo8MgLVNJ5PntR24sKl8PKE0jQuZIo163J4YxCcrdZ3mbNw==&name=';
-        URL := 'http://localhost:7071/api/Function1?name=';
-        Client.Get(URL + mensaje, Response);
-        Response.Content().ReadAs(JsonText);
+        procedure FactReady(var mensaje: Text)
+        var
+            myInt: Integer;
+            URL: Text;
+            Client: HttpClient;
+            Response: HttpResponseMessage;
+            JsonText: Text;
+            JsonObj: JsonObject;
+        begin
+            // URL := 'https://wsresponse.azurewebsites.net/api/ready?code=2t9OBvSSo8MgLVNJ5PntR24sKl8PKE0jQuZIo163J4YxCcrdZ3mbNw==&name=';
+            URL := 'http://localhost:7071/api/Function1?name=';
+            Client.Get(URL + mensaje, Response);
+            Response.Content().ReadAs(JsonText);
 
-        //JsonObj.ReadFrom(JsonText);
+            //JsonObj.ReadFrom(JsonText);
 
-    end;
+        end;
 
-
+    */
 
     procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
     var
