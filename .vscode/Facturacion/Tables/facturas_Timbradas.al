@@ -122,7 +122,7 @@ table 50523 facturas_Timbradas
             DataClassification = ToBeClassified;
         }
 
-        field(27; "QR String"; Text[550])
+        field(27; "QR String"; Text[1050])
         {
             DataClassification = ToBeClassified;
         }

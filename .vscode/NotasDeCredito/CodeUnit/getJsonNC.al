@@ -30,6 +30,9 @@ codeunit 50603 GetJsonNC
         cod: Codeunit getStamp;
         URL: text;
         URLSANDBOX: text;
+        lastEightCert: Text;
+        lenghtLECF: Integer;
+        lenghtLEC: Integer;
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/E,true';
@@ -408,7 +411,13 @@ codeunit 50603 GetJsonNC
             else
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Dolar Americano';
             rfcReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
-            ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=03316950';
+
+            lenghtLEC := StrLen(ft.SelloDigitalCFD);
+            lenghtLECF := lenghtLEC - 7;
+            lastEightCert := FT.SelloDigitalCFD.Substring(lenghtLECF);
+
+            ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=' + lastEightCert;
+
             cont := (SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count());
 
             for j := 0 to cont - 1 do begin

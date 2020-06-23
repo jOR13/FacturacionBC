@@ -33,6 +33,9 @@ query 50512 QrySIH
             column(NoTanque; NoTanque) { }
             column(FechaDeEntrega; FechaDeEntrega) { }
 
+
+
+
             dataitem(Payment_Method; "Payment Method")
             {
                 SqlJoinType = InnerJoin;
