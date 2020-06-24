@@ -36,7 +36,7 @@ codeunit 50503 codeUnitWS
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
         if not HttpClient.Get(URL, ResponseMessage)
         then

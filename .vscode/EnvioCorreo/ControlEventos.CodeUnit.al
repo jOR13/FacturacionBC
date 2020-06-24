@@ -133,18 +133,26 @@ codeunit 60120 ControlEventos
                     mail.AppendBody('<br><br>');
                     mail.AppendBody('No. Factura: ' + invoice);
                     mail.AppendBody('<br>');
+                    if SalesInvoice."Payment Method Code" <> '0' then begin
+                        mail.AppendBody('Fecha de vencimiento: ' + fechaVencimiento);
+                        mail.AppendBody('<br>');
+                    end;
                     mail.AppendBody('Total: $' + mytable.importe);
                     mail.AppendBody('<br><br>');
-                    mail.AppendBody('<img src="https://i.ibb.co/M1P4SHD/firma.png">');
+                    mail.AppendBody('<img src="https://i.ibb.co/zXzmF9G/firmaF.png">');
                 end
                 else begin
                     mail.AppendBody(mytable.Cuerpo);
                     mail.AppendBody('<br><br>');
                     mail.AppendBody('Factura: ' + invoice);
                     mail.AppendBody('<br>');
+                    if SalesInvoice."Payment Method Code" <> '0' then begin
+                        mail.AppendBody('Fecha de vencimiento: ' + fechaVencimiento);
+                        mail.AppendBody('<br>');
+                    end;
                     mail.AppendBody('Total: $' + mytable.importe);
                     mail.AppendBody('<br><br>');
-                    mail.AppendBody('<img src="https://i.ibb.co/M1P4SHD/firma.png">');
+                    mail.AppendBody('<img src="https://i.ibb.co/zXzmF9G/firmaF.png">');
                 end;
                 mail.Send;
                 Message('Se ha enviado el correo electrónico');
@@ -231,18 +239,28 @@ codeunit 60120 ControlEventos
                     mail.AppendBody('<br><br>');
                     mail.AppendBody('No. Factura: ' + invoice);
                     mail.AppendBody('<br>');
+
+                    if SalesInvoice."Payment Method Code" <> '0' then begin
+                        mail.AppendBody('Fecha de vencimiento: ' + fechaVencimiento);
+                        mail.AppendBody('<br>');
+                    end;
+
                     mail.AppendBody('Total: $' + mytable.importe);
                     mail.AppendBody('<br><br>');
-                    mail.AppendBody('<img src="https://i.ibb.co/M1P4SHD/firma.png">');
+                    mail.AppendBody('<img src="https://i.ibb.co/zXzmF9G/firmaF.png">');
                 end
                 else begin
                     mail.AppendBody(mytable.Cuerpo);
                     mail.AppendBody('<br><br>');
                     mail.AppendBody('Factura: ' + invoice);
                     mail.AppendBody('<br>');
+                    if SalesInvoice."Payment Method Code" <> '0' then begin
+                        mail.AppendBody('Fecha de vencimiento: ' + fechaVencimiento);
+                        mail.AppendBody('<br>');
+                    end;
                     mail.AppendBody('Total: $' + mytable.importe);
                     mail.AppendBody('<br><br>');
-                    mail.AppendBody('<img src="https://i.ibb.co/M1P4SHD/firma.png">');
+                    mail.AppendBody('<img src="https://i.ibb.co/zXzmF9G/firmaF.png">');
                 end;
                 mail.Send;
                 Message('Se ha enviado el correo electrónico');
