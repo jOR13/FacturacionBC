@@ -7,7 +7,7 @@ codeunit 50502 cuqr
     begin
         Clear(tempb);
         if Barcode = '' then exit;
-        BarcodeTypeValue := 'qr';
+        // BarcodeTypeValue := 'qr';
         UUID := nameQRCode;
         InitArguments(Barcode);
         if not CallWebService() then exit;
@@ -19,8 +19,11 @@ codeunit 50502 cuqr
         BaseURL: Text;
     begin
 
-        BaseURL := 'https://api.qrserver.com';
-        RequestURL := StrSubstNo('%1/v1/create-qr-code/?data=%2', BaseURL, Barcode);
+        BaseURL := 'https://getqr20200623153401.azurewebsites.net/api/Function1?code=lJW53R67tThalGjzTmdQwg1GJrrFjBmPz7URpaGrAFY6fSFacyEG3A==&';
+        RequestURL := StrSubstNo('%1data=%2', BaseURL, Barcode);
+
+        //BaseURL := 'https://api.qrserver.com';
+        //RequestURL := StrSubstNo('%1/v1/create-qr-code/?data=%2', BaseURL, Barcode);
 
         //BaseURL := 'http://www.barcodes4.me';
         //RequestURL := StrSubstNo('%1/barcode/qr/qr.png?value=%2', BaseURL, Barcode);
