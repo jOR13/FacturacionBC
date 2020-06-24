@@ -26,7 +26,10 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 ApplicationArea = All;
                 Visible = true;
                 Style = Favorable;
-                TableRelation = UUIDRelacionados."UUID Relacionado" where(Folio = field("No."));
+                TableRelation = if ("Tipo relacion" = const(2)) "Sales Cr.Memo Header".UUIDNCHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDNCHG = filter(<> ''))
+                else
+                if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
+
             }
 
         }
@@ -71,18 +74,18 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                 temp.DeleteAll();
                             end;
                             Commit();
-                            if (Rec.Remision <> '') or (rec.ProductoTrasnportado <> '') or (Rec.FechaDeEntrega <> '') or (Rec.OrigenDestino <> '') or (rec.Tanque <> '') then begin
+                            if (Rec.Remision <> '') or (rec.ProductoTrasnportado <> '') or (Rec.FechaDeEntrega <> 0D) or (Rec.OrigenDestino <> '') or (rec.Tanque <> '') then begin
                                 reporteTransportadora.RunModal();
                                 temp.DeleteAll();
                                 Clear(reporteTransportadora);
                             end else
 
-                                if (Rec.FechaEntregaGas <> '') or (Rec.NoTicket <> '') then begin
+                                if (Rec.FechaEntregaGas <> 0D) or (Rec.NoTicket <> '') then begin
                                     reporteGas.RunModal();
                                     temp.DeleteAll();
                                     Clear(reporteGas);
                                 end else
-                                    if (Rec.FechaEntregaDiesel <> '') or (Rec.RemisonDiesel <> '') then begin
+                                    if (Rec.FechaEntregaDiesel <> 0D) or (Rec.RemisonDiesel <> '') then begin
                                         reporteDiesel.RunModal();
                                         temp.DeleteAll();
                                         Clear(reporteDiesel);

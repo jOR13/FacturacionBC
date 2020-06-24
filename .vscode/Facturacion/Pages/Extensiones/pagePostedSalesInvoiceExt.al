@@ -4,6 +4,11 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
     layout
     {
 
+        modify("Work Description")
+        {
+            Visible = false;
+        }
+
 
         addafter("Work Description")
         {
@@ -62,7 +67,7 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                 field(Remision; Remision)
                 {
                     ApplicationArea = all;
-                    CaptionML = ENU = 'Remision', ESP = 'Remission';
+                    CaptionML = ESP = 'Remision', ENU = 'Remission';
 
                 }
 
@@ -74,7 +79,7 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
 
                 field(Tanque; Tanque)
                 {
-                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
+                    CaptionML = ESP = 'Numero de tanque', ENU = 'Number tank';
                     ApplicationArea = all;
                 }
 

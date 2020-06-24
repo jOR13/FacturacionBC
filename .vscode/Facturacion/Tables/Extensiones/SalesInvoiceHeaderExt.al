@@ -62,7 +62,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50856; FechaDeEntrega; text[250])
+        field(50856; FechaDeEntrega; date)
         {
             CaptionML = ESP = 'Delivery date', ENG = 'Fecha entrega';
             DataClassification = ToBeClassified;
@@ -88,7 +88,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50861; FechaEntregaGas; Text[2040])
+        field(50861; FechaEntregaGas; date)
         {
             DataClassification = ToBeClassified;
         }
@@ -100,7 +100,7 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50863; FechaEntregaDiesel; Text[2040])
+        field(50863; FechaEntregaDiesel; date)
         {
             DataClassification = ToBeClassified;
         }

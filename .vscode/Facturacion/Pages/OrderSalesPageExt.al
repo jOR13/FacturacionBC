@@ -60,7 +60,7 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50856; FechaDeEntrega; text[250])
+        field(50856; FechaDeEntrega; date)
         {
             DataClassification = ToBeClassified;
         }
@@ -87,7 +87,7 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50861; FechaEntregaGas; Text[2040])
+        field(50861; FechaEntregaGas; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -99,7 +99,7 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
-        field(50863; FechaEntregaDiesel; Text[2040])
+        field(50863; FechaEntregaDiesel; Date)
         {
             DataClassification = ToBeClassified;
         }
@@ -119,29 +119,32 @@ pageextension 50848 MyExtension extends "Sales Order"
 
         addafter("Work Description")
         {
-            field("Tipo relacion"; "Tipo relacion")
+            group(Relacion)
             {
-                ApplicationArea = all;
-                //Caption = 'Tipo de documento a relacionar';
-                CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
+                field("Tipo relacion"; "Tipo relacion")
+                {
+                    ApplicationArea = all;
+                    //Caption = 'Tipo de documento a relacionar';
+                    CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
 
-                trigger OnValidate()
-                var
-                    myInt: Integer;
-                begin
-                    "UUID Relation HG" := '';
-                    stat := true;
-                end;
-            }
-            field("UUID Relation"; "UUID Relation HG")
-            {
-                ApplicationArea = All;
-                Editable = stat;
-                Style = Favorable;
-                TableRelation = if ("Tipo relacion" = const(2)) "Sales Cr.Memo Header".UUIDNCHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDNCHG = filter(<> ''))
-                else
-                if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
+                    trigger OnValidate()
+                    var
+                        myInt: Integer;
+                    begin
+                        "UUID Relation HG" := '';
+                        stat := true;
+                    end;
+                }
+                field("UUID Relation"; "UUID Relation HG")
+                {
+                    ApplicationArea = All;
+                    Editable = stat;
+                    Style = Favorable;
+                    TableRelation = if ("Tipo relacion" = const(2)) "Sales Cr.Memo Header".UUIDNCHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDNCHG = filter(<> ''))
+                    else
+                    if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
 
+                }
             }
         }
 
@@ -192,7 +195,7 @@ pageextension 50848 MyExtension extends "Sales Order"
                 field(Remision; Remision)
                 {
                     ApplicationArea = all;
-                    CaptionML = ENU = 'Remision', ESP = 'Remission';
+                    CaptionML = ESP = 'Remision', ENU = 'Remission';
 
                 }
 
@@ -204,7 +207,7 @@ pageextension 50848 MyExtension extends "Sales Order"
 
                 field(Tanque; Tanque)
                 {
-                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
+                    CaptionML = ESP = 'Numero de tanque', ENU = 'Number tank';
                     ApplicationArea = all;
                 }
 
@@ -221,6 +224,7 @@ pageextension 50848 MyExtension extends "Sales Order"
                 {
                     ApplicationArea = All;
                     CaptionML = ESP = 'Numero de ticket', ENU = 'Ticket number';
+                    TableRelation = "Sales Header"."Location Code" where("Location Code" = field("Location Code"));
                 }
 
                 field(FechaEntregaGas; FechaEntregaGas)
@@ -258,6 +262,17 @@ pageextension 50848 MyExtension extends "Sales Order"
                 rec.pagos := '';
             end;
         }
+
+        modify("Work Description")
+        {
+            Visible = false;
+        }
+
+        modify("WorkDescription")
+        {
+            Visible = false;
+        }
+
 
         modify("CFDI Purpose")
         {
