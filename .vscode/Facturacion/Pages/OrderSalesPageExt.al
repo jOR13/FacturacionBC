@@ -80,7 +80,29 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
+        //gas
 
+        field(50860; NoTicket; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50861; FechaEntregaGas; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Diesel
+
+        field(50862; RemisonDiesel; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50863; FechaEntregaDiesel; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 
@@ -163,27 +185,63 @@ pageextension 50848 MyExtension extends "Sales Order"
             {
                 field(OrigenDestino; OrigenDestino)
                 {
+                    CaptionML = ENU = 'Origin and Destination', ESP = 'Origen y destino';
                     ApplicationArea = all;
                 }
 
                 field(Remision; Remision)
                 {
                     ApplicationArea = all;
+                    CaptionML = ENU = 'Remision', ESP = 'Remission';
+
                 }
 
                 field(FechaDeEntrega; FechaDeEntrega)
                 {
+                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
                     ApplicationArea = all;
                 }
 
                 field(Tanque; Tanque)
                 {
+                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
                     ApplicationArea = all;
                 }
 
                 field(ProductoTrasnportado; ProductoTrasnportado)
                 {
                     ApplicationArea = all;
+                    CaptionML = ESP = 'Producto transportado', ENU = 'Item product transported';
+                }
+            }
+
+            group(Gas)
+            {
+                field(NoTicket; NoTicket)
+                {
+                    ApplicationArea = All;
+                    CaptionML = ESP = 'Numero de ticket', ENU = 'Ticket number';
+                }
+
+                field(FechaEntregaGas; FechaEntregaGas)
+                {
+                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
+                    ApplicationArea = All;
+                }
+            }
+
+            group(Diesel)
+            {
+                field(RemisonDiesel; RemisonDiesel)
+                {
+                    ApplicationArea = All;
+                    CaptionML = ESP = 'Remisión', ENU = 'Remission';
+                }
+
+                field(FechaEntregaDiesel; FechaEntregaDiesel)
+                {
+                    CaptionML = ESP = 'Fecha de entrega', ENU = 'Delivery date';
+                    ApplicationArea = All;
                 }
             }
 

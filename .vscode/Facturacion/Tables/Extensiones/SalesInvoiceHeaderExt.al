@@ -80,6 +80,31 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
             DataClassification = ToBeClassified;
         }
 
+
+        //gas
+
+        field(50860; NoTicket; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50861; FechaEntregaGas; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        //Diesel
+
+        field(50862; RemisonDiesel; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50863; FechaEntregaDiesel; Text[2040])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
 

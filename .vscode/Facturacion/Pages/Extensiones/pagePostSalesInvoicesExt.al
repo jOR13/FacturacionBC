@@ -52,6 +52,8 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         reporte: Report HG_ReporteCFDI;
                         reporteTransportadora: Report HG_ReportTrasnportadoraFact;
                         reporteTurbosina: Report HG_ReprteTurbosina;
+                        reporteGas: report HG_GasCfdi;
+                        reporteDiesel: Report HG_DieselCFDI;
                         cod: Codeunit codeUnitWS;
                         temp: Record temporal;
                         facturas: Record facturas_Timbradas;
@@ -75,17 +77,26 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                 Clear(reporteTransportadora);
                             end else
 
-                                if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
-                                    reporteTurbosina.RunModal();
+                                if (Rec.FechaEntregaGas <> '') or (Rec.NoTicket <> '') then begin
+                                    reporteGas.RunModal();
                                     temp.DeleteAll();
-                                    Clear(reporteTurbosina);
+                                    Clear(reporteGas);
+                                end else
+                                    if (Rec.FechaEntregaDiesel <> '') or (Rec.RemisonDiesel <> '') then begin
+                                        reporteDiesel.RunModal();
+                                        temp.DeleteAll();
+                                        Clear(reporteDiesel);
+                                    end else
 
-                                end else begin
-                                    reporte.RunModal();
-                                    temp.DeleteAll();
-                                    Clear(reporte);
-                                end;
-
+                                        if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
+                                            reporteTurbosina.RunModal();
+                                            temp.DeleteAll();
+                                            Clear(reporteTurbosina);
+                                        end else begin
+                                            reporte.RunModal();
+                                            temp.DeleteAll();
+                                            Clear(reporte);
+                                        end
                         end;
                     end;
                 }
@@ -132,23 +143,37 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     end;
                 }
 
-                group("Enviar PDF")
-                {
-                    Image = SendMail;
 
-                    action("Envio por correo")
-                    {
-                        Image = SendEmailPDF;
-                        ApplicationArea = all;
-                        CaptionML = ENU = 'Send Email', ESP = 'Enviar correo';
-                        trigger OnAction()
-                        var
-                            myInt: Integer;
-                            myclass: Codeunit ControlEventos;
-                        begin
-                            myclass.abrirFactura(Rec);
-                        end;
-                    }
+                action("Envio por correo")
+                {
+                    Image = SendEmailPDF;
+                    ApplicationArea = all;
+                    CaptionML = ENU = 'Send Email', ESP = 'Enviar correo';
+                    trigger OnAction()
+                    var
+                        myInt: Integer;
+                        myclass: Codeunit ControlEventos;
+                    begin
+                        myclass.abrirFactura(Rec);
+                    end;
+                }
+
+                action("Descarga Masiva")
+                {
+                    Image = MoveDown;
+                    ApplicationArea = all;
+                    trigger OnAction()
+                    var
+                        myInt: Integer;
+                        myclass: Codeunit ControlEventos;
+                        header: page "Posted Sales Invoice";
+                        htable: Record "Sales Invoice Header";
+                    begin
+                        header.SetSelectionFilter(htable);
+
+                        Message(htable."No.");
+
+                    end;
                 }
 
 

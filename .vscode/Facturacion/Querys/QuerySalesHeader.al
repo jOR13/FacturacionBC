@@ -32,6 +32,10 @@ query 50512 QrySIH
             column(OrigenDestino; OrigenDestino) { }
             column(NoTanque; NoTanque) { }
             column(FechaDeEntrega; FechaDeEntrega) { }
+            column(FechaEntregaGas; FechaEntregaGas) { }
+            column(FechaEntregaDiesel; FechaEntregaDiesel) { }
+            column(RemisonDiesel; RemisonDiesel) { }
+            column(NoTicket; NoTicket) { }
 
 
 

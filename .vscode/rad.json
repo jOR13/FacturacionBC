@@ -1,1 +1,1 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+﻿{"Added":[],"Modified":[{"Id":50848,"Kind":16,"Name":"MyExtension","PackagePath":"/src/.vscode/Facturacion/Pages/OrderSalesPageExt.al"},{"Id":50848,"Kind":17,"Name":"OrderSalesPageExt","PackagePath":"/src/.vscode/Facturacion/Pages/OrderSalesPageExt.al"},{"Id":50512,"Kind":14,"Name":"QrySIH","PackagePath":"/src/.vscode/Facturacion/Querys/QuerySalesHeader.al"},{"Id":50505,"Kind":16,"Name":"pagePostedSalesInvoiceExt","PackagePath":"/src/.vscode/Facturacion/Pages/Extensiones/pagePostedSalesInvoiceExt.al"}],"Removed":[]}
