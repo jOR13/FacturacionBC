@@ -36,7 +36,7 @@ codeunit 50503 codeUnitWS
     begin
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
 
         if not HttpClient.Get(URL, ResponseMessage)
         then
@@ -430,6 +430,8 @@ codeunit 50503 codeUnitWS
 
             cont := (SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count());
 
+
+
             for j := 0 to cont - 1 do begin
                 ftc.Init();
                 ftc.Descripcion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descripcion').AsValue.AsText;
@@ -458,12 +460,20 @@ codeunit 50503 codeUnitWS
                     ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                 end;
 
+                if ftc.Folio <> ft.Folio then begin
+                    ftc.Folio := ft.Folio;
+                    ftc.Insert();
+                    ftc.id += 1;
+                end else begin
+                    ftc.Next();
+                end;
 
+                /*
                 ftc.Folio := ft.Folio;
                 if ftc.Insert() then begin
                 end else begin
                     ftc.Next();
-                end;
+                end;*/
 
             end;
 

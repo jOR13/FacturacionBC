@@ -89,13 +89,16 @@ table 50522 Conceptos
             DataClassification = ToBeClassified;
         }
 
-
+        field(51; id; integer)
+        {
+            DataClassification = ToBeClassified;
+        }
 
     }
 
     keys
     {
-        key(MyKey; Folio)
+        key(MyKey; id)
         {
         }
     }
