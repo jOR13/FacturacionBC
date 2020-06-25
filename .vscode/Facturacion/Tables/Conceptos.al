@@ -92,6 +92,7 @@ table 50522 Conceptos
         field(51; id; integer)
         {
             DataClassification = ToBeClassified;
+            AutoIncrement = true;
         }
 
     }
@@ -100,7 +101,10 @@ table 50522 Conceptos
     {
         key(MyKey; id)
         {
+            Clustered = true;
+            Enabled = true;
         }
+
     }
 
     var

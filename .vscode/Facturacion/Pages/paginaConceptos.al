@@ -1,6 +1,6 @@
 page 50684 PaginaConceptos
 {
-    PageType = Card;
+    PageType = List;
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = Conceptos;
@@ -82,16 +82,38 @@ page 50684 PaginaConceptos
     {
         area(Processing)
         {
-            action(ActionName)
+            action("Borrar facturas")
             {
                 ApplicationArea = All;
 
+                Image = Delegate;
                 trigger OnAction()
-                begin
+                var
+                    ft: Record facturas_Timbradas;
+                    ftc: Record Conceptos;
 
+                begin
+                    ftc.DeleteAll();
+                    ft.DeleteAll();
+                end;
+            }
+
+            action("Borrar nc")
+            {
+                ApplicationArea = All;
+                Image = Delegate;
+                trigger OnAction()
+                var
+                    ft: Record NCTimbradas;
+                    ftc: Record ConceptosNC;
+
+                begin
+                    ftc.DeleteAll();
+                    ft.DeleteAll();
                 end;
             }
         }
+
     }
 
     var

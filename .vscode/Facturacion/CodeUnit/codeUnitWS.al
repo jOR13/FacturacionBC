@@ -33,7 +33,13 @@ codeunit 50503 codeUnitWS
         lastEightCert: Text;
         lenghtLECF: Integer;
         lenghtLEC: Integer;
+        cc: Integer;
+        cursorTax, totalCursorTax : Integer;
     begin
+        /*
+        ftc.DeleteAll();
+        ft.DeleteAll();
+        */
         URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
@@ -50,7 +56,7 @@ codeunit 50503 codeUnitWS
         foreach t in JsonArray do begin
             // for i := 0 to JsonArray.Count - 1 do begin
             JsonArray.Get(i, JsonToken);
-            //e := (SelectJsonToken(JsonObject, '$.[').AsArray().Count());
+            //e := (SelectJsonToken(JsonObject, '$.xsiSchemaLocation').AsArray().Count());
             JsonObject := JsonToken.AsObject;
             ft.init;
 
@@ -428,7 +434,7 @@ codeunit 50503 codeUnitWS
 
             ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=' + lastEightCert;
 
-            cont := (SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count());
+            cont := SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count();
 
 
 
@@ -460,21 +466,9 @@ codeunit 50503 codeUnitWS
                     ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                 end;
 
-                if ftc.Folio <> ft.Folio then begin
-                    ftc.Folio := ft.Folio;
-                    ftc.Insert();
-                    ftc.id += 1;
-                end else begin
-                    ftc.Next();
-                end;
-
-                /*
-                ftc.Folio := ft.Folio;
-                if ftc.Insert() then begin
-                end else begin
-                    ftc.Next();
-                end;*/
-
+                ftc.folio := ft.folio;
+                ftc.Insert();
+                ftc.id := ftc.id + 1;
             end;
 
             if ft.Insert() then begin
