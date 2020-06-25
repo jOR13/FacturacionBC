@@ -36,15 +36,16 @@ codeunit 50503 codeUnitWS
         cc: Integer;
         cursorTax, totalCursorTax : Integer;
     begin
-        /*
+
+        ///SANDBOX
         ftc.DeleteAll();
         ft.DeleteAll();
-        */
-        URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I';
 
-        if not HttpClient.Get(URL, ResponseMessage)
+        //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
+        URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
+
+        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then

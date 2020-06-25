@@ -12,17 +12,20 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
 
         addafter("Work Description")
         {
-            field("Tipo relacion"; "Tipo relacion")
+            group(Relacion)
             {
-                ApplicationArea = all;
-                //Caption = 'Tipo de documento a relacionar';
-                CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
+                field("Tipo relacion"; "Tipo relacion")
+                {
+                    ApplicationArea = all;
+                    //Caption = 'Tipo de documento a relacionar';
+                    CaptionML = ENU = 'Document type to relate', ESP = 'Tipo de documento a relacionar';
 
-            }
-            field("UUID Relation"; "UUID Relation HG")
-            {
-                ApplicationArea = All;
+                }
+                field("UUID Relation"; "UUID Relation HG")
+                {
+                    ApplicationArea = All;
 
+                }
             }
 
         }

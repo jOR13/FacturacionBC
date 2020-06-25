@@ -161,23 +161,23 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     end;
                 }
 
-                action("Descarga Masiva")
-                {
-                    Image = MoveDown;
-                    ApplicationArea = all;
-                    trigger OnAction()
-                    var
-                        myInt: Integer;
-                        myclass: Codeunit ControlEventos;
-                        header: page "Posted Sales Invoice";
-                        htable: Record "Sales Invoice Header";
-                    begin
-                        header.SetSelectionFilter(htable);
+                /* action("Descarga Masiva")
+                 {
+                     Image = MoveDown;
+                     ApplicationArea = all;
+                     trigger OnAction()
+                     var
+                         myInt: Integer;
+                         myclass: Codeunit ControlEventos;
+                         header: page "Posted Sales Invoice";
+                         htable: Record "Sales Invoice Header";
+                     begin
+                         header.SetSelectionFilter(htable);
 
-                        Message(htable."No.");
+                         Message(htable."No.");
 
-                    end;
-                }
+                     end;
+                 }*/
 
 
             }
