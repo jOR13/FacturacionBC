@@ -6,8 +6,8 @@ query 50512 QrySIH
     {
         dataitem(Sales_Invoice_Header; "Sales Invoice Header")
         {
-            //DataItemLink = "No." = totalTraslados.Folio;
-            DataItemTableFilter = UUIDHG = filter(= '');
+
+            DataItemTableFilter = "Posting Date" = filter(= '-3D..today'), UUIDHG = filter(= '');
 
             column(Folio; "No.") { }
             column(Serie; "Order No.") { }
@@ -36,10 +36,6 @@ query 50512 QrySIH
             column(FechaEntregaDiesel; FechaEntregaDiesel) { }
             column(RemisonDiesel; RemisonDiesel) { }
             column(NoTicket; NoTicket) { }
-
-
-
-
             dataitem(Payment_Method; "Payment Method")
             {
                 SqlJoinType = InnerJoin;

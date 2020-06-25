@@ -10,7 +10,7 @@ query 50513 QrySIL
         {
             //DataItemLink = "Order No." = PedimentosTable.DocumentNo;
 
-            DataItemTableFilter = "No." = filter(<> '111-03-03-01');
+            DataItemTableFilter = "Posting Date" = filter(= '-3D..today'), "No." = filter(<> '111-03-03-01');
             column(Folio; "Document No.") { }
             //column(No_; "No.") { }
 
