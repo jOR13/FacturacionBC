@@ -12,16 +12,11 @@ codeunit 50504 getStamp
         ft: Record facturas_Timbradas;
         page: Page "Posted Sales Invoices";
         c: Codeunit codeUnitWS;
-        CurrentDate: Date;
     begin
-
         c.Refresh();
         page.Update;
-
         sh.SetFilter(sh.UUIDHG, '');
-        CurrentDate := Today();
-        sh.SetFilter(sh."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-
+        //sh.SetFilter(sh."Posting Date", '-30D..Today');
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin
@@ -38,7 +33,6 @@ codeunit 50504 getStamp
             end until sh.Next() = 0;
         end;
     end;
-
 }
 
 codeunit 50845 CREDITMEMOS
@@ -54,16 +48,12 @@ codeunit 50845 CREDITMEMOS
         sih: Record "Sales Invoice Header";
         page: Page "Posted Sales Credit Memos";
         c: Codeunit GetJsonNC;
-        CurrentDate: Date;
     begin
         c.Refresh();
         page.Update;
 
         scm.SetFilter(scm.UUIDNCHG, '');
-        CurrentDate := Today();
-        scm.SetFilter(scm."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-
-
+        scm.SetFilter(scm."Posting Date", '-30D..Today');
         sih.SetFilter(sih.UUIDHG, '<> ""');
         if sih.FindSet() then begin
             repeat begin
@@ -77,7 +67,6 @@ codeunit 50845 CREDITMEMOS
                         end;
                     end until scm.Next() = 0;
                 end;
-
             end until sih.Next() = 0;
         end;
 
@@ -111,5 +100,6 @@ codeunit 50845 CREDITMEMOS
     var
         c: Codeunit codeUnitWS;
         cod: Codeunit GetJsonNC;
+
 
 }

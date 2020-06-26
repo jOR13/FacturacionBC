@@ -112,6 +112,38 @@ page 50684 PaginaConceptos
                     ft.DeleteAll();
                 end;
             }
+
+            action("Filtro")
+            {
+                ApplicationArea = All;
+                Image = Delegate;
+                trigger OnAction()
+                var
+                    sh: Record "Sales Invoice Header";
+                    scm: Record "Sales Cr.Memo Header";
+                    ft: Record facturas_Timbradas;
+                    page: Page "Posted Sales Invoices";
+                    c: Codeunit codeUnitWS;
+                begin
+                    sh.SetFilter(sh.UUIDHG, '');
+                    //sh.SetFilter(sh."Posting Date", '..Today');
+                    if sh.FindSet() then begin
+                        repeat begin
+                            if ft.FindSet() then begin
+                                repeat begin
+                                    if sh."No." = ft.Folio then begin
+                                        sh.UUIDHG := ft.UUID;
+                                        if sh."UUID Relation HG" = '' then begin
+                                            sh."UUID Relation HG" := ft."UUID Relacionado";
+                                        end;
+                                        sh.Modify();
+                                    end;
+                                end until ft.Next() = 0;
+                            end;
+                        end until sh.Next() = 0;
+                    end;
+                end;
+            }
         }
 
     }

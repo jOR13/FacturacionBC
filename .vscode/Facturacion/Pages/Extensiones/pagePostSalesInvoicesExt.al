@@ -161,23 +161,25 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     end;
                 }
 
-                /* action("Descarga Masiva")
-                 {
-                     Image = MoveDown;
-                     ApplicationArea = all;
-                     trigger OnAction()
-                     var
-                         myInt: Integer;
-                         myclass: Codeunit ControlEventos;
-                         header: page "Posted Sales Invoice";
-                         htable: Record "Sales Invoice Header";
-                     begin
-                         header.SetSelectionFilter(htable);
-
-                         Message(htable."No.");
-
-                     end;
-                 }*/
+                action("Subir XML")
+                {
+                    Image = MoveDown;
+                    ApplicationArea = all;
+                    trigger OnAction()
+                    var
+                        up: Codeunit UploadXML;
+                        FileName: Text;
+                        TestFile: File;
+                        NVInStream: InStream;
+                        textoXML: Text;
+                        texto: Text;
+                    begin
+                        //FileName := 'c:\SomeFile.txt';
+                        UPLOADINTOSTREAM('Import', '', ' All Files (*.*)|*.*', FileName, NVInStream);
+                        NVInStream.ReadText(textoXML, 99999999);
+                        up.ReadXML(textoXML);
+                    end;
+                }
 
 
             }

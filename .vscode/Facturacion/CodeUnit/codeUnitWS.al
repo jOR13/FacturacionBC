@@ -38,14 +38,14 @@ codeunit 50503 codeUnitWS
     begin
 
         ///SANDBOX
-        ftc.DeleteAll();
-        ft.DeleteAll();
+        //ftc.DeleteAll();
+        //ft.DeleteAll();
 
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
-        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
+        if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -368,7 +368,11 @@ codeunit 50503 codeUnitWS
             ft.NombreReceptor := SelectJsonToken(JsonObject, '$.Receptor.Nombre').AsValue.AsText;
             ft.RFCReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
             ft.TotalText := SelectJsonToken(JsonObject, '$.Total').AsValue.AsText();
-            ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
+
+            if SelectJsonToken(JsonObject, '$.TipoCambioSpecified').AsValue.AsBoolean() = true then begin
+                ft.TipoCambio := SelectJsonToken(JsonObject, '$.TipoCambio').AsValue.AsText();
+            end;
+
             ft."RFC provedor" := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@RfcProvCertif').AsValue.AsText;
             ft.Version := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@Version').AsValue.AsText;
             ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';

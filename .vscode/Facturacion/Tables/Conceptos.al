@@ -7,7 +7,6 @@ table 50522 Conceptos
         field(1; Cantidad; decimal)
         {
             DataClassification = ToBeClassified;
-
         }
 
         field(2; ClaveProdServ; Text[20])
