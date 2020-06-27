@@ -174,8 +174,11 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         textoXML: Text;
                         texto: Text;
                     begin
+
+                        //UPLOADINTOSTREAM('Select the xml file', 'c:\temp', 'XML File *.xml| *.xml', FileName, NVInStream);
+
                         //FileName := 'c:\SomeFile.txt';
-                        UPLOADINTOSTREAM('Import', '', ' All Files (*.*)|*.*', FileName, NVInStream);
+                        UPLOADINTOSTREAM('Import', '', ' .xml (*.xml*)|*.xml*', FileName, NVInStream);
                         NVInStream.ReadText(textoXML, 99999999);
                         up.ReadXML(textoXML);
                         Update();
