@@ -186,7 +186,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         pagina.SetSelectionFilter(Rec);
                         rec.SetFilter(rec."No.", texto);
                         pagina.Update();
-                        pagina.Run();
+                        //pagina.Run();
                     end;
                 }
             }
