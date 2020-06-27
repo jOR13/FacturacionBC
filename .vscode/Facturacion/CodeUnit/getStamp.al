@@ -16,7 +16,7 @@ codeunit 50504 getStamp
         c.Refresh();
         page.Update;
         sh.SetFilter(sh.UUIDHG, '');
-        //sh.SetFilter(sh."Posting Date", '-30D..Today');
+        sh.SetFilter(sh."Posting Date", '-30D..Today');
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin
