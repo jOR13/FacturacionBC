@@ -1,6 +1,7 @@
 codeunit 50956 UploadXML
 {
-    procedure ReadXML(xmlTexto: Text)
+    procedure ReadXML(xmlTexto: Text) responseText: Text;
+
     var
         myInt: Integer;
         xmlDoc: XmlDocument;
@@ -170,9 +171,11 @@ codeunit 50956 UploadXML
                     ft.FormaDePago := '99 - Por definir';
                 end;
         end;
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/@TipoCambio', nsm, node);
-        txt := node.AsXmlAttribute();
-        ft.TipoCambio := txt.Value();
+
+        // read := xmlDoc.SelectSingleNode('/x:Comprobante/@TipoCambio', nsm, node);
+        //txt := node.AsXmlAttribute();
+        ft.TipoCambio := '';
+
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@Moneda', nsm, node);
         txt := node.AsXmlAttribute();
         if txt.Value() = 'MXN' then
@@ -184,31 +187,9 @@ codeunit 50956 UploadXML
         txt := node.AsXmlAttribute();
         ft.Folio := txt.Value();
         ftc.Folio := ft.Folio;
+        responseText := ft.folio;
         NumFactura := txt.Value();
-        /*
-        salesInvoiceHeader.SetCurrentKey("No.");
-        salesInvoiceHeader.SetRange("No.", ft.Folio);
-        if salesInvoiceHeader.Find('-') then begin
-            NumOrder := salesInvoiceHeader."Order No.";
-            ft. := NumOrder;
-        end;*/
 
-        //Numero de Pedimentos/// 
-        /*
-        pedimentosTable.SetCurrentKey(DocumentNo);
-        pedimentosTable.SetRange(DocumentNo, NumOrder);
-        cursorInfoAduana := 1;
-        if pedimentosTable.FindSet() then begin
-            repeat //totalCursor := pedimentosTable.Count(); 
-                pedimentoReportTable.Pedimento := pedimentosTable.Pedimento;
-                pedimentoReportTable.FechaPedTxt := pedimentosTable.FechaTxt;
-                pedimentoReportTable.index := cursorInfoAduana;
-                cursorInfoAduana := cursorInfoAduana + 1;
-                pedimentoReportTable.Insert();
-                Commit();
-            until (pedimentosTable.Next = 0)
-        end;*/
-        /////
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@SubTotal', nsm, node);
         txt := node.AsXmlAttribute();
         read := Evaluate(Subtotal, txt.Value());
@@ -461,27 +442,11 @@ codeunit 50956 UploadXML
         txt := node.AsXmlAttribute();
         ft.SelloSAT := txt.Value;
         //Footer//End
-        //Cadena Original
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/x:Complemento/tfd:TimbreFiscalDigital/@Version', nsm, node);
-        txt := node.AsXmlAttribute();
-        cadenaOriginal1 += '|' + txt.Value() + '|';
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/x:Complemento/tfd:TimbreFiscalDigital/@UUID', nsm, node);
-        txt := node.AsXmlAttribute();
-        cadenaOriginal1 += txt.Value() + '|';
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/x:Complemento/tfd:TimbreFiscalDigital/@FechaTimbrado', nsm, node);
-        txt := node.AsXmlAttribute();
-        cadenaOriginal1 += txt.Value() + '|';
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/x:Complemento/tfd:TimbreFiscalDigital/@SelloCFD', nsm, node);
-        txt := node.AsXmlAttribute();
-        cadenaOriginal1 += txt.Value() + '|';
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/x:Complemento/tfd:TimbreFiscalDigital/@NoCertificadoSAT', nsm, node);
-        txt := node.AsXmlAttribute();
-        cadenaOriginal1 += txt.Value();
-        substring1 := cadenaOriginal1.Substring(1, 250);
-        ft.CertificadoCadena := substring1;
-        substring2 := cadenaOriginal1.Substring(251);
-        ft.CertificadoCadenaPart2 := substring2;
-        //CadenaOriginal End
+
+
+        ft.CertificadoCadena := '||' + ft.Version + '|' + ft.UUID + '|' + ft.FechaTimbrado + '|' + ft."RFC provedor" + '|' + ft.SelloDigitalCFD + '|' + ft.NoCertificadoSAT + '||';
+
+
         //"Tipo relacion" Notas de Crédito
         read := xmlDoc.SelectSingleNode('/x:Comprobante/x:CfdiRelacionados/@TipoRelacion', nsm, node);
         txt := node.AsXmlAttribute();
@@ -649,12 +614,16 @@ codeunit 50956 UploadXML
         Evaluate(ft.IVA, Format(ImpTras, 0, '<precision, 2:2><Sign><Integer Thousand><Decimals><Comma,.>'));
         Evaluate(ft.SubTotal, Format(Subtotal, 0, '<precision, 2:2><Sign><Integer Thousand><Decimals><Comma,.>'));
         //Lineas//End
-        ft.Insert();
+        if ft.Insert() then begin
+            Message('Se agrego XML correctamente');
+            Commit();
+        end
+        else
+            Message('Factura ya timbrada');
         Commit();
 
+
     end;
-
-
 
 
     var
@@ -665,6 +634,7 @@ codeunit 50956 UploadXML
         lenghtLEC: Integer;
         numUnidades: text;
 
+        insertUUID: Codeunit getStamp;
         cod: Codeunit codeUnitWS;
         unidadesDecena: Text;
         unidadDec: Integer;

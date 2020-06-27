@@ -5,18 +5,31 @@ codeunit 50504 getStamp
 
 
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
-    local procedure timbradas()
+    procedure timbradas()
     var
         sh: Record "Sales Invoice Header";
         scm: Record "Sales Cr.Memo Header";
         ft: Record facturas_Timbradas;
         page: Page "Posted Sales Invoices";
         c: Codeunit codeUnitWS;
+        fil: Record Filtro;
+        filtroBase: Text;
     begin
         c.Refresh();
         page.Update;
+        fil.Init();
+        if fil.FindSet() then begin
+            repeat begin
+                if fil.filtro <> '' then begin
+                    filtroBase := fil.filtro
+                end else
+                    filtroBase := '-3D..Today';
+            end until fil.Next() = 0;
+        end;
+
+
         sh.SetFilter(sh.UUIDHG, '');
-        sh.SetFilter(sh."Posting Date", '-30D..Today');
+        sh.SetFilter(sh."Posting Date", fil.filtro);
         if sh.FindSet() then begin
             repeat begin
                 if ft.FindSet() then begin
@@ -48,12 +61,24 @@ codeunit 50845 CREDITMEMOS
         sih: Record "Sales Invoice Header";
         page: Page "Posted Sales Credit Memos";
         c: Codeunit GetJsonNC;
+        fil: Record Filtro;
+        filtroBase: Text;
     begin
         c.Refresh();
         page.Update;
 
+        fil.Init();
+        if fil.FindSet() then begin
+            repeat begin
+                if fil.filtroNC <> '' then begin
+                    filtroBase := fil.filtro
+                end else
+                    filtroBase := '-3D..Today';
+            end until fil.Next() = 0;
+        end;
+
         scm.SetFilter(scm.UUIDNCHG, '');
-        scm.SetFilter(scm."Posting Date", '-30D..Today');
+        scm.SetFilter(scm."Posting Date", fil.filtro);
         sih.SetFilter(sih.UUIDHG, '<> ""');
         if sih.FindSet() then begin
             repeat begin

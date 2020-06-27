@@ -43,7 +43,7 @@ codeunit 50503 codeUnitWS
         URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
-        if not HttpClient.Get(URL, ResponseMessage)
+        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -429,8 +429,6 @@ codeunit 50503 codeUnitWS
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Dolar Americano';
             rfcReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
 
-
-
             lenghtLEC := StrLen(ft.SelloDigitalCFD);
             lenghtLECF := lenghtLEC - 7;
             lastEightCert := FT.SelloDigitalCFD.Substring(lenghtLECF);
@@ -438,8 +436,6 @@ codeunit 50503 codeUnitWS
             ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=' + lastEightCert;
 
             cont := SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count();
-
-
 
             for j := 0 to cont - 1 do begin
                 ftc.Init();
@@ -623,91 +619,6 @@ codeunit 50503 codeUnitWS
             end until r.Next() = 0;
         end;
     end;
-
-    /*
-        procedure calCImporteTrasladoNC()
-        var
-            sml: Record "Sales Cr.Memo Line";
-            t: Record trasladoNC;
-            tt: Record totalTrasladosNC;
-            iva: Decimal;
-            lol: Decimal;
-        begin
-            CurrentDate := Today();
-            sml.SetFilter(sml."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
-            t.DeleteAll();
-            tt.DeleteAll();
-            if sml.FindSet() then begin
-                repeat begin
-                    t.Init();
-                    t.Folio := sml."Document No.";
-                    t.Base := sml.Amount;
-                    t.impuesto := '002';
-                    if sml."VAT Identifier" = 'IVA8' then begin
-                        T.TasaOCuota := '0.08';
-                    end else
-                        if sml."VAT Identifier" = 'IVA16' then begin
-                            T.TasaOCuota := '0.16';
-                        end;
-                    if t.tasaoCuota <> '' then begin
-                        EVALUATE(iva, t.tasaoCuota);
-                        t.Importe := (sml."Amount Including VAT" - sml."Amount");
-                    end;
-
-
-                    T.tipoFactor := 'Tasa';
-                    if t.base <> 0 then begin
-                        t.Insert();
-                    end;
-                    t.id += 1;
-                end until sml.Next() = 0;
-                getTotalTrasladosNC();
-            end;
-        end;
-
-        local procedure getTotalTrasladosNC()
-        var
-            t: Record trasladoNC;
-            tt: Record totalTrasladosNC;
-            Importe: Decimal;
-        begin
-            if t.FindSet() then begin
-                repeat begin
-                    tt.Init();
-                    tt.Folio := t.Folio;
-                    tt.importe += t.importe;
-                    tt.TotalImpuestosTrasladados += t.importe;
-                    tt.TasaOCuota := t.TasaOCuota;
-                    tt.tipoFactor := t.tipoFactor;
-                    tt.impuesto := t.impuesto;
-                    if tt.importe <> 0 then begin
-                        tt.Insert();
-                    end;
-                    tt.id += 1;
-                end until t.Next() = 0;
-            end;
-        end;
-
-
-        procedure FactReady(var mensaje: Text)
-        var
-            myInt: Integer;
-            URL: Text;
-            Client: HttpClient;
-            Response: HttpResponseMessage;
-            JsonText: Text;
-            JsonObj: JsonObject;
-        begin
-            // URL := 'https://wsresponse.azurewebsites.net/api/ready?code=2t9OBvSSo8MgLVNJ5PntR24sKl8PKE0jQuZIo163J4YxCcrdZ3mbNw==&name=';
-            URL := 'http://localhost:7071/api/Function1?name=';
-            Client.Get(URL + mensaje, Response);
-            Response.Content().ReadAs(JsonText);
-
-            //JsonObj.ReadFrom(JsonText);
-
-        end;
-
-    */
 
     procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
     var
