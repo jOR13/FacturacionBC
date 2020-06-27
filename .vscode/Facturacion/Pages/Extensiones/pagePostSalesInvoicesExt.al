@@ -163,7 +163,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
 
                 action("Subir XML")
                 {
-                    Image = MoveDown;
+                    Image = MoveUp;
                     ApplicationArea = all;
                     trigger OnAction()
                     var
@@ -178,6 +178,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         UPLOADINTOSTREAM('Import', '', ' All Files (*.*)|*.*', FileName, NVInStream);
                         NVInStream.ReadText(textoXML, 99999999);
                         up.ReadXML(textoXML);
+                        Update();
                     end;
                 }
 
