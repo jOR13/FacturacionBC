@@ -40,8 +40,8 @@ codeunit 50503 codeUnitWS
         //ft.DeleteAll();
 
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        // URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
+        url := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
         if not HttpClient.Get(URL, ResponseMessage)
         then

@@ -524,6 +524,11 @@ codeunit 50956 UploadXML
         totalCursor := nodeList.Count();
         while (cursor <= totalCursor) do begin
             read := nodeList.Get(cursor, node);
+            read := node.SelectSingleNode('@NoIdentificacion', nsm, node);
+            txt := node.AsXmlAttribute();
+            ftc.NoIdentificacion := txt.Value();
+
+            read := nodeList.Get(cursor, node);
             read := node.SelectSingleNode('@ClaveProdServ', nsm, node);
             txt := node.AsXmlAttribute();
             ftc.ClaveProdServ := txt.Value();
@@ -605,9 +610,9 @@ codeunit 50956 UploadXML
                 Subtotal += SumaIeps;
                 ImpTras -= SumaIeps;
             end;
-            ftc.id := cursor;
             cursor := cursor + 1;
             ftc.Insert();
+            ftc.id := ftc.id + 1;
             Commit();
         end;
 
@@ -627,7 +632,7 @@ codeunit 50956 UploadXML
         end
         else
             Message('Factura ya timbrada');
-        Commit();
+        ft.Modify();
 
 
     end;
