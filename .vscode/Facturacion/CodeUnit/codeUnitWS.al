@@ -41,9 +41,9 @@ codeunit 50503 codeUnitWS
 
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
+        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
-        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
+        if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
