@@ -63,7 +63,7 @@ codeunit 50956 UploadXML
         lf := 10;
         //cust.get(cliente);
         //ft.DeleteAll();
-        ftc.DeleteAll();
+        //ftc.DeleteAll();
         //pedimentoReportTable.DeleteAll();
         read := XmlDocument.ReadFrom(xmlTexto, xmlDoc);
         nsm.NameTable(xmlDoc.NameTable());
