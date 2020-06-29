@@ -10,8 +10,9 @@ table 50523 facturas_Timbradas
             //AutoIncrement = true;
         }
 
-        field(2; Fecha; Text[100])
+        field(2; Fecha; Text[250])
         {
+
         }
 
         field(3; Descripcion; Text[250])

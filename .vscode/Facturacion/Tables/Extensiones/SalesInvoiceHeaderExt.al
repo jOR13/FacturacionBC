@@ -22,6 +22,14 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
 
         }
 
+        field(50923; "Fecha de timbrado"; text[250])
+        {
+            DataClassification = ToBeClassified;
+
+
+        }
+
+
         //turbosina
         field(50849; aeropuerto; Text[150])
         {

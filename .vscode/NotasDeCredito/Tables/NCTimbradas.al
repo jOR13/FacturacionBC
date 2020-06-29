@@ -116,7 +116,6 @@ table 50528 NCTimbradas
         {
             DataClassification = ToBeClassified;
         }
-
         field(24; tipoDeComprobante; Text[250])
         {
             DataClassification = ToBeClassified;

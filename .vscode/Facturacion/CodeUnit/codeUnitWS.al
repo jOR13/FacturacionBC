@@ -40,10 +40,10 @@ codeunit 50503 codeUnitWS
         //ft.DeleteAll();
 
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
-        url := 'http://hgwebapp.azurewebsites.net/api/factura/I';
+        URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
         // URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
-        if not HttpClient.Get(URL, ResponseMessage)
+        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -163,10 +163,6 @@ codeunit 50503 codeUnitWS
             end;
 
 
-
-
-
-
             case SelectJsonToken(JsonObject, '$.Receptor.UsoCFDI').AsValue.AsText() of
                 'G01':
                     begin
@@ -258,9 +254,6 @@ codeunit 50503 codeUnitWS
                     end;
             end;
 
-
-
-
             ft.FormaDePago := SelectJsonToken(JsonObject, '$.FormaPago').AsValue.AsText();
 
             case ft.FormaDePago of
@@ -350,7 +343,10 @@ codeunit 50503 codeUnitWS
                     end;
             end;
 
-            ft.Fecha := SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsText();
+
+            ft.Fecha := Format(SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsDateTime(), 0, '<Day>/<Month Text>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
+            ft.FechaTimbrado := Format(SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@FechaTimbrado').AsValue.AsDateTime(), 0, '<Day,2>/<Month,2>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
+
             ft.Nombre := SelectJsonToken(JsonObject, '$.Emisor.Nombre').AsValue.AsText;
             ft.RFC := SelectJsonToken(JsonObject, '$.Emisor.Rfc').AsValue.AsText;
             ft.Folio := SelectJsonToken(JsonObject, '$.Folio').AsValue.AsText;
@@ -362,7 +358,6 @@ codeunit 50503 codeUnitWS
             ft.SelloSAT := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@SelloSAT').AsValue.AsText;
             ft.NoCertificado := SelectJsonToken(JsonObject, '$.NoCertificado').AsValue.AsText;
             ft.NoCertificadoSAT := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@NoCertificadoSAT').AsValue.AsText;
-            ft.FechaTimbrado := SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@FechaTimbrado').AsValue.AsText;
             ft.NombreReceptor := SelectJsonToken(JsonObject, '$.Receptor.Nombre').AsValue.AsText;
             ft.RFCReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
             ft.TotalText := SelectJsonToken(JsonObject, '$.Total').AsValue.AsText();
@@ -650,6 +645,8 @@ codeunit 50503 codeUnitWS
             numUnidades := '';
         end;
     end;
+
+
 
     var
         numUnidades: text;

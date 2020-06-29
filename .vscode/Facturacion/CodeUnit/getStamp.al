@@ -38,6 +38,7 @@ codeunit 50504 getStamp
                             sh.UUIDHG := ft.UUID;
                             if sh."UUID Relation HG" = '' then begin
                                 sh."UUID Relation HG" := ft."UUID Relacionado";
+                                sh."Fecha de timbrado" := ft.FechaTimbrado;
                             end;
                             sh.Modify();
                         end;
@@ -52,7 +53,6 @@ codeunit 50845 CREDITMEMOS
 {
 
     Permissions = TableData 114 = rimd;
-
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
     var
@@ -101,6 +101,7 @@ codeunit 50845 CREDITMEMOS
                     repeat begin
                         if nct.Folio = scm."No." then begin
                             scm.UUIDNCHG := nct.UUID;
+                            //Evaluate(sh."Fecha de timbrado", Format(ft.FechaTimbrado, 0, 1));
                             scm.Modify();
                         end;
                     end until scm.Next() = 0;

@@ -81,7 +81,7 @@ codeunit 50956 UploadXML
 
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@Fecha', nsm, node);
         txt := node.AsXmlAttribute();
-        ft.Fecha := txt.Value();
+        Evaluate(ft.Fecha, txt.Value());
         //FormaDePago//start
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@MetodoPago', nsm, node);
         txt := node.AsXmlAttribute();
