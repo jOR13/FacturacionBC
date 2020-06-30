@@ -33,17 +33,21 @@ codeunit 50503 codeUnitWS
         lastEightCert: Text;
         lenghtLECF: Integer;
         lenghtLEC: Integer;
+        fil: Record Filtro;
+        URLWebService: Text;
     begin
 
         ///SANDBOX
         //ftc.DeleteAll();
         //ft.DeleteAll();
 
+
+
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
         URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
 
-        if not HttpClient.Get(URL, ResponseMessage)
+        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
@@ -57,8 +61,8 @@ codeunit 50503 codeUnitWS
             JsonArray.Get(i, JsonToken);
             //e := (SelectJsonToken(JsonObject, '$.xsiSchemaLocation').AsArray().Count());
             JsonObject := JsonToken.AsObject;
-            ft.init;
 
+            ft.init;
             ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
 
             if ft.tipoDeComprobante = 'I' then
@@ -466,10 +470,9 @@ codeunit 50503 codeUnitWS
             end;
 
             if ft.Insert() then begin
-                ft.id := ft.id + 1;
                 i += 1;
             end else begin
-                ft.Next();
+                ft.Modify();
             end;
         end;
         Commit();

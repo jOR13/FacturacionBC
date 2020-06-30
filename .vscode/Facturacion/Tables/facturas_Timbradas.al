@@ -6,8 +6,6 @@ table 50523 facturas_Timbradas
     {
         field(1; id; Integer)
         {
-            CaptionML = ENU = 'ID';
-            //AutoIncrement = true;
         }
 
         field(2; Fecha; Text[250])
@@ -202,6 +200,7 @@ table 50523 facturas_Timbradas
         {
             Clustered = true;
         }
+
 
     }
 
