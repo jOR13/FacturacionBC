@@ -489,7 +489,9 @@ codeunit 50603 GetJsonNC
         lol: Decimal;
     begin
         CurrentDate := Today();
-        sml.SetFilter(sml."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+
+        filtro := c.getFilter();
+        sml.SetFilter(sml."Posting Date", filtro);
         t.DeleteAll();
         tt.DeleteAll();
         if sml.FindSet() then begin
@@ -586,5 +588,7 @@ codeunit 50603 GetJsonNC
         bool: Boolean;
         existe: Boolean;
         CurrentDate: date;
+        c: Codeunit codeUnitWS;
+        filtro: text;
 
 }

@@ -12,29 +12,15 @@ codeunit 50504 getStamp
         ft: Record facturas_Timbradas;
         page: Page "Posted Sales Invoices";
         c: Codeunit codeUnitWS;
-        fil: Record Filtro;
-        filtroBase: Text;
+        filtro: text;
     begin
 
         page.Update;
-
-        fil.Init();
-        if fil.FindSet() then begin
-            repeat begin
-                if fil.filtro <> '' then begin
-                    filtroBase := fil.filtro
-                end;
-            end until fil.Next() = 0;
-        end else
-            if fil.filtro = '' then begin
-                filtroBase := '-3D..Today';
-            end;
-
-
+        filtro := c.getFilter();
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
         sh.setfilter(sh.Closed, 'No');
-        sh.SetFilter(sh."Posting Date", filtroBase);
+        sh.SetFilter(sh."Posting Date", filtro);
         if sh.FindSet() then begin
             repeat begin
                 //if sh.UUIDHG = '' then begin
@@ -70,25 +56,16 @@ codeunit 50845 CREDITMEMOS
         sih: Record "Sales Invoice Header";
         page: Page "Posted Sales Credit Memos";
         c: Codeunit GetJsonNC;
-        fil: Record Filtro;
-        filtroBase: Text;
+        cf: Codeunit codeUnitWS;
+        filtro: text;
     begin
 
         page.Update;
 
-        fil.Init();
-        if fil.FindSet() then begin
-            repeat begin
-                if fil.filtroNC <> '' then begin
-                    filtroBase := fil.filtro
-                end else
-                    filtroBase := '-3D..Today';
-            end until fil.Next() = 0;
-        end;
-
+        filtro := cf.getFilterNC();
         scm.setfilter(scm.Cancelled, 'No');
         scm.SetFilter(scm.UUIDNCHG, '');
-        scm.SetFilter(scm."Posting Date", fil.filtro);
+        scm.SetFilter(scm."Posting Date", filtro);
         sih.SetFilter(sih.UUIDHG, '<> ""');
         if sih.FindSet() then begin
             repeat begin
@@ -130,9 +107,8 @@ codeunit 50845 CREDITMEMOS
     local procedure MyProcedure()
     begin
         c.calCImporteTraslado();
-        //c.calCImporteTrasladoNC();
         cod.calCImporteTrasladoNC();
-        NCtimbradas();
+        //NCtimbradas();
 
     end;
 

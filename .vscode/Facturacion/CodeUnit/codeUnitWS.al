@@ -499,11 +499,14 @@ codeunit 50503 codeUnitWS
         IC: Record "Item Charge";
         en: Enum "Sales Line Type";
         CurrentDate: date;
+
     begin
         t.DeleteAll();
         tt.DeleteAll();
         CurrentDate := Today();
-        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+        //sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+        filtro := getFilter();
+        sil.SetFilter(sil."Posting Date", filtro);
         if sil.FindSet() then begin
             repeat begin
                 t.Init();
@@ -568,7 +571,8 @@ codeunit 50503 codeUnitWS
         r.DeleteAll();
         tr.DeleteAll();
         CurrentDate := Today();
-        sil.SetFilter(sil."Posting Date", '%1..%2', CALCDATE('-30D', CurrentDate), CALCDATE('-0D', CurrentDate));
+        filtro := getFilter();
+        sil.SetFilter(sil."Posting Date", filtro);
         if sil.FindSet() then begin
             repeat begin
                 IF (sil."No." = '111-03-03-01') then begin
@@ -643,6 +647,41 @@ codeunit 50503 codeUnitWS
         end;
     end;
 
+    procedure getFilter() filtroBase: text;
+    var
+        fil: Record Filtro;
+    begin
+        fil.Init();
+        if fil.FindSet() then begin
+            repeat begin
+                if fil.filtro <> '' then begin
+                    filtroBase := fil.filtro
+                end;
+                if fil.filtro = '' then begin
+                    filtroBase := '-3D..Today';
+                end;
+            end until fil.Next() = 0;
+        end;
+
+    end;
+
+    procedure getFilterNC() filtroBase: text;
+    var
+        fil: Record Filtro;
+    begin
+        fil.Init();
+        if fil.FindSet() then begin
+            repeat begin
+                if fil.filtroNC <> '' then begin
+                    filtroBase := fil.filtro
+                end;
+                if fil.filtroNC = '' then begin
+                    filtroBase := '-3D..Today';
+                end;
+            end until fil.Next() = 0;
+        end;
+
+    end;
 
 
     var
@@ -654,5 +693,6 @@ codeunit 50503 codeUnitWS
         bool: Boolean;
         existe: Boolean;
         CurrentDate: date;
+        filtro: text;
 
 }
