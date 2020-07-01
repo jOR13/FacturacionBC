@@ -23,33 +23,36 @@ codeunit 50504 getStamp
             repeat begin
                 if fil.filtro <> '' then begin
                     filtroBase := fil.filtro
-                end else
-                    filtroBase := '-3D..Today';
+                end;
             end until fil.Next() = 0;
-        end;
+        end else
+            if fil.filtro = '' then begin
+                filtroBase := '-3D..Today';
+            end;
 
 
         sh.SetFilter(sh.UUIDHG, '');
+        sh.setfilter(sh.Cancelled, 'No');
+        sh.setfilter(sh.Closed, 'No');
         sh.SetFilter(sh."Posting Date", filtroBase);
         if sh.FindSet() then begin
             repeat begin
-                if sh.UUIDHG = '' then begin
-                    if c.Refresh(sh."No.") = true then begin
-                        if ft.FindSet() then begin
-                            repeat begin
-                                if sh."No." = ft.Folio then begin
-                                    sh.UUIDHG := ft.UUID;
-                                    if sh."UUID Relation HG" = '' then begin
-                                        sh."UUID Relation HG" := ft."UUID Relacionado";
-                                        sh."Fecha de timbrado" := ft.FechaTimbrado;
-                                    end;
-                                    sh.Modify();
+                //if sh.UUIDHG = '' then begin
+                if c.Refresh(sh."No.") = true then begin
+                    if ft.FindSet() then begin
+                        repeat begin
+                            if sh."No." = ft.Folio then begin
+                                sh.UUIDHG := ft.UUID;
+                                sh."Fecha de timbrado" := ft.FechaTimbrado;
+                                if sh."UUID Relation HG" = '' then begin
+                                    sh."UUID Relation HG" := ft."UUID Relacionado";
                                 end;
-                            end until ft.Next() = 0;
-                        end;
+                                sh.Modify();
+                            end;
+                        end until ft.Next() = 0;
                     end;
                 end;
-
+                // end;
             end until sh.Next() = 0;
         end;
     end;
@@ -83,6 +86,7 @@ codeunit 50845 CREDITMEMOS
             end until fil.Next() = 0;
         end;
 
+        scm.setfilter(scm.Cancelled, 'No');
         scm.SetFilter(scm.UUIDNCHG, '');
         scm.SetFilter(scm."Posting Date", fil.filtro);
         sih.SetFilter(sih.UUIDHG, '<> ""');
