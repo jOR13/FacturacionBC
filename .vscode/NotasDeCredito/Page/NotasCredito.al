@@ -168,7 +168,7 @@ page 50568 NotasCredito
                 trigger OnAction();
 
                 begin
-                    cod.Refresh();
+                    //cod.Refresh();
                     CurrPage.Update;
                     cod.calCImporteTrasladoNC();
                 end;

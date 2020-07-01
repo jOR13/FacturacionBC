@@ -15,8 +15,9 @@ codeunit 50504 getStamp
         fil: Record Filtro;
         filtroBase: Text;
     begin
-        c.Refresh();
+
         page.Update;
+
         fil.Init();
         if fil.FindSet() then begin
             repeat begin
@@ -29,21 +30,26 @@ codeunit 50504 getStamp
 
 
         sh.SetFilter(sh.UUIDHG, '');
-        sh.SetFilter(sh."Posting Date", fil.filtro);
+        sh.SetFilter(sh."Posting Date", filtroBase);
         if sh.FindSet() then begin
             repeat begin
-                if ft.FindSet() then begin
-                    repeat begin
-                        if sh."No." = ft.Folio then begin
-                            sh.UUIDHG := ft.UUID;
-                            if sh."UUID Relation HG" = '' then begin
-                                sh."UUID Relation HG" := ft."UUID Relacionado";
-                                sh."Fecha de timbrado" := ft.FechaTimbrado;
-                            end;
-                            sh.Modify();
+                if sh.UUIDHG = '' then begin
+                    if c.Refresh(sh."No.") = true then begin
+                        if ft.FindSet() then begin
+                            repeat begin
+                                if sh."No." = ft.Folio then begin
+                                    sh.UUIDHG := ft.UUID;
+                                    if sh."UUID Relation HG" = '' then begin
+                                        sh."UUID Relation HG" := ft."UUID Relacionado";
+                                        sh."Fecha de timbrado" := ft.FechaTimbrado;
+                                    end;
+                                    sh.Modify();
+                                end;
+                            end until ft.Next() = 0;
                         end;
-                    end until ft.Next() = 0;
+                    end;
                 end;
+
             end until sh.Next() = 0;
         end;
     end;
@@ -64,7 +70,7 @@ codeunit 50845 CREDITMEMOS
         fil: Record Filtro;
         filtroBase: Text;
     begin
-        c.Refresh();
+
         page.Update;
 
         fil.Init();
@@ -99,10 +105,14 @@ codeunit 50845 CREDITMEMOS
             repeat begin
                 if scm.FindSet() then begin
                     repeat begin
-                        if nct.Folio = scm."No." then begin
-                            scm.UUIDNCHG := nct.UUID;
-                            //Evaluate(sh."Fecha de timbrado", Format(ft.FechaTimbrado, 0, 1));
-                            scm.Modify();
+                        if scm.UUIDNCHG = '' then begin
+                            if c.Refresh(scm."No.") = true then begin
+                                if nct.Folio = scm."No." then begin
+                                    scm.UUIDNCHG := nct.UUID;
+                                    //scm."Fecha de timbrado" := nct.FechaTimbrado;
+                                    scm.Modify();
+                                end;
+                            end;
                         end;
                     end until scm.Next() = 0;
                 end;

@@ -1,1 +1,1 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+﻿{"Added":[],"Modified":[{"Id":50845,"Kind":11,"Name":"CREDITMEMOS","PackagePath":"/src/.vscode/Facturacion/CodeUnit/getStamp.al"},{"Id":50504,"Kind":11,"Name":"getStamp","PackagePath":"/src/.vscode/Facturacion/CodeUnit/getStamp.al"},{"Id":50568,"Kind":12,"Name":"NotasCredito","PackagePath":"/src/.vscode/NotasDeCredito/Page/NotasCredito.al"},{"Id":50603,"Kind":11,"Name":"GetJsonNC","PackagePath":"/src/.vscode/NotasDeCredito/CodeUnit/getJsonNC.al"}],"Removed":[]}

@@ -3,7 +3,7 @@ codeunit 50503 codeUnitWS
 
     //[EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
 
-    procedure Refresh();
+    procedure Refresh(var folio: Code[50]) status: Boolean;
     var
         ft: Record facturas_Timbradas;
         ftc: Record Conceptos;
@@ -35,34 +35,34 @@ codeunit 50503 codeUnitWS
         lenghtLEC: Integer;
         fil: Record Filtro;
         URLWebService: Text;
+        json: text;
+        contArray: Integer;
     begin
-
-        ///SANDBOX
-        //ftc.DeleteAll();
-        //ft.DeleteAll();
-
-
-
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/factura/I,true';
+        URL := 'https://hgwebapp.azurewebsites.net/api/facturashabilitadas/' + folio;
 
-        if not HttpClient.Get(URLSANDBOX, ResponseMessage)
+        if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then
-            error('El servicio web devolvió el siguiente mensaje:\\' + 'Respuesta: %1\' + 'Description: %2',
-                  ResponseMessage.HttpStatusCode, ResponseMessage.ReasonPhrase);
+            exit;
+
+        /* error('El servicio web devolvió el siguiente mensaje:\\' + 'Respuesta: %1\' + 'Description: %2',
+        ResponseMessage.HttpStatusCode, ResponseMessage.ReasonPhrase);*/
         ResponseMessage.Content.ReadAs(JsonText);
-        if not JsonArray.ReadFrom(JsonText) then
+
+        if not JsonArray.ReadFrom('[' + JsonText + ',{}]') then
             Error('Respuesta invalida, Se espera un JSON array como objeto');
-        foreach t in JsonArray do begin
-            // for i := 0 to JsonArray.Count - 1 do begin
+
+        //foreach t in JsonArray do begin
+
+        contArray := JsonArray.Count;
+        for i := 0 to contArray - 1 do begin
+            ft.init;
             JsonArray.Get(i, JsonToken);
-            //e := (SelectJsonToken(JsonObject, '$.xsiSchemaLocation').AsArray().Count());
             JsonObject := JsonToken.AsObject;
 
-            ft.init;
             ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
 
             if ft.tipoDeComprobante = 'I' then
@@ -165,7 +165,6 @@ codeunit 50503 codeUnitWS
                         ft."Regimen Fiscal" := '615 - Régimen de los ingresos por obtención de premios';
                     end;
             end;
-
 
             case SelectJsonToken(JsonObject, '$.Receptor.UsoCFDI').AsValue.AsText() of
                 'G01':
@@ -347,10 +346,8 @@ codeunit 50503 codeUnitWS
                     end;
             end;
 
-
             ft.Fecha := Format(SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsDateTime(), 0, '<Day>/<Month Text>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
             ft.FechaTimbrado := Format(SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@FechaTimbrado').AsValue.AsDateTime(), 0, '<Day,2>/<Month,2>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
-
             ft.Nombre := SelectJsonToken(JsonObject, '$.Emisor.Nombre').AsValue.AsText;
             ft.RFC := SelectJsonToken(JsonObject, '$.Emisor.Rfc').AsValue.AsText;
             ft.Folio := SelectJsonToken(JsonObject, '$.Folio').AsValue.AsText;
@@ -376,10 +373,8 @@ codeunit 50503 codeUnitWS
 
             //ft.RetencionesTotales := SelectJsonToken(JsonObject, '$.Impuestos.Retenciones[0].Importe').AsValue.AsDecimal();
 
-
             if SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() <> '' then begin
                 ft."UUID Relacionado" := SelectJsonToken(JsonObject, '$.CfdiRelacionados.CfdiRelacionado.[0].UUID').AsValue.AsText();
-
                 case SelectJsonToken(JsonObject, '$.CfdiRelacionados.TipoRelacion').AsValue.AsText() of
                     '01':
                         begin
@@ -419,7 +414,6 @@ codeunit 50503 codeUnitWS
                         end;
 
                 end;
-
             end;
 
             if SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() = 'MXN' then
@@ -427,15 +421,12 @@ codeunit 50503 codeUnitWS
             else
                 ft.Moneda := SelectJsonToken(JsonObject, '$.Moneda').AsValue.AsText() + ' Dolar Americano';
             rfcReceptor := SelectJsonToken(JsonObject, '$.Receptor.Rfc').AsValue.AsText;
-
             lenghtLEC := StrLen(ft.SelloDigitalCFD);
             lenghtLECF := lenghtLEC - 7;
             lastEightCert := FT.SelloDigitalCFD.Substring(lenghtLECF);
-
             ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=' + lastEightCert;
 
             cont := SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count();
-
             for j := 0 to cont - 1 do begin
                 ftc.Init();
                 ftc.Descripcion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descripcion').AsValue.AsText;
@@ -446,20 +437,19 @@ codeunit 50503 codeUnitWS
                 ftc.Unidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Unidad').AsValue.AsText;
                 ftc.ValorUnitario := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].ValorUnitario').AsValue.AsDecimal();
                 ftc.Importe := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Importe').AsValue.AsDecimal();
-
                 if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Retenciones').AsArray().Count > 0 then begin
                     ftc.Retencion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Retenciones.[0].Importe').AsValue.AsDecimal();
                     ft.RetencionesTotales := SelectJsonToken(JsonObject, '$.Impuestos.Retenciones[0].Importe').AsValue.AsDecimal();
                 end;
-
                 if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].DescuentoSpecified').AsValue.AsText = 'false' then begin
                     ftc.BaseTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Base').AsValue.AsDecimal();
                     ftc.ImpuestoTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Impuesto').AsValue().AsText();
                     ftc.TasaOCuotaTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TasaOCuota').AsValue.AsText();
                     ftc.TipoFactor := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].TipoFactor').AsValue.AsText();
                     ftc.ImporteTraslado := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Impuestos.Traslados.[0].Importe').AsValue.AsDecimal();
+                end;
 
-                end else begin
+                if SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].DescuentoSpecified').AsValue.AsText = 'true' then begin
                     ftc.Descuento := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descuento').AsValue.AsDecimal();
                     ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                 end;
@@ -470,12 +460,13 @@ codeunit 50503 codeUnitWS
             end;
 
             if ft.Insert() then begin
+                ft.id := ft.id + 1;
                 i += 1;
-            end else begin
+            end else
                 ft.Modify();
-            end;
         end;
         Commit();
+        status := true;
         //getDiscount();
     end;
 
