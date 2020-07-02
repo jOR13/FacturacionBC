@@ -26,7 +26,6 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
         {
             DataClassification = ToBeClassified;
 
-
         }
 
 
@@ -119,4 +118,5 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
     var
         myInt: Integer;
         status: Boolean;
+
 }

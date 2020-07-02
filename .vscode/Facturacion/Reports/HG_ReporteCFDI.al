@@ -310,36 +310,6 @@ report 50516 HG_ReporteCFDI
 
     }
 
-    /*    requestpage
-        {
-            SaveValues = true;
-
-            layout
-            {
-                area(content)
-                {
-                    group(Options)
-                    {
-                        Caption = 'Options';
-                        field(PostingDate; PostingDateReq)
-                        {
-                            ApplicationArea = Basic, Suite;
-                            Caption = 'Posting Date';
-                            ToolTip = 'Specifies the posting date for the invoice(s) that the batch job creates. This field must be filled in.';
-                        }
-                    }
-                }
-            }
-
-            trigger OnOpenPage()
-            begin
-                if PostingDateReq = 0D then
-                    PostingDateReq := WorkDate;
-            end;
-
-            var
-                PostingDateReq: Date;
-        }*/
     var
         num: text;
         tabla: Record temporal;

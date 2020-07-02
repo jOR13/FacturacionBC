@@ -40,8 +40,8 @@ codeunit 50503 codeUnitWS
     begin
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         // URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'http://hgwebapp.azurewebsites.net/api/facturashabilitadas/' + folio;
-
+        //URL := 'http://hgwebapp.azurewebsites.net/api/facturashabilitadas/' + folio;
+        URL := 'http://177.244.51.250:2020/api/facturashabilitadas/' + folio;
         if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');
@@ -59,6 +59,8 @@ codeunit 50503 codeUnitWS
             status := false;
             exit;
         end;
+
+
         JsonArray.ReadFrom('[' + JsonText + ']');
         //foreach t in JsonArray do begin
         // contArray := JsonArray.Count;

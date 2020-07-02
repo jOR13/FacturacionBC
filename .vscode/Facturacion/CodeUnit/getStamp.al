@@ -13,9 +13,11 @@ codeunit 50504 getStamp
         page: Page "Posted Sales Invoices";
         c: Codeunit codeUnitWS;
         filtro: text;
+        eventHandler: Codeunit cuqr;
     begin
 
         page.Update;
+
         filtro := c.getFilter();
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
@@ -62,24 +64,6 @@ codeunit 50845 CREDITMEMOS
         //page.Update;
 
 
-        sih.SetFilter(sih.UUIDHG, '<> ""');
-        if sih.FindSet() then begin
-            repeat begin
-                if scm.FindSet() then begin
-                    repeat begin
-                        if sih."No." = scm."Applies-to Doc. No." then begin
-                            if sih.UUIDHG <> '' then begin
-                                scm.UUIDRelacionadoNC := sih.UUIDHG;
-                                scm.Modify();
-                            end;
-                        end;
-                    end until scm.Next() = 0;
-                end;
-            end until sih.Next() = 0;
-        end;
-
-        ClearAll();
-
         filtro := cf.getFilterNC();
         scm.setfilter(scm.Cancelled, 'No');
         scm.SetFilter(scm.UUIDNCHG, '');
@@ -101,6 +85,25 @@ codeunit 50845 CREDITMEMOS
                     end;
                 end;
             end until nct.Next() = 0;
+        end;
+
+        ClearAll();
+
+        sih.SetFilter(sih.UUIDHG, '<> ""');
+        scm.SetFilter(scm.UUIDNCHG, '');
+        if sih.FindSet() then begin
+            repeat begin
+                if scm.FindSet() then begin
+                    repeat begin
+                        if sih."No." = scm."Applies-to Doc. No." then begin
+                            if sih.UUIDHG <> '' then begin
+                                scm.UUIDRelacionadoNC := sih.UUIDHG;
+                                scm.Modify();
+                            end;
+                        end;
+                    end until scm.Next() = 0;
+                end;
+            end until sih.Next() = 0;
         end;
 
     end;
