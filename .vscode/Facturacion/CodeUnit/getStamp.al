@@ -21,9 +21,9 @@ codeunit 50504 getStamp
         sh.setfilter(sh.Cancelled, 'No');
         sh.setfilter(sh.Closed, 'No');
         sh.SetFilter(sh."Posting Date", filtro);
+
         if sh.FindSet() then begin
             repeat begin
-                //if sh.UUIDHG = '' then begin
                 if c.Refresh(sh."No.") = true then begin
                     if ft.FindSet() then begin
                         repeat begin
@@ -38,7 +38,6 @@ codeunit 50504 getStamp
                         end until ft.Next() = 0;
                     end;
                 end;
-                // end;
             end until sh.Next() = 0;
         end;
     end;
@@ -60,12 +59,9 @@ codeunit 50845 CREDITMEMOS
         filtro: text;
     begin
 
-        page.Update;
+        //page.Update;
 
-        filtro := cf.getFilterNC();
-        scm.setfilter(scm.Cancelled, 'No');
-        scm.SetFilter(scm.UUIDNCHG, '');
-        scm.SetFilter(scm."Posting Date", filtro);
+
         sih.SetFilter(sih.UUIDHG, '<> ""');
         if sih.FindSet() then begin
             repeat begin
@@ -82,20 +78,27 @@ codeunit 50845 CREDITMEMOS
             end until sih.Next() = 0;
         end;
 
+        ClearAll();
+
+        filtro := cf.getFilterNC();
+        scm.setfilter(scm.Cancelled, 'No');
+        scm.SetFilter(scm.UUIDNCHG, '');
+        scm.SetFilter(scm."Posting Date", filtro);
+
         if nct.FindSet() then begin
             repeat begin
-                if scm.FindSet() then begin
-                    repeat begin
-                        if scm.UUIDNCHG = '' then begin
-                            if c.Refresh(scm."No.") = true then begin
+                if c.Refresh(scm."No.") = true then begin
+                    if scm.FindSet() then begin
+                        repeat begin
+                            if scm.UUIDNCHG = '' then begin
                                 if nct.Folio = scm."No." then begin
                                     scm.UUIDNCHG := nct.UUID;
                                     //scm."Fecha de timbrado" := nct.FechaTimbrado;
                                     scm.Modify();
                                 end;
                             end;
-                        end;
-                    end until scm.Next() = 0;
+                        end until scm.Next() = 0;
+                    end;
                 end;
             end until nct.Next() = 0;
         end;
