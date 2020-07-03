@@ -26,8 +26,14 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
         {
             DataClassification = ToBeClassified;
 
-        }
 
+        }
+        /*
+                field(50924; "Verifica Factura"; Text[2000])
+                {
+                    DataClassification = ToBeClassified;
+                }
+        */
 
         //turbosina
         field(50849; aeropuerto; Text[150])

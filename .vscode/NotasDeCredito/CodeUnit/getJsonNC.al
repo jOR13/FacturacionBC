@@ -37,8 +37,8 @@ codeunit 50603 GetJsonNC
     begin
         //URLSANDBOX := 'https://jor13.github.io/ALCurso/';
         // URLSANDBOX := 'http://hgwebapp.azurewebsites.net/api/factura/I';
-        URL := 'https://hgwebapp.azurewebsites.net/api/facturashabilitadas/' + folio;
-
+        //URL := 'https://hgwebapp.azurewebsites.net/api/facturashabilitadas/' + folio;
+        URL := 'http://177.244.51.250:2020/api/facturashabilitadas/' + folio;
         if not HttpClient.Get(URL, ResponseMessage)
         then
             Error('La llamada al servicio web falló.');

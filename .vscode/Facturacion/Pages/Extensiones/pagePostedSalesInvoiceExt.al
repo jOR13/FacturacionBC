@@ -26,7 +26,20 @@ pageextension 50505 pagePostedSalesInvoiceExt extends "Posted Sales Invoice"
                     ApplicationArea = All;
 
                 }
+
             }
+            /*
+                        usercontrol(html; HTML)
+                        {
+                            ApplicationArea = all;
+                            trigger ControlReady()
+                            begin
+                                CurrPage.html.Render('<a href="https://getqr20200623153401.azurewebsites.net/api/Function1?code=lJW53R67tThalGjzTmdQwg1GJrrFjBmPz7URpaGrAFY6fSFacyEG3A==&data=' + "Verifica Factura" + '">Mostrar codigo QR</a>');
+                                //CurrPage.html.Render(CreateTable(10, 8));
+                            end;
+                        }*/
+
+
 
         }
         addbefore("Work Description")

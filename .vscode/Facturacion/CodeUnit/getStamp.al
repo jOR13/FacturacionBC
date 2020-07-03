@@ -3,7 +3,6 @@ codeunit 50504 getStamp
 
     Permissions = TableData 112 = rimd;
 
-
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
     procedure timbradas()
     var
@@ -15,9 +14,7 @@ codeunit 50504 getStamp
         filtro: text;
         eventHandler: Codeunit cuqr;
     begin
-
         page.Update;
-
         filtro := c.getFilter();
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
@@ -32,6 +29,7 @@ codeunit 50504 getStamp
                             if sh."No." = ft.Folio then begin
                                 sh.UUIDHG := ft.UUID;
                                 sh."Fecha de timbrado" := ft.FechaTimbrado;
+                                //sh."Verifica Factura" := ft."QR String";
                                 if sh."UUID Relation HG" = '' then begin
                                     sh."UUID Relation HG" := ft."UUID Relacionado";
                                 end;
@@ -47,7 +45,6 @@ codeunit 50504 getStamp
 
 codeunit 50845 CREDITMEMOS
 {
-
     Permissions = TableData 114 = rimd;
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
@@ -60,10 +57,7 @@ codeunit 50845 CREDITMEMOS
         cf: Codeunit codeUnitWS;
         filtro: text;
     begin
-
         //page.Update;
-
-
         filtro := cf.getFilterNC();
         scm.setfilter(scm.Cancelled, 'No');
         scm.SetFilter(scm.UUIDNCHG, '');
@@ -105,7 +99,6 @@ codeunit 50845 CREDITMEMOS
                 end;
             end until sih.Next() = 0;
         end;
-
     end;
 
 
@@ -115,13 +108,10 @@ codeunit 50845 CREDITMEMOS
         c.calCImporteTraslado();
         cod.calCImporteTrasladoNC();
         //NCtimbradas();
-
     end;
-
 
     var
         c: Codeunit codeUnitWS;
         cod: Codeunit GetJsonNC;
-
 
 }
