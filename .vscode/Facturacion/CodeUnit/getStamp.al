@@ -15,6 +15,7 @@ codeunit 50504 getStamp
         eventHandler: Codeunit cuqr;
     begin
         page.Update;
+        c.Refresh();
         filtro := c.getFilter();
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
@@ -23,20 +24,17 @@ codeunit 50504 getStamp
 
         if sh.FindSet() then begin
             repeat begin
-                if c.Refresh(sh."No.") = true then begin
-                    if ft.FindSet() then begin
-                        repeat begin
-                            if sh."No." = ft.Folio then begin
-                                sh.UUIDHG := ft.UUID;
+                if ft.FindSet() then begin
+                    repeat begin
+                        if sh."No." = ft.Folio then begin
+                            sh.UUIDHG := ft.UUID;
+                            if sh."UUID Relation HG" = '' then begin
+                                sh."UUID Relation HG" := ft."UUID Relacionado";
                                 sh."Fecha de timbrado" := ft.FechaTimbrado;
-                                //sh."Verifica Factura" := ft."QR String";
-                                if sh."UUID Relation HG" = '' then begin
-                                    sh."UUID Relation HG" := ft."UUID Relacionado";
-                                end;
-                                sh.Modify();
                             end;
-                        end until ft.Next() = 0;
-                    end;
+                            sh.Modify();
+                        end;
+                    end until ft.Next() = 0;
                 end;
             end until sh.Next() = 0;
         end;
@@ -57,34 +55,11 @@ codeunit 50845 CREDITMEMOS
         cf: Codeunit codeUnitWS;
         filtro: text;
     begin
-        //page.Update;
-        filtro := cf.getFilterNC();
-        scm.setfilter(scm.Cancelled, 'No');
-        scm.SetFilter(scm.UUIDNCHG, '');
-        scm.SetFilter(scm."Posting Date", filtro);
 
-        if nct.FindSet() then begin
-            repeat begin
-                if c.Refresh(scm."No.") = true then begin
-                    if scm.FindSet() then begin
-                        repeat begin
-                            if scm.UUIDNCHG = '' then begin
-                                if nct.Folio = scm."No." then begin
-                                    scm.UUIDNCHG := nct.UUID;
-                                    //scm."Fecha de timbrado" := nct.FechaTimbrado;
-                                    scm.Modify();
-                                end;
-                            end;
-                        end until scm.Next() = 0;
-                    end;
-                end;
-            end until nct.Next() = 0;
-        end;
-
-        ClearAll();
+        c.Refresh();
+        page.Update;
 
         sih.SetFilter(sih.UUIDHG, '<> ""');
-        scm.SetFilter(scm.UUIDNCHG, '');
         if sih.FindSet() then begin
             repeat begin
                 if scm.FindSet() then begin
@@ -99,6 +74,22 @@ codeunit 50845 CREDITMEMOS
                 end;
             end until sih.Next() = 0;
         end;
+        filtro := c.getFilterNC();
+        scm.SetFilter(scm.UUIDNCHG, '');
+        scm.SetFilter(scm."Posting Date", filtro);
+        if nct.FindSet() then begin
+            repeat begin
+                if scm.FindSet() then begin
+                    repeat begin
+                        if nct.Folio = scm."No." then begin
+                            scm.UUIDNCHG := nct.UUID;
+                            scm.Modify();
+                        end;
+                    end until scm.Next() = 0;
+                end;
+            end until nct.Next() = 0;
+        end;
+
     end;
 
 
