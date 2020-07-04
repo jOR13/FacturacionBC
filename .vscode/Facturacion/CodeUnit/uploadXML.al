@@ -72,6 +72,11 @@ codeunit 50956 UploadXML
         nsm.AddNamespace('x', 'http://www.sat.gob.mx/cfd/3');
         nsm.AddNamespace('tfd', 'http://www.sat.gob.mx/TimbreFiscalDigital');
 
+
+        read := xmlDoc.SelectSingleNode('/x:Comprobante/@Fecha', nsm, node);
+        txt := node.AsXmlAttribute();
+        Evaluate(ft.Fecha, txt.Value());
+
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@Descuento', nsm, node);
         if read = true then begin
             txt := node.AsXmlAttribute();
@@ -79,9 +84,6 @@ codeunit 50956 UploadXML
         end else
             ft.DescuentoTotal := 0;
 
-        read := xmlDoc.SelectSingleNode('/x:Comprobante/@Fecha', nsm, node);
-        txt := node.AsXmlAttribute();
-        Evaluate(ft.Fecha, txt.Value());
         //FormaDePago//start
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@MetodoPago', nsm, node);
         txt := node.AsXmlAttribute();

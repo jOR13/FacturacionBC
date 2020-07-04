@@ -173,35 +173,34 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 }
 
 
-                /*
-                                action("Subir XML")
-                                {
-                                    Image = MoveUp;
-                                    ApplicationArea = all;
 
-                                    trigger OnAction()
-                                    var
-                                        up: Codeunit UploadXML;
-                                        FileName: Text;
-                                        TestFile: File;
-                                        NVInStream: InStream;
-                                        textoXML: Text;
-                                        texto: Text;
-                                        msg: TextConst ESP = 'Seleccione la factura a cargar', ENU = 'Select the invoice to upload';
-                                        pagina: page "Posted Sales Invoices";
-                                        page: page "Posted Sales Invoice";
-                                        tabla: record "Sales Invoice Header";
-                                    begin
-                                        UPLOADINTOSTREAM(msg, 'c:\', ' .xml (*.xml*)|*.xml*', FileName, NVInStream);
-                                        NVInStream.ReadText(textoXML, 99999999);
-                                        texto := up.ReadXML(textoXML);
-                                        pagina.Close();
-                                        pagina.SetSelectionFilter(Rec);
-                                        rec.SetFilter(rec."No.", texto);
-                                        pagina.Update();
-                                        //pagina.Run();
-                                    end;
-                                }*/
+                action("Subir XML")
+                {
+                    Image = MoveUp;
+                    ApplicationArea = all;
+
+                    trigger OnAction()
+                    var
+                        up: Codeunit UploadXML;
+                        FileName: Text;
+                        TestFile: File;
+                        NVInStream: InStream;
+                        textoXML: Text;
+                        texto: Text;
+                        msg: TextConst ESP = 'Seleccione la factura a cargar', ENU = 'Select the invoice to upload';
+                        pagina: page "Posted Sales Invoices";
+                        page: page "Posted Sales Invoice";
+                        tabla: record "Sales Invoice Header";
+                    begin
+                        UPLOADINTOSTREAM(msg, 'c:\', ' .xml (*.xml*)|*.xml*', FileName, NVInStream);
+                        NVInStream.ReadText(textoXML, 99999999);
+                        texto := up.ReadXML(textoXML);
+                        pagina.Close();
+                        pagina.SetSelectionFilter(Rec);
+                        rec.SetFilter(rec."No.", texto);
+                        pagina.Update();
+                    end;
+                }
             }
         }
     }

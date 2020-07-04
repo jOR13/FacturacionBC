@@ -5,8 +5,8 @@ codeunit 50503 codeUnitWS
         filtro: text;
         fechaFil: text;
     begin
-
-        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
 
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
@@ -405,8 +405,6 @@ codeunit 50503 codeUnitWS
 
                 end else
                     ft.Next();
-
-                // end;
             end;
             Commit();
         end;

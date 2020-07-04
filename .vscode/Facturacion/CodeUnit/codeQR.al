@@ -19,7 +19,8 @@ codeunit 50502 cuqr
         BaseURL: Text;
     begin
 
-        BaseURL := 'https://getqr20200623153401.azurewebsites.net/api/Function1?code=lJW53R67tThalGjzTmdQwg1GJrrFjBmPz7URpaGrAFY6fSFacyEG3A==&';
+        //BaseURL := 'https://getqr20200623153401.azurewebsites.net/api/Function1?code=lJW53R67tThalGjzTmdQwg1GJrrFjBmPz7URpaGrAFY6fSFacyEG3A==&';
+        BaseURL := 'http://177.244.51.250:2020/api/qrBusinesscentral?';
         RequestURL := StrSubstNo('%1data=%2', BaseURL, Barcode);
 
         //BaseURL := 'https://api.qrserver.com';
