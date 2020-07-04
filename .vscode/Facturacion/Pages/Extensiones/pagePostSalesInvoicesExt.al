@@ -149,7 +149,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         clear(TempBlob);
                         TempBlob.Blob.CreateInStream(XMLIStream);
                         FileName := Rec."No." + '.XML';
-                        if TempBlob.TryDownloadFromUrl('http://hgwebapp.azurewebsites.net/api/xml/' + Rec."No.") then begin
+                        if TempBlob.TryDownloadFromUrl('http://177.244.51.250:2020/api/xml/' + Rec."No.") then begin
                             DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
                         end else begin
                             Error('Esta factura no se ha timbrado');
