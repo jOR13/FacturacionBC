@@ -202,7 +202,7 @@ codeunit 60120 ControlEventos
                     clear(TempBlob);
                     TempBlob.Blob.CreateInStream(XMLIStream);
                     FileName := SalesInvoice."No." + '.XML';
-                    if TempBlob.TryDownloadFromUrl('http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.") then begin
+                    if TempBlob.TryDownloadFromUrl('http://177.244.51.250:2020/api/xml/' + SalesInvoice."No.") then begin
                         mail.AddAttachmentStream(InstreamPDF, 'Factura_' + invoice + '.pdf');
                         mail.AddAttachmentStream(XMLIStream, SalesInvoice."Bill-to Customer No." + '_' + SalesInvoice."No." + '.xml');
                     end else begin
@@ -214,7 +214,7 @@ codeunit 60120 ControlEventos
                         clear(TempBlob);
                         TempBlob.Blob.CreateInStream(XMLIStream);
                         FileName := SalesInvoice."No." + '.XML';
-                        TempBlob.TryDownloadFromUrl(' http://hgwebapp.azurewebsites.net/api/xml/' + SalesInvoice."No.");
+                        TempBlob.TryDownloadFromUrl('http://177.244.51.250:2020/api/xml/' + SalesInvoice."No.");
                         DownloadFromStream(XMLIStream, 'Download File', '', '*.*', FileName);
                         mail.AddAttachmentStream(XMLIStream, SalesInvoice."Bill-to Customer No." + '_' + SalesInvoice."No." + '.xml');
                     end;
