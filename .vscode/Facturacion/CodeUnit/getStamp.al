@@ -45,7 +45,7 @@ codeunit 50504 getStamp
 
 codeunit 50845 CREDITMEMOS
 {
-    Permissions = TableData 114 = rimd;
+    // Permissions = TableData 114 = rimd;
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
     var
@@ -56,12 +56,12 @@ codeunit 50845 CREDITMEMOS
         c: Codeunit GetJsonNC;
         cf: Codeunit codeUnitWS;
         filtro: text;
+        fil: text;
     begin
 
         c.Refresh();
         page.Update;
-
-        sih.SetFilter(sih.UUIDHG, '<> ""');
+        sih.SetFilter(sih.UUIDHG, '<>%1', fil);
         if sih.FindSet() then begin
             repeat begin
                 if scm.FindSet() then begin
@@ -85,6 +85,9 @@ codeunit 50845 CREDITMEMOS
                     repeat begin
                         if nct.Folio = scm."No." then begin
                             scm.UUIDNCHG := nct.UUID;
+                            scm."Fecha de timbrado" := nct.FechaTimbrado;
+                            scm.TotalFactura := nct.TotalText;
+                            scm.RFCR := nct.RfcReceptor;
                             scm.Modify();
                         end;
                     end until scm.Next() = 0;
