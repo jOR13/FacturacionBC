@@ -3,6 +3,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
     Editable = true;
 
 
+    //Permissions = TableData 112 = rimd;
     layout
     {
         modify("No.")
@@ -48,7 +49,8 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 var
                     SCFDI: Codeunit StatusCFDI;
                 begin
-                    "Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
+                    rec."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
+                    //rec.Modify();
                 end;
             }
         }

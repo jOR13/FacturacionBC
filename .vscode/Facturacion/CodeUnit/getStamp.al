@@ -45,7 +45,7 @@ codeunit 50504 getStamp
 
 codeunit 50845 CREDITMEMOS
 {
-    // Permissions = TableData 114 = rimd;
+    Permissions = TableData 114 = rimd;
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
     procedure NCtimbradas()
     var
