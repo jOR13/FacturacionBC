@@ -5,8 +5,8 @@ codeunit 50503 codeUnitWS
         filtro: text;
         fechaFil: text;
     begin
-        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
-        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
 
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
@@ -571,37 +571,64 @@ codeunit 50503 codeUnitWS
         end;
     end;
 
+    //.../api/letraimporte?data=4324&moneda=MXN
+
     procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
     var
-        client: HttpClient;
-        request: HttpRequestMessage;
-        response: HttpResponseMessage;
-        contentHeaders: HttpHeaders;
-        content: HttpContent;
-        BaseURL: Text;
-        requestText: Text;
+        Clint: HttpClient;
+        Response: HttpResponseMessage;
+        J: JsonObject;
+        ResponseTxt: text;
     begin
-        //Message('%1, %2', montoGlobal, moneda);
-        BaseURL := 'https://mit-signature-generator.azurewebsites.net/amount';
-        requestText := StrSubstNo('{"client":"$taff009","amount":%1,"currency":"%2"}', montoGlobal, moneda);
-        content.WriteFrom(requestText);
-        content.GetHeaders(contentHeaders);
-        contentHeaders.Remove('Content-Type');
-        contentHeaders.Add('Content-Type', 'application/json');
-        request.Content := content;
-        request.SetRequestUri(BaseURL);
-        request.Method := 'POST';
-        request.Content().ReadAs(requestText);
-        client.Send(request, response);
-        response.Content().ReadAs(responseText);
-        if response.HttpStatusCode = 200 then begin
-            numUnidades := responseText;
-        end
-        else begin
-            numUnidades := '';
+        if Clint.Get('http://177.244.51.250:2020/api/letraimporte?data=' + montoGlobal + '&moneda=' + moneda + '', Response) then begin
+            if Response.IsSuccessStatusCode then begin
+                Response.Content().ReadAs(ResponseTxt);
+                J.ReadFrom(ResponseTxt);
+                exit(GetJesonTextField(J, 'letra'));
+            end;
         end;
     end;
 
+    local procedure GetJesonTextField(O: JsonObject; Member: text): Text
+    var
+        Result: JsonToken;
+    begin
+        if O.Get(Member, Result) then begin
+            exit(Result.AsValue().AsText());
+        end;
+    end;
+    /*
+        procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
+        var
+            client: HttpClient;
+            request: HttpRequestMessage;
+            response: HttpResponseMessage;
+            contentHeaders: HttpHeaders;
+            content: HttpContent;
+            BaseURL: Text;
+            requestText: Text;
+        begin
+            //Message('%1, %2', montoGlobal, moneda);
+            BaseURL := 'https://mit-signature-generator.azurewebsites.net/amount';
+            requestText := StrSubstNo('{"client":"$taff009","amount":%1,"currency":"%2"}', montoGlobal, moneda);
+            content.WriteFrom(requestText);
+            content.GetHeaders(contentHeaders);
+            contentHeaders.Remove('Content-Type');
+            contentHeaders.Add('Content-Type', 'application/json');
+            request.Content := content;
+            request.SetRequestUri(BaseURL);
+            request.Method := 'POST';
+            request.Content().ReadAs(requestText);
+            client.Send(request, response);
+            response.Content().ReadAs(responseText);
+            if response.HttpStatusCode = 200 then begin
+                numUnidades := responseText;
+            end
+            else begin
+                numUnidades := '';
+            end;
+        end;
+    */
     procedure getFilter() filtroBase: text;
     var
         fil: Record Filtro;

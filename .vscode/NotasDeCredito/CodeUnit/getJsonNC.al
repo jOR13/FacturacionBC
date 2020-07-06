@@ -9,8 +9,8 @@ codeunit 50603 GetJsonNC
         fechaFil: text;
     begin
 
-        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
-        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
             for i := 0 to contArray - 1 do begin
@@ -512,38 +512,6 @@ codeunit 50603 GetJsonNC
     end;
 
 
-
-
-    procedure MakeRequest(montoGlobal: text; moneda: Text) responseText: Text;
-    var
-        client: HttpClient;
-        request: HttpRequestMessage;
-        response: HttpResponseMessage;
-        contentHeaders: HttpHeaders;
-        content: HttpContent;
-        BaseURL: Text;
-        requestText: Text;
-    begin
-        //Message('%1, %2', montoGlobal, moneda);
-        BaseURL := 'https://mit-signature-generator.azurewebsites.net/amount';
-        requestText := StrSubstNo('{"client":"$taff009","amount":%1,"currency":"%2"}', montoGlobal, moneda);
-        content.WriteFrom(requestText);
-        content.GetHeaders(contentHeaders);
-        contentHeaders.Remove('Content-Type');
-        contentHeaders.Add('Content-Type', 'application/json');
-        request.Content := content;
-        request.SetRequestUri(BaseURL);
-        request.Method := 'POST';
-        request.Content().ReadAs(requestText);
-        client.Send(request, response);
-        response.Content().ReadAs(responseText);
-        if response.HttpStatusCode = 200 then begin
-            numUnidades := responseText;
-        end
-        else begin
-            numUnidades := '';
-        end;
-    end;
 
 
     procedure getFilterNC() filtroBase: text;

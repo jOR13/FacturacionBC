@@ -36,6 +36,11 @@ query 50512 QrySIH
             column(FechaEntregaDiesel; FechaEntregaDiesel) { }
             column(RemisonDiesel; RemisonDiesel) { }
             column(NoTicket; NoTicket) { }
+            column(SelltoCustomerNo; "Sell-to Customer No.")
+            {
+            }
+
+
             dataitem(Payment_Method; "Payment Method")
             {
                 SqlJoinType = InnerJoin;

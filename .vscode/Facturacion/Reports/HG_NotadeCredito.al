@@ -265,6 +265,6 @@ report 50895 HG_NotaDeCredito
         tabla: Record temporal;
         temp: Record TempBlob temporary;
         eventHandler: Codeunit cuqr;
-        cod: Codeunit GetJsonNC;
+        cod: Codeunit codeUnitWS;
 
 }
