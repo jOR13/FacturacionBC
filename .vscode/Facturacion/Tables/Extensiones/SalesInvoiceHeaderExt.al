@@ -28,6 +28,27 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
 
 
         }
+
+        field(50924; "Estado del CFDI"; text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
+        field(50925; "TotalFactura"; text[250])
+        {
+            DataClassification = ToBeClassified;
+            InitValue = 'Ver estado';
+
+
+        }
+
+        field(50926; "RFCR"; text[250])
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
+
         /*
                 field(50924; "Verifica Factura"; Text[2000])
                 {

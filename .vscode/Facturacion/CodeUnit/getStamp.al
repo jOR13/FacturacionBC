@@ -31,6 +31,8 @@ codeunit 50504 getStamp
                             if sh."UUID Relation HG" = '' then begin
                                 sh."UUID Relation HG" := ft."UUID Relacionado";
                                 sh."Fecha de timbrado" := ft.FechaTimbrado;
+                                sh.TotalFactura := ft.TotalText;
+                                sh.RFCR := ft.RfcReceptor;
                             end;
                             sh.Modify();
                         end;

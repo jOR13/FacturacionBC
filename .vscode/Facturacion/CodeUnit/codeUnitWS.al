@@ -366,6 +366,8 @@ codeunit 50503 codeUnitWS
                 lastEightCert := FT.SelloDigitalCFD.Substring(lenghtLECF);
                 ft."QR String" := 'https://verificacfdi.facturaelectronica.sat.gob.mx/default.aspx?id=' + ft.UUID + '%26re=' + ft.RFC + '%26rr=' + rfcReceptor + '%26tt=' + Format(ft.Total) + '%26fe=' + lastEightCert;
 
+
+
                 if ft.Insert() then begin
                     ft.id := ft.id + 1;
                     i += 1;

@@ -40,9 +40,17 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 CaptionML = ENU = 'Stamp date', ESP = 'Fecha de timbrado';
             }
 
-
-
-
+            field("Estado del CFDI"; "Estado del CFDI")
+            {
+                ApplicationArea = All;
+                Style = Favorable;
+                trigger OnDrillDown()
+                var
+                    SCFDI: Codeunit StatusCFDI;
+                begin
+                    "Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
+                end;
+            }
         }
     }
 
