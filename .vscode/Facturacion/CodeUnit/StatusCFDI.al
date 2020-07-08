@@ -1,5 +1,7 @@
 codeunit 50946 StatusCFDI
 {
+
+    Permissions = TableData 112 = rimd, tabledata 114 = rimd;
     procedure GetSatusCFDI(RFCE: text; RFCR: Text; Total: text; uuid: Text) responseText: Text;
     var
         Clint: HttpClient;

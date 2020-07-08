@@ -4,6 +4,7 @@ codeunit 50504 getStamp
     Permissions = TableData 112 = rimd;
 
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
+
     procedure timbradas()
     var
         sh: Record "Sales Invoice Header";

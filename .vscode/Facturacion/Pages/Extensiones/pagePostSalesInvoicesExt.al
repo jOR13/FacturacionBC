@@ -2,7 +2,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
 {
     Editable = true;
 
-
     //Permissions = TableData 112 = rimd;
     layout
     {
@@ -50,7 +49,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     SCFDI: Codeunit StatusCFDI;
                 begin
                     rec."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
-                    //rec.Modify();
+                    Modify();
                 end;
             }
         }
@@ -100,7 +99,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                 temp.DeleteAll();
                                 Clear(reporteTransportadora);
                             end else
-
                                 if (Rec.FechaEntregaGas <> 0D) or (Rec.NoTicket <> '') then begin
                                     reporteGas.RunModal();
                                     temp.DeleteAll();
@@ -111,7 +109,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                         temp.DeleteAll();
                                         Clear(reporteDiesel);
                                     end else
-
                                         if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
                                             reporteTurbosina.RunModal();
                                             temp.DeleteAll();
@@ -120,9 +117,12 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                             reporte.RunModal();
                                             temp.DeleteAll();
                                             Clear(reporte);
-                                        end
+                                        end;
+
                         end;
+
                     end;
+
                 }
 
                 action("Timbrar facturas")
@@ -183,7 +183,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 }
 
 
-
                 action("Subir XML")
                 {
                     Image = MoveUp;
@@ -225,6 +224,9 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
             color := false;
         end;
     end;
+
+
+
 
     var
 

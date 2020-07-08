@@ -9,20 +9,14 @@ codeunit 50603 GetJsonNC
         fechaFil: text;
     begin
 
-        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
-        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
             for i := 0 to contArray - 1 do begin
                 JsonArray.Get(i, JsonToken);
                 JsonObject := JsonToken.AsObject;
                 ft.init;
-                //  fechaFil := Format(SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsDateTime(), 0, '<Month,2>/<Day>/<Year4>');
-
-                // filtro := getFilter();
-
-                // if fechaFil = filtro then begin
-
                 ft.Folio := SelectJsonToken(JsonObject, '$.Folio').AsValue.AsText;
                 ft.tipoDeComprobante := SelectJsonToken(JsonObject, '$.TipoDeComprobante').AsValue.AsText();
                 if ft.tipoDeComprobante = 'I' then

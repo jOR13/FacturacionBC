@@ -32,15 +32,15 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                 CaptionML = ENU = 'Stamp date', ESP = 'Fecha de timbrado';
             }
 
-            field("Estado del CFDI"; "Estado del CFDI")
+            field("Estado del CFDI"; SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDNCHG).ToUpper())
             {
                 ApplicationArea = All;
                 Style = Favorable;
                 trigger OnDrillDown()
                 var
-                    SCFDI: Codeunit StatusCFDI;
+                // SCFDI: Codeunit StatusCFDI;
                 begin
-                    "Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDNCHG).ToUpper();
+                    // "Estado del CFDI" :=
                 end;
             }
         }
@@ -163,4 +163,6 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
 
     var
         color: Boolean;
+
+        SCFDI: Codeunit StatusCFDI;
 }

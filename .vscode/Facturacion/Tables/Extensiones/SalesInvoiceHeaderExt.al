@@ -1,5 +1,6 @@
 tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
 {
+
     fields
     {
 
@@ -140,7 +141,6 @@ tableextension 50519 SalesInvoiceHeaderExst extends "Sales Invoice Header"
         }
 
     }
-
 
     var
         myInt: Integer;
