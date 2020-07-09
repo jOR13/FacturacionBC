@@ -48,6 +48,7 @@ query 50513 QrySIL
 
                         //DataItemTableFilter = "C. A Costo" = filter(= true);
                         column(C__A_Costo; "C. A Costo") { }
+                        column(C__A_CostoIva; "C. A Costo con IVA") { }
 
                     }
 

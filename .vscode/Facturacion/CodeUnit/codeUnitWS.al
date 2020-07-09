@@ -512,6 +512,7 @@ codeunit 50503 codeUnitWS
                 tt.tipoFactor := t.tipoFactor;
                 tt.impuesto := t.impuesto;
                 tt.importe += t.importe;
+                tt.Base += t.Base;
                 tt.Insert();
                 tt.id += 1;
             end until t.Next() = 0;

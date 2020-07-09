@@ -11,13 +11,26 @@ tableextension 50517 ItemChargeExt extends "Item Charge"
             var
                 myInt: Integer;
             begin
+                "C. A Costo con IVA" := false;
+            end;
+        }
 
+        field(50622; "C. A Costo con IVA"; Boolean)
+        {
+            DataClassification = ToBeClassified;
+            Enabled = true;
+            Editable = true;
+            trigger OnValidate()
+            var
+                myInt: Integer;
+            begin
+                "C. A Costo" := false;
             end;
         }
     }
 
     var
-        myInt: Integer;
+        status: Boolean;
 }
 
 pageextension 50622 ItemChargePageExt extends "Item Charges"
@@ -26,7 +39,16 @@ pageextension 50622 ItemChargePageExt extends "Item Charges"
     {
         addfirst(Control1)
         {
-            field("C. A Costo"; "C. A Costo")
+            field("C. A Costo";
+            "C. A Costo")
+            {
+                ApplicationArea = All;
+                Editable = true;
+                Enabled = true;
+                Style = Favorable;
+            }
+
+            field("C. A Costo con IVA"; "C. A Costo con IVA")
             {
                 ApplicationArea = All;
                 Editable = true;

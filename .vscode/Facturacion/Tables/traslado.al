@@ -118,6 +118,12 @@ table 50769 totalTraslados
 
         }
 
+        field(8; Base; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
 
 
 
