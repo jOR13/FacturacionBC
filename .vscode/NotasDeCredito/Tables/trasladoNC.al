@@ -117,6 +117,12 @@ table 50565 totalTrasladosNC
 
         }
 
+        field(8; Base; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
 
 
 

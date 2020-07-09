@@ -28,6 +28,10 @@ query 50533 QueryTotalTrasladosNC
             column(TipoFactor; TipoFactor)
             {
             }
+            column(Base; Base)
+            {
+                Method = Sum;
+            }
 
         }
     }

@@ -497,6 +497,7 @@ codeunit 50603 GetJsonNC
                 tt.TasaOCuota := t.TasaOCuota;
                 tt.tipoFactor := t.tipoFactor;
                 tt.impuesto := t.impuesto;
+                tt.Base += t.Base;
                 if tt.importe <> 0 then begin
                     tt.Insert();
                 end;
