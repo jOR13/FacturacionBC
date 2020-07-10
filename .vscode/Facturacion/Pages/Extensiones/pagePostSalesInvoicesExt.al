@@ -45,9 +45,16 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 trigger OnDrillDown()
                 var
                     SCFDI: Codeunit StatusCFDI;
+                    sh: Record "Sales Invoice Header";
                 begin
-                    rec."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
-                    Modify();
+                    sh.SetFilter(sh."No.", rec."No.");
+                    if sh.FindSet() then begin
+                        repeat begin
+                            sh."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
+                        end until sh.next = 0;
+                        sh.Modify();
+                        Update();
+                    end;
                 end;
             }
         }
@@ -193,7 +200,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         TestFile: File;
                         NVInStream: InStream;
                         textoXML: Text;
-                        texto: Text;
+                        texto, newtxt : Text;
                         msg: TextConst ESP = 'Seleccione la factura a cargar', ENU = 'Select the invoice to upload';
                         pagina: page "Posted Sales Invoices";
                         page: page "Posted Sales Invoice";
@@ -201,7 +208,8 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     begin
                         UPLOADINTOSTREAM(msg, 'c:\', ' .xml (*.xml*)|*.xml*', FileName, NVInStream);
                         NVInStream.ReadText(textoXML, 99999999);
-                        texto := up.ReadXML(textoXML);
+                        newtxt := textoXML.Replace('Ù‹', '');
+                        texto := up.ReadXML(newtxt);
                         pagina.Close();
                         pagina.SetSelectionFilter(Rec);
                         rec.SetFilter(rec."No.", texto);

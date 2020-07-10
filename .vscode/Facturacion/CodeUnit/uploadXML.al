@@ -72,7 +72,6 @@ codeunit 50956 UploadXML
         nsm.AddNamespace('x', 'http://www.sat.gob.mx/cfd/3');
         nsm.AddNamespace('tfd', 'http://www.sat.gob.mx/TimbreFiscalDigital');
 
-
         read := xmlDoc.SelectSingleNode('/x:Comprobante/@Fecha', nsm, node);
         txt := node.AsXmlAttribute();
         Evaluate(ft.Fecha, txt.Value());
