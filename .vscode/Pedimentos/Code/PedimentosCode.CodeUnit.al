@@ -12,7 +12,6 @@ codeunit 50535 PedimentosCodeHG
         part1, part2, part3, part4 : Text;
         ValPedimento: text;
         Length: Integer;
-
     begin
         if (Rec.FindSet) then
             repeat
@@ -79,36 +78,24 @@ codeunit 50535 PedimentosCodeHG
                         Pedimento2.Lote := Rec."Lot No.";
                         Pedimento2.FechaTxt := FORMAT(Rec.PedDate);
                         Pedimento2.FechaDate := Rec.PedDate;
-
                         //mod
-                        /*
-                                                Length := StrLen(Rec.Pedimento);
-
-                                                if Rec.Pedimento <> '' then begin
-
-                                                    if Length <> 15 then begin
-                                                        Error('Por favor ingrese un pedimento valido de 15 digitos');
-                                                    end;
-
-                                                    Rec.Pedimento := Rec.Pedimento.Replace(' ', '');
-
-                                                    part1 := Rec.Pedimento.Substring(1, 2);
-                                                    part2 := Rec.Pedimento.Substring(3, 2);
-                                                    part3 := Rec.Pedimento.Substring(5, 4);
-                                                    part4 := Rec.Pedimento.Substring(9, 7);
-
-                                                    ValPedimento := part1 + '  ' + part2 + '  ' + part3 + '  ' + part4;
-                                                end;
-
-                                                Pedimento2.Pedimento := ValPedimento;
-                        */
-
-
-                        Pedimento2.Pedimento := Rec.Pedimento;
+                        if Rec.Pedimento <> '' then begin
+                            Rec.Pedimento := Rec.Pedimento.Replace(' ', '');
+                            Length := StrLen(Rec.Pedimento);
+                            if Length <> 15 then begin
+                                Error('Por favor ingrese un pedimento valido de 15 digitos');
+                            end;
+                            part1 := Rec.Pedimento.Substring(1, 2);
+                            part2 := Rec.Pedimento.Substring(3, 2);
+                            part3 := Rec.Pedimento.Substring(5, 4);
+                            part4 := Rec.Pedimento.Substring(9, 7);
+                            ValPedimento := part1 + '  ' + part2 + '  ' + part3 + '  ' + part4;
+                        end;
+                        Pedimento2.Pedimento := ValPedimento;
+                        //Pedimento2.Pedimento := Rec.Pedimento;
                         Pedimento2.NombreAduana := Rec.NombreAduana;
                         Pedimento2.LineNo := Rec."Source Ref. No.";
                         Pedimento2.DocumentNo := Rec."Source ID";
-
                         Pedimento2.Insert();
                     end;
                 end;
@@ -236,7 +223,6 @@ codeunit 50535 PedimentosCodeHG
         int: Integer;
         texto: Text;
         pedimento: Text;
-
     begin
         bandera := false;
         lengt := Text.StrLen(Rec.Pedimento);

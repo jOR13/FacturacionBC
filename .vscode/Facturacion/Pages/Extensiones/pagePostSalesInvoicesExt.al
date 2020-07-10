@@ -32,8 +32,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
 
             }
-
-
             field("Fecha de timbrado"; "Fecha de timbrado")
             {
                 ApplicationArea = All;
