@@ -11,8 +11,8 @@
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
-            "sandboxName": "pre",
-           "schemaUpdateMode": "Recreate"
+            "sandboxName": "Sandwich",
+            "schemaUpdateMode": "Recreate"
         }
     ]
 }
