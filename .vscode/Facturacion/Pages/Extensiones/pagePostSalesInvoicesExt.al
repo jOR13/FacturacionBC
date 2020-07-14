@@ -42,26 +42,11 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
             {
                 ApplicationArea = All;
                 Style = Favorable;
-                TableRelation = if ("Estado del CFDI" = const('')) EstadoCDFITable.status where(Folio = field("No."));
                 trigger OnDrillDown()
                 var
                     SCFDI: Codeunit StatusCFDI;
-                    st: Record EstadoCDFITable;
                 begin
-                    if st.FindSet() then begin
-                        repeat begin
-                            st.status := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
-                            st.Folio := rec."No.";
-                        end until st.next = 0;
-                        st.Modify();
-                        Update();
-                    end else begin
-                        st.status := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
-                        st.Folio := rec."No.";
-                        st.Insert();
-                        st.id := st.id + 1;
-                    end;
-
+                    rec."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
                 end;
             }
         }
