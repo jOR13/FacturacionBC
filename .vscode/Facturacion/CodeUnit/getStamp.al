@@ -18,13 +18,16 @@ codeunit 50504 getStamp
         page.Update;
         c.Refresh();
         filtro := c.getFilter();
+        if filtro = '' then begin
+            filtro := '-3D..Today';
+        end;
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
-        sh.setfilter(sh.Closed, 'No');
+        //sh.setfilter(sh.Closed, 'No');
         sh.SetFilter(sh."Posting Date", filtro);
-
         if sh.FindSet() then begin
             repeat begin
+                ft.SetFilter(ft.FechaBC, filtro);
                 if ft.FindSet() then begin
                     repeat begin
                         if sh."No." = ft.Folio then begin
@@ -78,11 +81,15 @@ codeunit 50845 CREDITMEMOS
             end until sih.Next() = 0;
         end;
         filtro := c.getFilterNC();
+        if filtro = '' then begin
+            filtro := '-3D..Today';
+        end;
         scm.SetFilter(scm.UUIDNCHG, '');
         scm.SetFilter(scm."Posting Date", filtro);
-        if nct.FindSet() then begin
+        if scm.FindSet() then begin
             repeat begin
-                if scm.FindSet() then begin
+                nct.SetFilter(nct.FechaBC, filtro);
+                if nct.FindSet() then begin
                     repeat begin
                         if nct.Folio = scm."No." then begin
                             scm.UUIDNCHG := nct.UUID;

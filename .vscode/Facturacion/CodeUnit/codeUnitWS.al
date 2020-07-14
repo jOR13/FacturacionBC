@@ -4,8 +4,10 @@ codeunit 50503 codeUnitWS
     var
         filtro: text;
         fechaFil: text;
+        fbc, fechaF : text;
+        fecha: List of [Text];
     begin
-        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        // consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
         consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
 
         foreach t in JsonArray do begin
@@ -293,6 +295,15 @@ codeunit 50503 codeUnitWS
                             ft.FormaDePago := '99 - Por definir';
                         end;
                 end;
+
+                fechaF := SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsText();
+                fecha := fechaF.Split('T');
+                foreach fbc in fecha do begin
+                    if fbc.Contains(':') then begin
+
+                    end else
+                        Evaluate(ft.FechaBC, fbc);
+                end;
                 ft.Fecha := Format(SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsDateTime(), 0, '<Day>/<Month Text>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
                 ft.FechaTimbrado := Format(SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@FechaTimbrado').AsValue.AsDateTime(), 0, '<Day,2>/<Month,2>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
                 ft.Nombre := SelectJsonToken(JsonObject, '$.Emisor.Nombre').AsValue.AsText;
@@ -422,8 +433,11 @@ codeunit 50503 codeUnitWS
             Error('La llamada al servicio web falló.');
         if not ResponseMessage.IsSuccessStatusCode then begin
 
-            error('El servicio web devolvió el siguiente mensaje:\\' + 'Respuesta: %1\' + 'Description: %2',
-       ResponseMessage.HttpStatusCode, ResponseMessage.ReasonPhrase);
+            if ResponseMessage.HttpStatusCode = 500 then begin
+                Error('Error en la lectura de datos provinientes del portal Hipergas, contacte al administrador del sistema.');
+            end else
+                error('El servicio web devolvió el siguiente mensaje:\\' + 'Respuesta: %1\' + 'Description: %2', ResponseMessage.HttpStatusCode, ResponseMessage.ReasonPhrase);
+
         end;
         ResponseMessage.Content.ReadAs(JsonText);
         JsonArray.ReadFrom(JsonText);
@@ -642,15 +656,10 @@ codeunit 50503 codeUnitWS
                 if fil.filtro <> '' then begin
                     filtroBase := fil.filtro
                 end;
-                if fil.filtro = '' then begin
-                    filtroBase := '-3D..Today';
-                end;
             end until fil.Next() = 0;
         end;
 
     end;
-
-
 
 
     var

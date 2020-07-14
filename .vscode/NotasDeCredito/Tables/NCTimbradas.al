@@ -178,6 +178,11 @@ table 50528 NCTimbradas
             DataClassification = ToBeClassified;
         }
 
+        field(47; "FechaBC"; Date)
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys
