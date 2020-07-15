@@ -18,6 +18,10 @@ page 50876 FacturasPage
                 {
                     ApplicationArea = All;
                 }
+                field(FechaBC2; FechaBC2)
+                {
+                    ApplicationArea = All;
+                }
                 field(FechaBC; FechaBC)
                 {
                     ApplicationArea = All;

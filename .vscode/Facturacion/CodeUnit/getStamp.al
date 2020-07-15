@@ -27,7 +27,7 @@ codeunit 50504 getStamp
         sh.SetFilter(sh."Posting Date", filtro);
         if sh.FindSet() then begin
             repeat begin
-                ft.SetFilter(ft.FechaBC, filtro);
+                ft.SetFilter(ft.FechaBC2, filtro);
                 if ft.FindSet() then begin
                     repeat begin
                         if sh."No." = ft.Folio then begin
@@ -88,7 +88,7 @@ codeunit 50845 CREDITMEMOS
         scm.SetFilter(scm."Posting Date", filtro);
         if scm.FindSet() then begin
             repeat begin
-                nct.SetFilter(nct.FechaBC, filtro);
+                nct.SetFilter(nct.FechaBC2, filtro);
                 if nct.FindSet() then begin
                     repeat begin
                         if nct.Folio = scm."No." then begin

@@ -7,8 +7,8 @@ codeunit 50503 codeUnitWS
         fbc, fechaF : text;
         fecha: List of [Text];
     begin
-        // consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
-        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
 
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
@@ -302,7 +302,7 @@ codeunit 50503 codeUnitWS
                     if fbc.Contains(':') then begin
 
                     end else
-                        Evaluate(ft.FechaBC, fbc);
+                        Evaluate(ft.FechaBC2, fbc);
                 end;
                 ft.Fecha := Format(SelectJsonToken(JsonObject, '$.Fecha').AsValue.AsDateTime(), 0, '<Day>/<Month Text>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');
                 ft.FechaTimbrado := Format(SelectJsonToken(JsonObject, '$.Complemento.[0].Any.[0].tfd:TimbreFiscalDigital.@FechaTimbrado').AsValue.AsDateTime(), 0, '<Day,2>/<Month,2>/<Year4> - <Hours24>:<Minutes,2>:<Seconds,2>');

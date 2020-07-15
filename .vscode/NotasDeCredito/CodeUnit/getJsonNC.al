@@ -11,8 +11,8 @@ codeunit 50603 GetJsonNC
         fecha: List of [Text];
     begin
 
-        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
-        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
             for i := 0 to contArray - 1 do begin
@@ -301,7 +301,7 @@ codeunit 50603 GetJsonNC
                     if fbc.Contains(':') then begin
 
                     end else
-                        Evaluate(ft.FechaBC, fbc);
+                        Evaluate(ft.FechaBC2, fbc);
                 end;
 
 
