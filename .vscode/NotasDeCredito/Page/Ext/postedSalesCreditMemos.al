@@ -8,7 +8,6 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
             StyleExpr = color;
         }
 
-
         addafter("Location Code")
         {
             field(UUID; UUIDNCHG)
@@ -32,17 +31,6 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                 CaptionML = ENU = 'Stamp date', ESP = 'Fecha de timbrado';
             }
 
-            field("Estado del CFDI"; SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDNCHG).ToUpper())
-            {
-                ApplicationArea = All;
-                Style = Favorable;
-                trigger OnDrillDown()
-                var
-                // SCFDI: Codeunit StatusCFDI;
-                begin
-                    // "Estado del CFDI" :=
-                end;
-            }
         }
     }
 
