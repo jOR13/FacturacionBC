@@ -192,6 +192,7 @@ table 50523 facturas_Timbradas
         field(48; "FechaBC2"; Date)
         {
             DataClassification = ToBeClassified;
+
         }
 
 
