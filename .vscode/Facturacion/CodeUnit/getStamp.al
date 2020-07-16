@@ -65,21 +65,26 @@ codeunit 50845 CREDITMEMOS
 
         c.Refresh();
         page.Update;
-        sih.SetFilter(sih.UUIDHG, '<>%1', fil);
-        if sih.FindSet() then begin
-            repeat begin
-                if scm.FindSet() then begin
+
+        /*//Agrega relacion de UUID
+                sih.SetFilter(sih.UUIDHG, '<>%1', fil);
+
+                if sih.FindSet() then begin
                     repeat begin
-                        if sih."No." = scm."Applies-to Doc. No." then begin
-                            if sih.UUIDHG <> '' then begin
-                                scm.UUIDRelacionadoNC := sih.UUIDHG;
-                                scm.Modify();
-                            end;
+                        if scm.FindSet() then begin
+                            repeat begin
+                                if sih."No." = scm."Applies-to Doc. No." then begin
+                                    if sih.UUIDHG <> '' then begin
+                                        scm.UUIDRelacionadoNC := sih.UUIDHG;
+                                        scm.Modify();
+                                    end;
+                                end;
+                            end until scm.Next() = 0;
                         end;
-                    end until scm.Next() = 0;
-                end;
-            end until sih.Next() = 0;
-        end;
+                    end until sih.Next() = 0;
+                end;*/
+        //agrega nota de credito timbrada
+
         filtro := c.getFilterNC();
         if filtro = '' then begin
             filtro := '-3D..Today';

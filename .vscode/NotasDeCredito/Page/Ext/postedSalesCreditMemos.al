@@ -22,6 +22,7 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
             {
                 Caption = 'UUID Relacionado';
                 ApplicationArea = all;
+                TableRelation = facturas_Timbradas.UUID where(Folio = field("Applies-to Doc. No."));
 
             }
 
