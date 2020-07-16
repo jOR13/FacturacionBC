@@ -462,11 +462,11 @@ codeunit 50603 GetJsonNC
         iva: Decimal;
         lol: Decimal;
     begin
-
-        filtro := getFilterNC();
-        sml.SetFilter(sml."Posting Date", filtro);
         t.DeleteAll();
         tt.DeleteAll();
+        filtro := getFilterNC();
+        sml.SetFilter(sml."Posting Date", filtro);
+
         if sml.FindSet() then begin
             repeat begin
                 t.Init();
