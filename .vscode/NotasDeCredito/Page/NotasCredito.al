@@ -150,6 +150,7 @@ page 50568 NotasCredito
                 {
                     ApplicationArea = All;
                 }
+
             }
         }
     }

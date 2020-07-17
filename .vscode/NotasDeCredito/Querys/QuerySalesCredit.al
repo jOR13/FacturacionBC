@@ -31,6 +31,9 @@ query 50531 QrySCH
             {
 
             }
+            column(SelltoCustomerNo; "Sell-to Customer No.")
+            {
+            }
             dataitem(Payment_Method; "Payment Method")
             {
                 //SqlJoinType = InnerJoin;
