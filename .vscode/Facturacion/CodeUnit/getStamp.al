@@ -30,6 +30,8 @@ codeunit 50504 getStamp
         sh.SetFilter(sh."Posting Date", filtro);
         */
 
+
+
         ft.SetFilter(ft.FechaBC2, filtro);
         if ft.FindSet() then begin
             repeat
@@ -66,6 +68,20 @@ codeunit 50845 CREDITMEMOS
         filtro: text;
         fil: text;
     begin
+
+        //Agrega relacion de UUID
+        if scm.FindSet() then begin
+            repeat begin
+                if sih.Get(scm."Applies-to Doc. No.") then begin
+                    if sih."No." = scm."Applies-to Doc. No." then begin
+                        if sih.UUIDHG <> '' then begin
+                            scm.UUIDRelacionadoNC := sih.UUIDHG;
+                            scm.Modify();
+                        end;
+                    end;
+                end;
+            end until scm.Next() = 0;
+        end;
 
         c.Refresh();
         page.Update;
@@ -104,6 +120,8 @@ codeunit 50845 CREDITMEMOS
 
         //NCtimbradas();
     end;
+
+
 
     var
         c: Codeunit codeUnitWS;
