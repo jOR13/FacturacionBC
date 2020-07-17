@@ -18,32 +18,35 @@ codeunit 50504 getStamp
 
         page.Update;
         c.Refresh();
+
         filtro := c.getFilter();
         if filtro = '' then begin
             filtro := '-3D..Today';
         end;
+
+        /*
         sh.SetFilter(sh.UUIDHG, '');
         sh.setfilter(sh.Cancelled, 'No');
-        //sh.setfilter(sh.Closed, 'No');
         sh.SetFilter(sh."Posting Date", filtro);
-        if sh.FindSet() then begin
-            repeat begin
-                ft.SetFilter(ft.FechaBC2, filtro);
-                if ft.FindSet() then begin
-                    repeat begin
-                        if sh."No." = ft.Folio then begin
-                            sh.UUIDHG := ft.UUID;
-                            if sh."UUID Relation HG" = '' then begin
-                                sh."UUID Relation HG" := ft."UUID Relacionado";
-                                sh."Fecha de timbrado" := ft.FechaTimbrado;
-                                sh.TotalFactura := ft.TotalText;
-                                sh.RFCR := ft.RfcReceptor;
-                            end;
-                            sh.Modify();
+        */
+
+        ft.SetFilter(ft.FechaBC2, filtro);
+        if ft.FindSet() then begin
+            repeat
+            begin
+                if sh.Get(ft.Folio) then begin
+                    if sh."No." = ft.Folio then begin
+                        sh.UUIDHG := ft.UUID;
+                        if sh."UUID Relation HG" = '' then begin
+                            sh."UUID Relation HG" := ft."UUID Relacionado";
+                            sh."Fecha de timbrado" := ft.FechaTimbrado;
+                            sh.TotalFactura := ft.TotalText;
+                            sh.RFCR := ft.RfcReceptor;
                         end;
-                    end until ft.Next() = 0;
+                        sh.Modify();
+                    end;
                 end;
-            end until sh.Next() = 0;
+            end until ft.Next() = 0;
         end;
     end;
 }
@@ -64,47 +67,32 @@ codeunit 50845 CREDITMEMOS
         fil: text;
     begin
 
-        //Agrega relacion de UUID
-        if scm.FindSet() then begin
-            repeat begin
-                if sih.Get(scm."Applies-to Doc. No.") then begin
-                    if sih."No." = scm."Applies-to Doc. No." then begin
-                        if sih.UUIDHG <> '' then begin
-                            scm.UUIDRelacionadoNC := sih.UUIDHG;
-                            scm.Modify();
-                        end;
-                    end;
-                end;
-            end until scm.Next() = 0;
-        end;
-
-        filtro := c.getFilterNC();
         c.Refresh();
         page.Update;
-
         //agrega nota de credito timbrada
+        filtro := c.getFilterNC();
         if filtro = '' then begin
             filtro := '-3D..Today';
         end;
-        scm.SetFilter(scm.UUIDNCHG, '');
-        scm.SetFilter(scm."Posting Date", filtro);
-        if scm.FindSet() then begin
-            repeat begin
-                nct.SetFilter(nct.FechaBC2, filtro);
-                if nct.FindSet() then begin
-                    repeat begin
-                        if nct.Folio = scm."No." then begin
-                            scm.UUIDNCHG := nct.UUID;
+
+        nct.SetFilter(nct.FechaBC2, filtro);
+        if nct.FindSet() then begin
+            repeat
+            begin
+                if scm.Get(nct.Folio) then begin
+                    if scm."No." = nct.Folio then begin
+                        scm.UUIDNCHG := nct.UUID;
+                        if scm.UUIDRelacionadoNC = '' then begin
+                            scm.UUIDRelacionadoNC := nct."UUID Relacionado";
                             scm."Fecha de timbrado" := nct.FechaTimbrado;
                             scm.TotalFactura := nct.TotalText;
                             scm.RFCR := nct.RfcReceptor;
-                            scm.Modify();
                         end;
-                    end until scm.Next() = 0;
+                        scm.Modify();
+                    end;
                 end;
             end until nct.Next() = 0;
         end;
-
     end;
 
 
