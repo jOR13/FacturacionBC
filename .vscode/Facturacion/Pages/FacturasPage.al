@@ -169,46 +169,46 @@ page 50876 FacturasPage
             }
         }
     }
-
-    actions
-    {
-        area(Processing)
+    /*
+        actions
         {
-            action("Borrar facturas")
+            area(Processing)
             {
-                ApplicationArea = All;
+                action("Borrar facturas")
+                {
+                    ApplicationArea = All;
 
-                Image = Delegate;
-                trigger OnAction()
-                var
-                    ft: Record facturas_Timbradas;
+                    Image = Delegate;
+                    trigger OnAction()
+                    var
+                        ft: Record facturas_Timbradas;
 
-                begin
-                    ft.DeleteAll();
-                end;
-            }
+                    begin
+                        ft.DeleteAll();
+                    end;
+                }
 
-            action("Borrar nc")
-            {
-                ApplicationArea = All;
-                Image = Delegate;
-                trigger OnAction()
-                var
-                    ft: Record NCTimbradas;
-                    ftc: Record ConceptosNC;
+                action("Borrar nc")
+                {
+                    ApplicationArea = All;
+                    Image = Delegate;
+                    trigger OnAction()
+                    var
+                        ft: Record NCTimbradas;
+                        ftc: Record ConceptosNC;
 
-                begin
-                    ft.DeleteAll();
-                end;
-            }
-
-
+                    begin
+                        ft.DeleteAll();
+                    end;
+                }
 
 
+}
 
-        }
 
-    }
+            }*/
+
+
     var
         myInt: Integer;
 }

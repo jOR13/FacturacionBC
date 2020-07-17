@@ -27,13 +27,8 @@ query 50531 QrySCH
             column(CFDIRelation; "CFDI Relation") { }
             column(FolioRelacionado; "Applies-to Doc. No.") { }
 
-            column(UUIDRelacionado; UUIDRelacionadoNC)
-            {
-
-            }
-            column(SelltoCustomerNo; "Sell-to Customer No.")
-            {
-            }
+            column(UUIDRelacionado; UUIDRelacionadoNC) { }
+            column(SelltoCustomerNo; "Sell-to Customer No.") { }
             dataitem(Payment_Method; "Payment Method")
             {
                 //SqlJoinType = InnerJoin;

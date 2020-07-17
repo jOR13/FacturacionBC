@@ -1,11 +1,14 @@
 page 50568 NotasCredito
 {
-    PageType = List;
-    SourceTable = NCTimbradas;
     CaptionML = ENU = 'Credit Memos', ESP = 'NOtas de credito';
-    Editable = false;
-    SourceTableView = order(descending);
 
+    PageType = List;
+    ApplicationArea = All;
+    UsageCategory = Administration;
+    SourceTable = NCTimbradas;
+    Editable = true;
+    Permissions = TableData 50528 = rimd;
+    SourceTableView = order(descending);
 
 
     layout
@@ -154,47 +157,47 @@ page 50568 NotasCredito
             }
         }
     }
-
-    actions
-    {
-        area(processing)
+    /*
+        actions
         {
-            action(RefreshList)
+            area(processing)
             {
-                ApplicationArea = all;
-                CaptionML = ENU = 'Refrescar lista';
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = CalculateLines;
-                trigger OnAction();
+                action(RefreshList)
+                {
+                    ApplicationArea = all;
+                    CaptionML = ENU = 'Refrescar lista';
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    Image = CalculateLines;
+                    trigger OnAction();
 
-                begin
-                    //cod.Refresh();
-                    CurrPage.Update;
-                    cod.calCImporteTrasladoNC();
-                end;
+                    begin
+                        //cod.Refresh();
+                        CurrPage.Update;
+                        cod.calCImporteTrasladoNC();
+                    end;
+                }
+
+                action(Borrar)
+                {
+                    ApplicationArea = all;
+                    CaptionML = ENU = 'Borrar lista';
+                    Promoted = true;
+                    PromotedCategory = Process;
+                    Image = Delete;
+                    trigger OnAction();
+                    var
+                        ft: Record NCTimbradas;
+                        ftc: Record ConceptosNC;
+                    begin
+                        ft.DeleteAll();
+                        ftc.DeleteAll();
+                        CurrPage.Update;
+                    end;
+                }
+
             }
-
-            action(Borrar)
-            {
-                ApplicationArea = all;
-                CaptionML = ENU = 'Borrar lista';
-                Promoted = true;
-                PromotedCategory = Process;
-                Image = Delete;
-                trigger OnAction();
-                var
-                    ft: Record NCTimbradas;
-                    ftc: Record ConceptosNC;
-                begin
-                    ft.DeleteAll();
-                    ftc.DeleteAll();
-                    CurrPage.Update;
-                end;
-            }
-
-        }
-    }
+        }*/
 
     var
         cod: Codeunit GetJsonNC;

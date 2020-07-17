@@ -49,6 +49,12 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                     rec."Estado del CFDI" := SCFDI.GetSatusCFDI('CCD070607PL6', rec.RFCR, Rec.TotalFactura, Rec.UUIDHG).ToUpper();
                 end;
             }
+            field("Usuario"; "User ID")
+            {
+                ApplicationArea = All;
+            }
+
+
         }
     }
 

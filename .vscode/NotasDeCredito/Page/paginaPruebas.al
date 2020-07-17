@@ -4,6 +4,7 @@ page 50529 pruebas
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Sales Invoice Header";
+    Editable = true;
 
     layout
     {

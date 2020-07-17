@@ -1,11 +1,11 @@
-page 50684 PaginaConceptos
+page 60684 PaginaConceptosNC
 {
     PageType = List;
     ApplicationArea = All;
     UsageCategory = Administration;
-    SourceTable = Conceptos;
+    SourceTable = ConceptosNC;
     Editable = true;
-    Permissions = TableData 50522 = rimd;
+    Permissions = TableData 50562 = rimd;
 
     layout
     {
@@ -77,46 +77,46 @@ page 50684 PaginaConceptos
             }
         }
     }
-
-    /*actions
-    {
-        area(Processing)
+    /*
+        actions
         {
-            action("Borrar facturas")
+            area(Processing)
             {
-                ApplicationArea = All;
+                action("Borrar facturas")
+                {
+                    ApplicationArea = All;
 
-                Image = Delegate;
-                trigger OnAction()
-                var
-                    ft: Record facturas_Timbradas;
-                    ftc: Record Conceptos;
+                    Image = Delegate;
+                    trigger OnAction()
+                    var
+                        ft: Record facturas_Timbradas;
+                        ftc: Record Conceptos;
 
-                begin
-                    ftc.DeleteAll();
-                    ft.DeleteAll();
-                end;
+                    begin
+                        ftc.DeleteAll();
+                        ft.DeleteAll();
+                    end;
+                }
+
+                action("Borrar nc")
+                {
+                    ApplicationArea = All;
+                    Image = Delegate;
+                    trigger OnAction()
+                    var
+                        ft: Record NCTimbradas;
+                        ftc: Record ConceptosNC;
+
+                    begin
+                        ftc.DeleteAll();
+                        ft.DeleteAll();
+                    end;
+                }
+
+
             }
 
-            action("Borrar nc")
-            {
-                ApplicationArea = All;
-                Image = Delegate;
-                trigger OnAction()
-                var
-                    ft: Record NCTimbradas;
-                    ftc: Record ConceptosNC;
-
-                begin
-                    ftc.DeleteAll();
-                    ft.DeleteAll();
-                end;
-            }
-
-
-        }
-
-    }*/
+        }*/
 
     var
         myInt: Integer;
