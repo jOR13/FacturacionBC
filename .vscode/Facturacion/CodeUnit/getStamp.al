@@ -19,6 +19,7 @@ codeunit 50504 getStamp
         page.Update;
         c.Refresh();
 
+
         filtro := c.getFilter();
         if filtro = '' then begin
             filtro := '-3D..Today';
