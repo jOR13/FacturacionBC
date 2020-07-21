@@ -1,7 +1,6 @@
 pageextension 50506 pagePostSalesInvoicesExt extends 143
 {
     Editable = true;
-
     //Permissions = TableData 112 = rimd;
     layout
     {
@@ -30,7 +29,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                 TableRelation = if ("Tipo relacion" = const(2)) "Sales Cr.Memo Header".UUIDNCHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDNCHG = filter(<> ''))
                 else
                 if ("Tipo relacion" = const(1)) "Sales Invoice Header".UUIDHG where("Sell-to Customer No." = field("Sell-to Customer No."), UUIDHG = filter(<> ''));
-
             }
             field("Fecha de timbrado"; "Fecha de timbrado")
             {
@@ -53,8 +51,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
             {
                 ApplicationArea = All;
             }
-
-
         }
     }
 
@@ -121,9 +117,7 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                                             temp.DeleteAll();
                                             Clear(reporte);
                                         end;
-
                         end;
-
                     end;
 
                 }
@@ -169,7 +163,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         end;
                     end;
                 }
-
 
                 action("Envio por correo")
                 {
@@ -229,11 +222,14 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
         end;
     end;
 
-
-
+    trigger OnOpenPage()
+    var
+        myInt: Integer;
+    begin
+        rec.SetFilter(rec."Posting Date", '<today+today');
+    end;
 
     var
-
         mitabla: Record "Sales Invoice Header";
         OutStr: OutStream;
         myInt: Integer;
@@ -244,7 +240,6 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
         txt: text;
         c: Codeunit codeUnitWS;
         color: Boolean;
-
 }
 
 
