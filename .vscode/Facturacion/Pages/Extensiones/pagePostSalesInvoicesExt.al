@@ -81,41 +81,32 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
                         facturas: Record facturas_Timbradas;
                         msg: TextConst ESP = 'La factura no se ha timbrado', ENU = 'The invoice has not been stamped';
                     begin
+
                         if rec.UUIDHG = '' then begin
                             Message(msg);
                             temp.DeleteAll();
                         end else begin
-                            facturas.SetFilter(facturas.Folio, rec."No.");
                             temp.Init();
+                            temp.DeleteAll();
                             temp.getRec := Rec."No.";
                             temp.DocNo := Rec."Order No.";
                             if temp.Insert() = false then begin
-                                temp.DeleteAll();
+                                temp.Modify();
                             end;
                             Commit();
                             if (Rec.Remision <> '') or (rec.ProductoTrasnportado <> '') or (Rec.FechaDeEntrega <> 0D) or (Rec.OrigenDestino <> '') or (rec.Tanque <> '') then begin
                                 reporteTransportadora.RunModal();
-                                temp.DeleteAll();
-                                Clear(reporteTransportadora);
                             end else
                                 if (Rec.FechaEntregaGas <> 0D) or (Rec.NoTicket <> '') then begin
                                     reporteGas.RunModal();
-                                    temp.DeleteAll();
-                                    Clear(reporteGas);
                                 end else
                                     if (Rec.FechaEntregaDiesel <> 0D) or (Rec.RemisonDiesel <> '') then begin
                                         reporteDiesel.RunModal();
-                                        temp.DeleteAll();
-                                        Clear(reporteDiesel);
                                     end else
                                         if (Rec.aeropuerto <> '') or (rec.PeriodoFact <> '') or (Rec.BOL <> '') or (Rec.NoTanque <> '') then begin
                                             reporteTurbosina.RunModal();
-                                            temp.DeleteAll();
-                                            Clear(reporteTurbosina);
                                         end else begin
                                             reporte.RunModal();
-                                            temp.DeleteAll();
-                                            Clear(reporte);
                                         end;
                         end;
                     end;

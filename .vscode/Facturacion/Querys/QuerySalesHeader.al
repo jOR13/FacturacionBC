@@ -39,6 +39,11 @@ query 50512 QrySIH
             column(SelltoCustomerNo; "Sell-to Customer No.")
             {
             }
+            column(Cancelled; Cancelled)
+            {
+            }
+
+
 
 
             dataitem(Payment_Method; "Payment Method")

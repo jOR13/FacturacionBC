@@ -5,6 +5,9 @@ codeunit 50504 getStamp
 
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Invoices", 'OnOpenPageEvent', '', true, true)]
 
+    /// <summary> 
+    /// agrega los uuid de las facturas timbradas al historico de facturas
+    /// </summary>
     procedure timbradas()
     var
         sh: Record "Sales Invoice Header";
@@ -58,6 +61,9 @@ codeunit 50845 CREDITMEMOS
 {
     Permissions = TableData 114 = rimd;
     [EventSubscriber(ObjectType::Page, page::"Posted Sales Credit Memos", 'OnOpenPageEvent', '', true, true)]
+    /// <summary> 
+    /// agrega la realcion de las facturas a las notas de credito e inserta lostibres de las NC
+    /// </summary>
     procedure NCtimbradas()
     var
         nct: Record NCTimbradas;
@@ -114,6 +120,9 @@ codeunit 50845 CREDITMEMOS
 
 
     [EventSubscriber(ObjectType::Page, Page::"Sales Order", 'OnAfterActionEvent', 'Post', true, true)]
+    /// <summary> 
+    /// Calcula los traslados de las facturas y notas de credito, segun el filtro que se tenga
+    /// </summary>
     local procedure MyProcedure()
     begin
         c.calCImporteTraslado();

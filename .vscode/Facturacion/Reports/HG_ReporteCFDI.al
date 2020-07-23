@@ -310,6 +310,7 @@ report 50516 HG_ReporteCFDI
 
     }
 
+
     var
         num: text;
         tabla: Record temporal;

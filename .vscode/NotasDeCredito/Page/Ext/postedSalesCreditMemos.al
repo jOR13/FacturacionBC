@@ -64,14 +64,14 @@ pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
                             Message(msg);
                             temp.DeleteAll();
                         end else begin
-                            nc.SetFilter(nc.Folio, rec."No.");
                             temp.Init();
+                            temp.DeleteAll();
                             temp.getRec := Rec."No.";
-                            temp.Insert();
+                            if temp.Insert() = false then begin
+                                temp.Modify();
+                            end;
                             Commit();
                             reporte.RunModal();
-                            temp.DeleteAll();
-                            Clear(reporte);
                         end;
                     end;
                 }

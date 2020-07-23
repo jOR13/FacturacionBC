@@ -86,7 +86,7 @@ codeunit 60120 ControlEventos
                     mail.AddRecipients(Recipients);
                 end;
                 if mytable.Archivo = mytable.Archivo::xmlYpdf then begin
-                    nc.SetFilter(nc.Folio, creditMemo."No.");
+                    // nc.SetFilter(nc.Folio, creditMemo."No.");
                     temp.Init();
                     temp.getRec := creditMemo."No.";
                     temp.Insert();
@@ -192,13 +192,37 @@ codeunit 60120 ControlEventos
                     mail.AddRecipients(Recipients);
                 end;
                 if mytable.Archivo = mytable.Archivo::xmlYpdf then begin
-                    nc.SetFilter(nc.Folio, SalesInvoice."No.");
+                    //ft.SetFilter(ft.Folio, SalesInvoice."No.");
                     temp.Init();
+                    temp.DeleteAll();
                     temp.getRec := SalesInvoice."No.";
-                    temp.Insert();
+                    temp.DocNo := SalesInvoice."Order No.";
+                    if temp.Insert() = false then begin
+                        temp.Modify();
+                    end;
                     TempoBlob.Blob.CreateOutStream(OutstreamPdf);
                     TempoBlob.Blob.CreateInStream(InstreamPDF);
-                    Reporte.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+
+                    Commit();
+
+                    if (SalesInvoice.Remision <> '') or (SalesInvoice.ProductoTrasnportado <> '') or (SalesInvoice.FechaDeEntrega <> 0D) or (SalesInvoice.OrigenDestino <> '') or (SalesInvoice.Tanque <> '') then begin
+                        reporteTransportadora.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+
+                    end else begin
+                        if (SalesInvoice.FechaEntregaGas <> 0D) or (SalesInvoice.NoTicket <> '') then begin
+                            reporteGas.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                        end else
+                            if (SalesInvoice.FechaEntregaDiesel <> 0D) or (SalesInvoice.RemisonDiesel <> '') then begin
+                                reporteDiesel.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                            end else
+                                if (SalesInvoice.aeropuerto <> '') or (SalesInvoice.PeriodoFact <> '') or (SalesInvoice.BOL <> '') or (SalesInvoice.NoTanque <> '') then begin
+                                    reporteTurbosina.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                                end
+                                else begin
+                                    Reporte.SaveAs('', ReportFormat::Pdf, OutstreamPdf);
+                                end;
+                    end;
+
                     clear(TempBlob);
                     TempBlob.Blob.CreateInStream(XMLIStream);
                     FileName := SalesInvoice."No." + '.XML';
@@ -271,6 +295,10 @@ codeunit 60120 ControlEventos
     end;
 
     var
+        reporteTransportadora: Report HG_ReportTrasnportadoraFact;
+        reporteTurbosina: Report HG_ReprteTurbosina;
+        reporteGas: report HG_GasCfdi;
+        reporteDiesel: Report HG_DieselCFDI;
         myInt: Integer;
         mypage: Page "EnviarCorreoPage";
         cliente: Record Customer;
@@ -278,7 +306,7 @@ codeunit 60120 ControlEventos
         company: Record "Company Information";
         temp: Record temporal;
         nc: Record NCTimbradas;
-
+        ft: Record facturas_Timbradas;
         ImportXmlFile: File;
         XmlINStream: InStream;
         copias: List of [Text];
