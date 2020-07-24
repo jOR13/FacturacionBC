@@ -2,7 +2,7 @@
   "id": "bf424e8a-da55-479b-ba1d-7a7867722529",
   "name": "HG-INVOICE",
   "publisher": "Hiper-Gas",
-  "version": "1.5.0.5",
+  "version": "1.5.0.6",
   "brief": "",
   "description": "Extensión para el enlace del desarrollo de facturación",
   "privacyStatement": "",
@@ -29,7 +29,7 @@
   "idRanges": [
     {
       "from": 50500,
-      "to": 60900
+      "to": 80900
     }
   ],
   "contextSensitiveHelpUrl": "http://portal.hiper-gas.com/",

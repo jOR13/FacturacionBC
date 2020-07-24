@@ -1,7 +1,6 @@
 pageextension 50845 PostedSalesCreditMemos extends "Posted Sales Credit Memos"
 {
 
-
     layout
     {
         modify("No.")

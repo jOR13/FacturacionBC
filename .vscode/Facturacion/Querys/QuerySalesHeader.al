@@ -39,8 +39,9 @@ query 50512 QrySIH
             column(SelltoCustomerNo; "Sell-to Customer No.")
             {
             }
-            column(Cancelled; Cancelled)
+            column(cancelado; Cancelled)
             {
+
             }
 
 
