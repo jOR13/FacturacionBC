@@ -48,6 +48,7 @@ page 70102 "Permisos CRE"
                 var
                     cod: Codeunit Methods;
                 begin
+                    Message('dasd');
                     cod.SerieNO();
                 end;
             }
