@@ -49,7 +49,7 @@ page 70102 "Permisos CRE"
                     cod: Codeunit Methods;
                 begin
                     Message('dasd');
-                    cod.SerieNO();
+                    // cod.SerieNO();
                 end;
             }
         }
