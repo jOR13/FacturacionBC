@@ -1,6 +1,6 @@
-page 70102 Permisos
+page 70102 "Permisos CRE"
 {
-    PageType = Card;
+    PageType = List;
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = permisosCRE;
@@ -9,17 +9,17 @@ page 70102 Permisos
     {
         area(Content)
         {
-            group(Permisos)
+            repeater(Permisos)
             {
 
                 field(id; id)
                 {
                     ApplicationArea = All;
                 }
-                field(Cliente; Cliente)
-                {
-                    ApplicationArea = All;
-                }
+                /* field(Cliente; Cliente)
+                 {
+                     ApplicationArea = All;
+                 }*/
                 field("No. Permiso"; "No. Permiso")
                 {
                     ApplicationArea = All;
@@ -40,13 +40,15 @@ page 70102 Permisos
     {
         area(Processing)
         {
-            action(ActionName)
+            action(Serie)
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
+                var
+                    cod: Codeunit Methods;
                 begin
-
+                    cod.SerieNO();
                 end;
             }
         }

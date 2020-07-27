@@ -10,11 +10,11 @@ table 70102 PermisosCRE
             AutoIncrement = true;
         }
 
-        field(6; Cliente; Code[250])
+        /*field(6; Cliente; Code[250])
         {
             DataClassification = ToBeClassified;
             TableRelation = Customer;
-        }
+        }*/
 
         field(2; code; code[250])
         {
@@ -67,5 +67,5 @@ table 70102 PermisosCRE
     begin
 
     end;
-    
+
 }
