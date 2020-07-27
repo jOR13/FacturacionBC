@@ -29,6 +29,11 @@ query 50531 QrySCH
 
             column(UUIDRelacionado; UUIDRelacionadoNC) { }
             column(SelltoCustomerNo; "Sell-to Customer No.") { }
+            column(cancelado; Cancelled)
+            {
+            }
+
+
             dataitem(Payment_Method; "Payment Method")
             {
                 //SqlJoinType = InnerJoin;
