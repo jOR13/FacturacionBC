@@ -37,8 +37,13 @@ table 70109 MetodoPagoTmp
         myInt: Integer;
 
     trigger OnInsert()
+    var
+        cle: Record "Cust. Ledger Entry";
     begin
 
+        cle.Get(Rec.docNo);
+        cle."Forma de pago" := rec."Forma de pago";
+        cle.Modify();
     end;
 
     trigger OnModify()

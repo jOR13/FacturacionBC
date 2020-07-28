@@ -5,6 +5,7 @@ tableextension 70108 CustLedger extends "Cust. Ledger Entry"
         field(70106; "Forma de pago"; Code[50])
         {
             DataClassification = ToBeClassified;
+            TableRelation = MetodoPagoTmp."Forma de pago" where(docNo = field("Document No."));
 
         }
     }
@@ -29,6 +30,8 @@ pageextension 70108 CustLedger extends "Customer Ledger Entries"
     actions
     {
     }
+
+
 
 
 }
