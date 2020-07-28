@@ -40,16 +40,23 @@ page 70102 "Permisos CRE"
     {
         area(Processing)
         {
-            action(Serie)
+            action(PartialNO)
             {
                 ApplicationArea = All;
 
                 trigger OnAction()
                 var
                     cod: Codeunit Methods;
+                    DCLE: Record "Detailed Cust. Ledg. Entry";
+                    p: Record PartialNo;
+                    i: Integer;
                 begin
-                    Message('dasd');
-                    // cod.SerieNO();
+                    // DCLE.SetRange(DCLE."Cust. Ledger Entry No.", 2, 1061);
+                    if DCLE.FindSet() then begin
+                        repeat begin
+                            cod.PartialNo(DCLE."Cust. Ledger Entry No.");
+                        end until DCLE.Next() = 0;
+                    end;
                 end;
             }
         }

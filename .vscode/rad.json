@@ -1,1 +1,1 @@
-﻿{"Added":[],"Modified":[],"Removed":[]}
+﻿{"Added":[],"Modified":[{"Id":70100,"Kind":14,"Name":"QryDeatailedCustLedgerEntry","PackagePath":"/src/.vscode/ComplementosPago/Querys/QryDeatailedCustLedgerEntry.al"},{"Id":70101,"Kind":11,"Name":"Methods","PackagePath":"/src/.vscode/ComplementosPago/Code/Methods.al"}],"Removed":[{"Id":0,"Kind":11,"Name":"_symbolcache","PackagePath":"/src/.vscode/temp-al-proxy.al"}]}
