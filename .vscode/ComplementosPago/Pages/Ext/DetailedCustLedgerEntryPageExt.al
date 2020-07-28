@@ -24,6 +24,7 @@ pageextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entrie
         // Add changes to page actions here
     }
 
+
     var
         myInt: Integer;
 }

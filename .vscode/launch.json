@@ -5,14 +5,14 @@
             "type": "al",
             "request": "launch",
             "name": "Microsoft cloud sandbox",
-            "startupObjectId": 70102,
+            "startupObjectId": 25,
             "startupObjectType": "Page",
             "breakOnError": true,
             "launchBrowser": true,
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "sandboxName": "s1",
-            "schemaUpdateMode": "Recreate"
+            //"schemaUpdateMode": "Recreate"
             
         }
     ]

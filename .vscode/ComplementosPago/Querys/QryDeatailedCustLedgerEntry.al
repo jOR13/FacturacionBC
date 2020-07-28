@@ -4,17 +4,21 @@ query 70100 QryDeatailedCustLedgerEntry
     OrderBy = ascending(PostingDate);
 
 
+
     elements
     {
         dataitem(MovDetallados; "Detailed Cust. Ledg. Entry")
         {
-            DataItemTableFilter = Amount = filter(< '0');
+            DataItemTableFilter = Amount = filter(< '0'), "Entry Type" = filter(= 'Application'), Unapplied = filter(= 'false');
             column(EntryNo; "Entry No.")
             {
             }
             column(CustLedgerEntryNo; "Cust. Ledger Entry No.")
             {
-                Method = Sum;
+
+            }
+            column(PartialNo; PartialNo)
+            {
             }
             column(CustomerNo; "Customer No.")
             {
@@ -35,11 +39,11 @@ query 70100 QryDeatailedCustLedgerEntry
 
             column(Amount; Amount)
             {
-                Method = sum;
+
             }
             column(AmountLCY; "Amount (LCY)")
             {
-                Method = sum;
+
             }
 
 
@@ -55,15 +59,6 @@ query 70100 QryDeatailedCustLedgerEntry
             {
             }
 
-            filter(Entry_Type; "Entry Type")
-            {
-                ColumnFilter = Entry_Type = filter(= 'Aplication');
-            }
-
-            filter(UnappliedF; Unapplied)
-            {
-                ColumnFilter = UnappliedF = filter(= 'false');
-            }
         }
     }
 
