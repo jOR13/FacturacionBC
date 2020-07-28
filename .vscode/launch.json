@@ -12,7 +12,7 @@
             "enableLongRunningSqlStatements": true,
             "enableSqlInformationDebugger": true,
             "sandboxName": "s1",
-            //"schemaUpdateMode": "Recreate"
+            "schemaUpdateMode": "Recreate"
             
         }
     ]
