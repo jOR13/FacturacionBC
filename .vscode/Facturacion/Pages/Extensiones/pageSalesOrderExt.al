@@ -1,12 +1,15 @@
-pageextension 70105 pageSalesLineExt extends "Sales Order Subform"
+/*pageextension 70105 pageSalesLineExt extends "Sales Order"
 {
     layout
     {
+
         addafter("No.")
         {
             field("No. identificacion"; "No. identificacion")
             {
                 ApplicationArea = All;
+                //TableRelation = PermisosCRE.code;
+
             }
         }
     }
@@ -18,4 +21,4 @@ pageextension 70105 pageSalesLineExt extends "Sales Order Subform"
 
     var
         myInt: Integer;
-}
+}*/

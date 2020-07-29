@@ -104,6 +104,14 @@ tableextension 50848 OrderSalesPageExt extends "Sales Header"
             DataClassification = ToBeClassified;
         }
 
+        field(70105; "No. identificacion"; Text[250])
+        {
+            DataClassification = ToBeClassified;
+            //TableRelation = if ("Location Code" = filter(<> '')) Location.PermisoCode where(PermisoCode = filter(<> ''));
+            TableRelation = Location.PermisoCode where(PermisoCode = filter(<> ''));
+        }
+
+
     }
 
 
@@ -353,6 +361,23 @@ pageextension 50848 MyExtension extends "Sales Order"
                 end;
             }
         }
+
+        addlast("Shipping and Billing")
+        {
+            group(Permisos)
+            {
+                field("No. identificacion"; "No. identificacion")
+                {
+
+                    ApplicationArea = all;
+                    TableRelation = Location.PermisoCode where(PermisoCode = filter(<> ''));
+
+                }
+            }
+
+        }
+
+
     }
     var
         show: Boolean;
