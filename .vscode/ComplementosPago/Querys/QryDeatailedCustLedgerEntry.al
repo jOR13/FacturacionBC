@@ -9,7 +9,9 @@ query 70100 QryDeatailedCustLedgerEntry
     {
         dataitem(MovDetallados; "Detailed Cust. Ledg. Entry")
         {
-            DataItemTableFilter = Amount = filter(< '0'), "Entry Type" = filter(= 'Application'), Unapplied = filter(= 'false');
+            DataItemTableFilter =/* Amount = filter(< '0'),*/ "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
+
+
             column(EntryNo; "Entry No.")
             {
             }
@@ -25,13 +27,15 @@ query 70100 QryDeatailedCustLedgerEntry
             }
             column(EntryType; "Entry Type")
             {
+
             }
             column(PostingDate; "Posting Date")
             {
             }
-            column(Formadepago; "Forma de pago")
-            {
-            }
+            // column(Formadepago; "Forma de pago")
+            // {
+
+            // }
 
             column(CurrencyCode; "Currency Code")
             {
@@ -57,6 +61,16 @@ query 70100 QryDeatailedCustLedgerEntry
 
             column(Unapplied; Unapplied)
             {
+            }
+
+            dataitem(MetodoPagoTmp; MetodoPagoTmp)
+            {
+
+                DataItemLink = docNo = MovDetallados."Document No.";
+                column(Forma_de_pago; "Forma de pago")
+                {
+
+                }
             }
 
         }

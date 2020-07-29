@@ -4,8 +4,7 @@ tableextension 70105 salesInvoiceTableExt extends "Sales Line"
     {
         field(70105; "No. identificacion"; Text[250])
         {
-            DataClassification = ToBeClassified;
-            TableRelation = "No. Series".Code;
+
         }
     }
     var

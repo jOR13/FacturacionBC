@@ -52,6 +52,11 @@ page 70102 "Permisos CRE"
                     i: Integer;
                 begin
                     // DCLE.SetRange(DCLE."Cust. Ledger Entry No.", 2, 1061);
+                    DCLE.SetFilter(DCLE."Entry Type", 'Application');
+                    DCLE.SetFilter(DCLE.Unapplied, 'false');
+                    DCLE.SetFilter(DCLE.PartialNo, '0');
+                    DCLE.SetFilter(DCLE.Amount, '< 0');
+
                     if DCLE.FindSet() then begin
                         repeat begin
                             cod.PartialNo(DCLE."Cust. Ledger Entry No.");

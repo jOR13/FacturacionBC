@@ -10,13 +10,13 @@ pageextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entrie
             }
         }
 
-        addafter("Currency Code")
-        {
-            field("Forma de pago"; "Forma de pago")
-            {
-                ApplicationArea = All;
-            }
-        }
+        // addafter("Currency Code")
+        // {
+        //     field("Forma de pago"; "Forma de pago")
+        //     {
+        //         ApplicationArea = All;
+        //     }
+        // }
     }
 
     actions
