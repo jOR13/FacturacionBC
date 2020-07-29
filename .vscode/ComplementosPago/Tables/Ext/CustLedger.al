@@ -31,8 +31,6 @@ pageextension 70108 CustLedger extends "Customer Ledger Entries"
     {
     }
 }
-*/
-
 
 
 /*

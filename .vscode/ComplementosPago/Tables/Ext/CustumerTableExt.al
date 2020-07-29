@@ -8,7 +8,4 @@ tableextension 70104 CustumerTableExt extends Customer
             TableRelation = permisosCRE.code where(Comercializacion = const(true));
         }
     }
-
-    var
-        myInt: Integer;
 }
