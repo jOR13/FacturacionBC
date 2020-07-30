@@ -275,6 +275,11 @@ report 50648 HG_DieselCFDI
             column(NoIdentificacion; NoIdentificacion)
             {
             }
+            column(NoProducto; NoProducto)
+            {
+            }
+
+
             column(TasaOCuotaTraslado; TasaOCuotaTraslado)
             {
             }

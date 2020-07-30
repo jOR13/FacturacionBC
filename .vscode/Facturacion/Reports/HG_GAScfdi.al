@@ -249,6 +249,11 @@ report 50685 HG_GasCfdi
             column(NoIdentificacion; NoIdentificacion)
             {
             }
+            column(NoProducto; NoProducto)
+            {
+            }
+
+
             column(TasaOCuotaTraslado; TasaOCuotaTraslado)
             {
             }

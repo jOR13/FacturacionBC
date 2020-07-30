@@ -269,6 +269,10 @@ report 50846 HG_ReportTrasnportadoraFact
             column(NoIdentificacion; NoIdentificacion)
             {
             }
+
+            column(NoProducto; NoProducto)
+            {
+            }
             column(TasaOCuotaTraslado; TasaOCuotaTraslado)
             {
             }
