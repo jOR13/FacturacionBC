@@ -2,6 +2,7 @@ table 70107 PartialNo
 {
     DataClassification = ToBeClassified;
 
+
     fields
     {
         field(1; ID; Integer)

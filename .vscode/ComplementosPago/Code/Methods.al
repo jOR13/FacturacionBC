@@ -13,8 +13,18 @@ codeunit 70101 Methods
     //     end;
     // end;
 
-    [EventSubscriber(ObjectType::table, database::"Detailed Cust. Ledg. Entry", 'OnAfterInsertEvent', '', true, true)]
-    local procedure calcPartial()
+    // [EventSubscriber(ObjectType::Query, query::QryDeatailedCustLedgerEntry, '', '', true, true)]
+
+    local procedure MyProcedure()
+    var
+        Np: Record PartialNo;
+    begin
+
+    end;
+
+
+
+    procedure calcPartial()
     var
         DCLE: Record "Detailed Cust. Ledg. Entry";
         p: Record PartialNo;
@@ -33,7 +43,7 @@ codeunit 70101 Methods
         end;
     end;
 
-    procedure PartialNo(rec: Integer)
+    local procedure PartialNo(rec: Integer)
     var
         DCLE: Record "Detailed Cust. Ledg. Entry";
         p: Record PartialNo;

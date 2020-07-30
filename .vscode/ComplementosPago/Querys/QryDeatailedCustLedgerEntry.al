@@ -31,6 +31,7 @@ query 70100 QryDeatailedCustLedgerEntry
             }
             column(PostingDate; "Posting Date")
             {
+
             }
             // column(Formadepago; "Forma de pago")
             // {
@@ -63,6 +64,8 @@ query 70100 QryDeatailedCustLedgerEntry
             {
             }
 
+
+
             dataitem(MetodoPagoTmp; MetodoPagoTmp)
             {
 
@@ -76,11 +79,5 @@ query 70100 QryDeatailedCustLedgerEntry
         }
     }
 
-    var
-        myInt: Integer;
 
-    trigger OnBeforeOpen()
-    begin
-
-    end;
 }

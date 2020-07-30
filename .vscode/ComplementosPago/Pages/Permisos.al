@@ -46,30 +46,7 @@ page 70102 "Permisos CRE"
     {
         area(Processing)
         {
-            action(PartialNO)
-            {
-                ApplicationArea = All;
 
-                trigger OnAction()
-                var
-                    cod: Codeunit Methods;
-                    DCLE: Record "Detailed Cust. Ledg. Entry";
-                    p: Record PartialNo;
-                    i: Integer;
-                begin
-                    // DCLE.SetRange(DCLE."Cust. Ledger Entry No.", 2, 1061);
-                    DCLE.SetFilter(DCLE."Entry Type", 'Application');
-                    DCLE.SetFilter(DCLE.Unapplied, 'false');
-                    DCLE.SetFilter(DCLE.PartialNo, '0');
-                    DCLE.SetFilter(DCLE.Amount, '< 0');
-
-                    if DCLE.FindSet() then begin
-                        repeat begin
-                            cod.PartialNo(DCLE."Cust. Ledger Entry No.");
-                        end until DCLE.Next() = 0;
-                    end;
-                end;
-            }
         }
     }
 
