@@ -7,8 +7,8 @@ codeunit 50503 codeUnitWS
         fbc, fechaF : text;
         fecha: List of [Text];
     begin
-        //consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
-        consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
+        consultaWS('http://177.244.51.250:2020/api/facturashabilitadas');
+        //consultaWS('http://hgwebapp.azurewebsites.net/api/facturashabilitadas');
 
         foreach t in JsonArray do begin
             contArray := JsonArray.Count;
