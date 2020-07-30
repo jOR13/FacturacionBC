@@ -17,19 +17,31 @@ pageextension 70109 SalesOrderSubExt extends "Sales Order Subform"
             var
                 l: record Location;
                 c: record Customer;
+                p1, p2 : integer;
+                p: Record PermisosCRE;
             begin
                 l.get(rec."Location Code");
                 if l.PermisoCode <> '' then begin
                     rec."No. identificacion" := l.PermisoCode;
                 end;
 
-                l.get(rec."Sell-to Customer No.");
-                if l.PermisoCode <> '' then begin
-                    rec."No. identificacion" := l.PermisoCode;
+                c.get(rec."Sell-to Customer No.");
+                if c.PermisoCodeCliente <> '' then begin
+                    rec."No. identificacion" := c.PermisoCodeCliente;
                 end;
 
-
-
+                if rec."No. identificacion" <> '' then begin
+                    p.Get(rec."No. identificacion");
+                    if p."Last no Used" = 0 then begin
+                        p."Last no Used" := 1;
+                    end else begin
+                        p."Last no Used" += 1;
+                        p.Modify();
+                    end;
+                    rec."No. identificacion" := p."No. Permiso" + '-' + Format(p."Last no Used");
+                end else begin
+                    rec."No. identificacion" := "No.";
+                end;
             end;
         }
     }

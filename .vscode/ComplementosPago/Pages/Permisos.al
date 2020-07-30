@@ -28,6 +28,12 @@ page 70102 "Permisos CRE"
                 {
                     ApplicationArea = All;
                 }
+                field("Last no Used"; "Last no Used")
+                {
+                    ApplicationArea = All;
+                }
+
+
                 field(Comercializacion; Comercializacion)
                 {
                     ApplicationArea = All;
