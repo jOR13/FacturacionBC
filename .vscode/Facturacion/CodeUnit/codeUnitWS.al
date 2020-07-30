@@ -377,6 +377,7 @@ codeunit 50503 codeUnitWS
                         cont := SelectJsonToken(JsonObject, '$.Conceptos').AsArray().Count();
                         for j := 0 to cont - 1 do begin
                             ftc.Init();
+
                             ftc.Folio := SelectJsonToken(JsonObject, '$.Folio').AsValue.AsText;
                             ftc.Descripcion := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descripcion').AsValue.AsText;
                             ftc.Cantidad := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Cantidad').AsValue.AsDecimal();
@@ -402,6 +403,9 @@ codeunit 50503 codeUnitWS
                                 ftc.Descuento := SelectJsonToken(JsonObject, '$.Conceptos.[' + Format(j) + '].Descuento').AsValue.AsDecimal();
                                 ft.DescuentoTotal := SelectJsonToken(JsonObject, '$.Descuento').AsValue.AsDecimal();
                             end;
+
+                            ftc.NoProducto := 'wating 4 david';
+
                             ftc.Insert();
                             ftc.id := ftc.id + 1;
                         end;
@@ -649,12 +653,12 @@ codeunit 50503 codeUnitWS
                 end;
             end until fil.Next() = 0;
         end;
-
     end;
 
 
     var
         numUnidades: text;
+        sih: Record "Sales Invoice Line";
         unidadesDecena: Text;
         unidadDec: Integer;
         httpCliente: HttpClient;

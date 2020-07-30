@@ -268,7 +268,14 @@ report 50516 HG_ReporteCFDI
 
             column(NoIdentificacion; NoIdentificacion)
             {
+
             }
+            column(NoProducto; NoProducto)
+            {
+            }
+
+
+
             column(TasaOCuotaTraslado; TasaOCuotaTraslado)
             {
             }
@@ -284,7 +291,6 @@ report 50516 HG_ReporteCFDI
             column(Descuento; Descuento)
             {
             }
-
 
         }
         dataitem(PedimentosTable; PedimentosTableHG)
@@ -317,5 +323,7 @@ report 50516 HG_ReporteCFDI
         temp: Record TempBlob temporary;
         eventHandler: Codeunit cuqr;
         cod: Codeunit codeUnitWS;
+
+        NoProducto: Text;
 
 }

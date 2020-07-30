@@ -12,6 +12,9 @@ query 50513 QrySIL
 
             DataItemTableFilter = "Posting Date" = filter(= '-3D..today'), "No." = filter(<> '111-03-03-01');
             column(Folio; "Document No.") { }
+            column(Noidentificacion; "No. identificacion")
+            {
+            }
             //column(No_; "No.") { }
 
             //column(ImporteDescuento; ImporteDescuento) { }
@@ -35,7 +38,7 @@ query 50513 QrySIL
             dataitem(ArticuloInfo; Item)
             {
                 DataItemLink = "No." = SalesLineInfo."No.";
-                column(NoIdentificacion; "No.") { }
+                column(NoProducto; "No.") { }
                 column(ClaveProdServ; "SAT Item Classification") { }
                 dataitem(Unit_of_Measure; "Unit of Measure")
                 {

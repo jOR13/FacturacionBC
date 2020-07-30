@@ -94,6 +94,11 @@ table 50522 Conceptos
             AutoIncrement = true;
         }
 
+        field(52; NoProducto; Text[250])
+        {
+            DataClassification = ToBeClassified;
+        }
+
     }
 
     keys

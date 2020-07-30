@@ -11,6 +11,7 @@ pageextension 70109 SalesOrderSubExt extends "Sales Order Subform"
             }
         }
 
+
         modify("Location Code")
         {
             trigger OnAfterValidate()
@@ -36,8 +37,8 @@ pageextension 70109 SalesOrderSubExt extends "Sales Order Subform"
                         p."Last no Used" := 1;
                     end else begin
                         p."Last no Used" += 1;
-                        p.Modify();
                     end;
+                    p.Modify();
                     rec."No. identificacion" := p."No. Permiso" + '-' + Format(p."Last no Used");
                 end else begin
                     rec."No. identificacion" := "No.";
