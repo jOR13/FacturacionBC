@@ -46,6 +46,27 @@ page 70145 NumerosParciales
                     cod.calcPartial();
                 end;
             }
+
+            action(CalcTipoCambio)
+            {
+                ApplicationArea = All;
+                Image = Calculate;
+                trigger OnAction()
+                var
+                    DCLE: Record "Detailed Cust. Ledg. Entry";
+                begin
+                    DCLE.SetFilter(DCLE."Entry Type", 'Application|Initial Entry');
+                    DCLE.SetFilter(DCLE.Unapplied, 'false');
+                    DCLE.SetFilter(DCLE.Amount, '<>0');
+                    DCLE.SetFilter(DCLE."Amount (LCY)", '<>0');
+                    if DCLE.FindSet() then begin
+                        repeat begin
+                            DCLE.TipoCambio := DCLE."Amount (LCY)" / DCLE.Amount;
+                            DCLE.Modify();
+                        end until DCLE.Next() = 0;
+                    end;
+                end;
+            }
         }
     }
 

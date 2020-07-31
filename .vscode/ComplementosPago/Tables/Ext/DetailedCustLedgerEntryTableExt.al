@@ -8,13 +8,32 @@ tableextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entry
 
         }
 
-        // field(70106; "Forma de pago"; Code[50])
-        // {
-        //     DataClassification = ToBeClassified;
-        //     TableRelation = "Payment Method".code;
-        // }
+        field(70108; TipoCambio; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
+        field(7010; IdDocumento; text[250])
+        {
+            DataClassification = ToBeClassified;
+            TableRelation = "Sales Invoice Header".UUIDHG where("No." = field("Document No."));
+
+        }
+
     }
 
+    trigger OnInsert()
     var
         myInt: Integer;
+    begin
+
+        if (rec.TipoCambio = 0) and (rec.Amount <> 0) and (rec."Amount (LCY)" <> 0) then begin
+            rec.TipoCambio := rec."Amount (LCY)" / rec.Amount;
+            rec.Modify();
+            Message('tipo de cambio %1', rec.TipoCambio);
+        end;
+
+    end;
+
 }

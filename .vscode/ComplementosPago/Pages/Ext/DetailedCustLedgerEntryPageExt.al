@@ -9,22 +9,9 @@ pageextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entrie
                 ApplicationArea = all;
             }
         }
-
-        // addafter("Currency Code")
-        // {
-        //     field("Forma de pago"; "Forma de pago")
-        //     {
-        //         ApplicationArea = All;
-        //     }
-        // }
     }
 
-    actions
-    {
-        // Add changes to page actions here
-    }
-
-
-    var
-        myInt: Integer;
 }
+
+
+

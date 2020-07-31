@@ -1,7 +1,7 @@
 query 70100 QryDeatailedCustLedgerEntry
 {
     QueryType = Normal;
-    OrderBy = ascending(PostingDate);
+    OrderBy = ascending(Fecha);
 
 
 
@@ -12,6 +12,9 @@ query 70100 QryDeatailedCustLedgerEntry
             DataItemTableFilter =/* Amount = filter(< '0'),*/ "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
 
 
+            column(NumParcialidad; PartialNo)
+            {
+            }
             column(EntryNo; "Entry No.")
             {
             }
@@ -19,24 +22,31 @@ query 70100 QryDeatailedCustLedgerEntry
             {
 
             }
-            column(PartialNo; PartialNo)
-            {
-            }
+
             column(CustomerNo; "Customer No.")
             {
             }
+
+
             column(EntryType; "Entry Type")
             {
 
             }
-            column(PostingDate; "Posting Date")
+            column(Fecha; "Posting Date")
             {
-
             }
             // column(Formadepago; "Forma de pago")
             // {
 
             // }
+            column(DocumentType; "Document Type")
+            {
+            }
+
+
+            column(Folio; "Document No.")
+            {
+            }
 
             column(CurrencyCode; "Currency Code")
             {
@@ -50,34 +60,62 @@ query 70100 QryDeatailedCustLedgerEntry
             {
 
             }
-
-
-            column(DocumentType; "Document Type")
+            column(TipoCambio; TipoCambio)
             {
+
             }
-            column(DocumentNo; "Document No.")
-            {
-            }
+
 
 
             column(Unapplied; Unapplied)
             {
             }
 
-
-
-            dataitem(MetodoPagoTmp; MetodoPagoTmp)
+            /* 
+             }*/
+            dataitem(Sales_Invoice_Header; "Sales Invoice Header")
             {
 
-                DataItemLink = docNo = MovDetallados."Document No.";
-                column(Forma_de_pago; "Forma de pago")
+                DataItemLink = "No." = MovDetallados."Document No.";
+                column(UUIDHG; UUIDHG)
                 {
+                }
+                dataitem(MetodoPagoTmp; MetodoPagoTmp)
+                {
+                    DataItemLink = docNo = Sales_Invoice_Header."No.";
+                    column(Forma_de_pago; "Forma de pago")
+                    {
+                    }
+
+                    dataitem(Customer; Customer)
+                    {
+                        DataItemLink = "No." = MovDetallados."Customer No.";
+                        column(Name; Name)
+                        {
+                        }
+                        column(RFCNo; "RFC No.")
+                        {
+                        }
+                    }
 
                 }
+
             }
 
         }
     }
+
+
+
+    var
+        temporal: Decimal;
+
+    trigger OnBeforeOpen()
+    begin
+
+        currQuery.SETFILTER(CurrQuery.UUIDHG, '');
+
+    end;
 
 
 }
