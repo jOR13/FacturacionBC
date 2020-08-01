@@ -1,9 +1,6 @@
 codeunit 70101 Methods
 {
 
-
-
-
     procedure calcPartial()
     var
         DCLE: Record "Detailed Cust. Ledg. Entry";
