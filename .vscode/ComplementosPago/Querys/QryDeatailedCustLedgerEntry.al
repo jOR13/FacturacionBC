@@ -3,17 +3,15 @@ query 70100 QryDeatailedCustLedgerEntry
     QueryType = Normal;
     OrderBy = ascending(Fecha);
 
-
-
     elements
     {
         dataitem(MovDetallados; "Detailed Cust. Ledg. Entry")
         {
-            DataItemTableFilter = "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
-            //DataItemTableFilter =/* Amount = filter(< '0'),*/ "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
+            DataItemTableFilter = Amount = filter(< '0'), "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false'), "Document Type" = filter(<> 'Refound');
 
 
-            column(NumParcialidad; PartialNo)
+            column(NumParcialidad;
+            PartialNo)
             {
             }
             column(EntryNo; "Entry No.")
