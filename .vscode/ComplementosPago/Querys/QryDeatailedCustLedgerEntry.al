@@ -9,7 +9,8 @@ query 70100 QryDeatailedCustLedgerEntry
     {
         dataitem(MovDetallados; "Detailed Cust. Ledg. Entry")
         {
-            DataItemTableFilter =/* Amount = filter(< '0'),*/ "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
+            DataItemTableFilter = "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
+            //DataItemTableFilter =/* Amount = filter(< '0'),*/ "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false');
 
 
             column(NumParcialidad; PartialNo)
