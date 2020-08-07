@@ -21,6 +21,12 @@ tableextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entry
 
         }
 
+        field(707101; SaldoRestante; Decimal)
+        {
+            DataClassification = ToBeClassified;
+
+        }
+
     }
 
     trigger OnInsert()

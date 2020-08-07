@@ -38,12 +38,13 @@ page 70145 NumerosParciales
                 Image = Calculate;
                 trigger OnAction()
                 var
-                    cod: Codeunit Methods;
-                    DCLE: Record "Detailed Cust. Ledg. Entry";
+
                     p: Record PartialNo;
                     i: Integer;
                 begin
+                    p.DeleteAll();
                     cod.calcPartial();
+
                 end;
             }
 
@@ -67,9 +68,43 @@ page 70145 NumerosParciales
                     end;
                 end;
             }
+
+            action(getUUID)
+            {
+                ApplicationArea = All;
+                Image = GetEntries;
+                trigger OnAction()
+                var
+                    m: Codeunit Methods;
+                begin
+                    m.getUUIDS();
+                end;
+            }
+
+            action(calcularRestante)
+            {
+                ApplicationArea = All;
+                Image = Calculate;
+
+
+                trigger OnAction()
+                begin
+                    //DCLE.SetFilter(SaldoRestante, '0');
+                    DCLE.SetFilter("Cust. Ledger Entry No.", Format(2359893));
+                    //DCLE.SetFilter("Entry Type", 'Initial Entry|Application');
+                    //DCLE.SetFilter("Posting Date", '-30D..today');
+                    if DCLE.FindSet() then begin
+                        repeat begin
+                            cod.restante(DCLE."Cust. Ledger Entry No.");
+                        end until DCLE.Next() = 0;
+                    end;
+                end;
+
+            }
         }
     }
 
     var
-        myInt: Integer;
+        cod: Codeunit Methods;
+        DCLE: Record "Detailed Cust. Ledg. Entry";
 }

@@ -3,11 +3,12 @@ query 70100 QryDeatailedCustLedgerEntry
     QueryType = Normal;
     OrderBy = ascending(Fecha);
 
+
     elements
     {
         dataitem(MovDetallados; "Detailed Cust. Ledg. Entry")
         {
-            DataItemTableFilter = Amount = filter(< '0'), "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false'), "Document Type" = filter(<> 'Refound');
+            DataItemTableFilter = /*IdDocumento = filter(<> ''),*/ Amount = filter(< '0'), "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false')/*, "Document Type" = filter(<> 'Refund')*/;
 
 
             column(NumParcialidad;
@@ -41,9 +42,7 @@ query 70100 QryDeatailedCustLedgerEntry
             column(DocumentType; "Document Type")
             {
             }
-
-
-            column(Folio; "Document No.")
+            column(DocumentNo; "Document No.")
             {
             }
 
@@ -64,11 +63,16 @@ query 70100 QryDeatailedCustLedgerEntry
 
             }
 
-
-
             column(Unapplied; Unapplied)
             {
             }
+            column(IdDocumento; IdDocumento)
+            {
+            }
+            column(SaldoRestante; SaldoRestante)
+            {
+            }
+
 
             /* 
              }*/
@@ -76,9 +80,20 @@ query 70100 QryDeatailedCustLedgerEntry
             {
 
                 DataItemLink = "No." = MovDetallados."Document No.";
-                column(UUIDHG; UUIDHG)
-                {
-                }
+
+                // column(UUIDHG; UUIDHG)
+                // {
+
+                // }
+
+                // column(SaldoRestante; "Remaining Amount")
+                // {
+
+                // }
+
+
+
+
                 dataitem(MetodoPagoTmp; MetodoPagoTmp)
                 {
                     DataItemLink = docNo = Sales_Invoice_Header."No.";
@@ -112,7 +127,7 @@ query 70100 QryDeatailedCustLedgerEntry
     trigger OnBeforeOpen()
     begin
 
-        currQuery.SETFILTER(CurrQuery.UUIDHG, '');
+
 
     end;
 

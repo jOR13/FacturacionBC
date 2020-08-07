@@ -213,12 +213,12 @@ pageextension 50506 pagePostSalesInvoicesExt extends 143
         end;
     end;
 
-    trigger OnOpenPage()
+    /*trigger OnOpenPage()
     var
         myInt: Integer;
     begin
         rec.SetFilter(rec."Posting Date", '<today+today');
-    end;
+    end;*/
 
     var
         mitabla: Record "Sales Invoice Header";

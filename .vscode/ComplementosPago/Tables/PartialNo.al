@@ -16,6 +16,8 @@ table 70107 PartialNo
 
         }
 
+
+
         field(3; CustLedegerEntryNo; Code[250])
         {
             DataClassification = ToBeClassified;
