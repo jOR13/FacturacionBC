@@ -29,17 +29,56 @@ tableextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entry
 
     }
 
-    trigger OnInsert()
+    trigger OnAfterInsert()
     var
-        myInt: Integer;
+        uuid: text;
     begin
 
         if (rec.TipoCambio = 0) and (rec.Amount <> 0) and (rec."Amount (LCY)" <> 0) then begin
             rec.TipoCambio := rec."Amount (LCY)" / rec.Amount;
             rec.Modify();
-            Message('tipo de cambio %1', rec.TipoCambio);
         end;
+
+        cod.restante(rec."Cust. Ledger Entry No.");
+
+        rec.SetFilter("Cust. Ledger Entry No.", Format(rec."Cust. Ledger Entry No."));
+        rec.SetFilter("Entry Type", 'Initial Entry');
+        rec.SetFilter("Document Type", 'Invoice');
+
+        if rec.FindSet() then begin
+            if sh.get(rec."Document No.") then begin
+                sh.Find('=');
+                uuid := sh.UUIDHG;
+                rec.Reset();
+
+                if uuid <> '' then begin
+                    rec.SetFilter("Cust. Ledger Entry No.", Format(rec."Cust. Ledger Entry No."));
+                    if rec.FindSet() then begin
+                        repeat begin
+                            rec.IdDocumento := uuid;
+                            rec.Modify();
+                        end until rec.Next() = 0;
+                    end;
+                end;
+            end;
+        end;
+
+
+
+
+
 
     end;
 
+    trigger OnAfterModify()
+    begin
+
+    end;
+
+    var
+
+        cod: Codeunit Methods;
+        sh: record "Sales Invoice Header";
+        fil: Text;
 }
+

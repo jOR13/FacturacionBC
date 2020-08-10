@@ -9,7 +9,6 @@ query 70100 QryDeatailedCustLedgerEntry
         {
             DataItemTableFilter = /*IdDocumento = filter(<> ''),*/ Amount = filter(< '0'), "Entry Type" = filter(= 'Application|Initial Entry'), Unapplied = filter(= 'false')/*, "Document Type" = filter(<> 'Refund')*/;
 
-
             column(NumParcialidad;
             PartialNo)
             {
@@ -19,7 +18,6 @@ query 70100 QryDeatailedCustLedgerEntry
             }
             column(CustLedgerEntryNo; "Cust. Ledger Entry No.")
             {
-
             }
 
             column(ClienteNo; "Customer No.")
@@ -34,10 +32,6 @@ query 70100 QryDeatailedCustLedgerEntry
             column(FechaPago; "Posting Date")
             {
             }
-            // column(Formadepago; "Forma de pago")
-            // {
-
-            // }
             column(DocumentType; "Document Type")
             {
             }
@@ -76,23 +70,10 @@ query 70100 QryDeatailedCustLedgerEntry
 
                 DataItemLink = "No." = MovDetallados."Document No.";
 
-                // column(UUIDHG; UUIDHG)
-                // {
-
-                // }
-
-                // column(SaldoRestante; "Remaining Amount")
-                // {
-
-                // }
-
-
-
-
                 dataitem(MetodoPagoTmp; MetodoPagoTmp)
                 {
                     DataItemLink = docNo = Sales_Invoice_Header."No.";
-                    column(Forma_de_pago; "Forma de pago")
+                    column(FormaDePago; "Forma de pago")
                     {
                     }
 
@@ -102,22 +83,43 @@ query 70100 QryDeatailedCustLedgerEntry
                         column(NombreR; Name)
                         {
                         }
-                        column(RFCNoR; "RFC No.")
+                        column(RFCR; "RFC No.")
                         {
+                        }
+
+                        dataitem(Company_Information; "Company Information")
+                        {
+                            DataItemLink = "System Indicator" = Customer."Application Method";
+                            column(NombreE; Name)
+                            {
+
+                            }
+                            column(LugarExpedicion; "Post Code")
+                            {
+                            }
+                            column(RegimenFiscal; "SAT Tax Regime Classification")
+                            {
+                            }
+                            column(RFCE; "VAT Registration No.")
+                            {
+                            }
+
                         }
                     }
 
                 }
-
             }
 
         }
+
+
     }
 
 
 
     var
         temporal: Decimal;
+        op: Integer;
 
     trigger OnBeforeOpen()
     begin

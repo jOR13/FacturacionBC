@@ -23,7 +23,7 @@ codeunit 70101 Methods
         end;
     end;
 
-    local procedure insertUUID(entry: Integer)
+    procedure insertUUID(entry: Integer)
     var
         myInt: Integer;
     begin
@@ -99,8 +99,9 @@ codeunit 70101 Methods
             DCLE.Next();
             DCLE.Reset();
         end;
-
     end;
+
+
 
     var
 
