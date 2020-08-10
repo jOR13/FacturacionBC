@@ -11,6 +11,20 @@ pageextension 70106 CashReceiptJournalExt extends "Cash Receipt Journal"
                 ApplicationArea = All;
             }
         }
+
+        modify("Bal. Account No.")
+        {
+            trigger OnAfterValidate()
+            var
+                cuenta: text;
+                gen: Record "Gen. Journal Line";
+            begin
+                cuenta := rec."Bal. Account No.";
+                if cuenta.Contains('213-') then begin
+                    rec.EmptyLine();
+                end;
+            end;
+        }
     }
 
     actions
@@ -33,6 +47,7 @@ pageextension 70106 CashReceiptJournalExt extends "Cash Receipt Journal"
             end;
         }
     }
+
 
 
 }

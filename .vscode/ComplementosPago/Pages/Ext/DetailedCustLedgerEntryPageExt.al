@@ -8,6 +8,23 @@ pageextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entrie
             {
                 ApplicationArea = all;
             }
+
+        }
+
+        addafter("Amount (LCY)")
+        {
+            field(SaldoRestante; SaldoRestante)
+            {
+                ApplicationArea = all;
+            }
+        }
+
+        addafter("Entry No.")
+        {
+            field(IdDocumento; IdDocumento)
+            {
+                ApplicationArea = all;
+            }
         }
     }
     actions

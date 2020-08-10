@@ -91,6 +91,7 @@ codeunit 70101 Methods
         cont := DCLE.count;
         DCLE.FindSet();
         for val := 1 to cont do begin
+            DCLE.SetFilter(DCLE."Cust. Ledger Entry No.", Format(entry));
             DCLE.SetRange(DCLE.PartialNo, 1, val);
             total += DCLE.Amount;
             DCLE.SaldoRestante := total;

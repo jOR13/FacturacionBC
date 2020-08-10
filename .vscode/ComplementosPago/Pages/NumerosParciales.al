@@ -86,13 +86,12 @@ page 70145 NumerosParciales
                 ApplicationArea = All;
                 Image = Calculate;
 
-
                 trigger OnAction()
                 begin
-                    //DCLE.SetFilter(SaldoRestante, '0');
-                    DCLE.SetFilter("Cust. Ledger Entry No.", Format(2359893));
-                    //DCLE.SetFilter("Entry Type", 'Initial Entry|Application');
-                    //DCLE.SetFilter("Posting Date", '-30D..today');
+                    DCLE.SetFilter(SaldoRestante, '0');
+                    DCLE.SetFilter("Entry Type", 'Initial Entry');
+                    //DCLE.SetFilter(PartialNo, '0');
+                    //DCLE.SetFilter("Posting Date", '4/20/2020..today');
                     if DCLE.FindSet() then begin
                         repeat begin
                             cod.restante(DCLE."Cust. Ledger Entry No.");

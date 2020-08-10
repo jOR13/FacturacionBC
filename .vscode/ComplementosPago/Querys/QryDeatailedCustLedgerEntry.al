@@ -1,8 +1,7 @@
 query 70100 QryDeatailedCustLedgerEntry
 {
     QueryType = Normal;
-    OrderBy = ascending(Fecha);
-
+    OrderBy = ascending(FechaPago);
 
     elements
     {
@@ -23,7 +22,7 @@ query 70100 QryDeatailedCustLedgerEntry
 
             }
 
-            column(CustomerNo; "Customer No.")
+            column(ClienteNo; "Customer No.")
             {
             }
 
@@ -32,7 +31,7 @@ query 70100 QryDeatailedCustLedgerEntry
             {
 
             }
-            column(Fecha; "Posting Date")
+            column(FechaPago; "Posting Date")
             {
             }
             // column(Formadepago; "Forma de pago")
@@ -46,11 +45,11 @@ query 70100 QryDeatailedCustLedgerEntry
             {
             }
 
-            column(CurrencyCode; "Currency Code")
+            column(Moneda; "Currency Code")
             {
             }
 
-            column(Amount; Amount)
+            column(Monto; Amount)
             {
 
             }
@@ -69,13 +68,9 @@ query 70100 QryDeatailedCustLedgerEntry
             column(IdDocumento; IdDocumento)
             {
             }
-            column(SaldoRestante; SaldoRestante)
+            column(ImpSaldoAnt; SaldoRestante)
             {
             }
-
-
-            /* 
-             }*/
             dataitem(Sales_Invoice_Header; "Sales Invoice Header")
             {
 
@@ -104,10 +99,10 @@ query 70100 QryDeatailedCustLedgerEntry
                     dataitem(Customer; Customer)
                     {
                         DataItemLink = "No." = MovDetallados."Customer No.";
-                        column(Name; Name)
+                        column(NombreR; Name)
                         {
                         }
-                        column(RFCNo; "RFC No.")
+                        column(RFCNoR; "RFC No.")
                         {
                         }
                     }
