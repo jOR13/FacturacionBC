@@ -58,10 +58,10 @@ pageextension 70106 CashReceiptJournalExt extends "Cash Receipt Journal"
                 end else
                     Error('Ingrese un metodo de pago');
 
-                cuenta := rec."Bal. Account No.";
+                /*cuenta := rec."Bal. Account No.";
                 if cuenta.Contains('213-') then begin
                     Error('Favor de generar la linea de IVA para el anticipo antes de registrar');
-                end;
+                end;*/
             end;
         }
 
@@ -80,10 +80,10 @@ pageextension 70106 CashReceiptJournalExt extends "Cash Receipt Journal"
                 end else
                     Error('Ingrese un metodo de pago');
 
-                cuenta := rec."Bal. Account No.";
+                /*cuenta := rec."Bal. Account No.";
                 if cuenta.Contains('213-') then begin
                     Error('Favor de generar la linea de IVA para el anticipo antes de registrar');
-                end;
+                end;*/
             end;
         }
 

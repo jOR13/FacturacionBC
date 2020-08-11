@@ -64,10 +64,6 @@ tableextension 70107 DetailedCustLedgerEntry extends "Detailed Cust. Ledg. Entry
         end;
 
 
-
-
-
-
     end;
 
     trigger OnAfterModify()

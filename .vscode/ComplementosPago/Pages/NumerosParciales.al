@@ -88,8 +88,11 @@ page 70145 NumerosParciales
 
                 trigger OnAction()
                 begin
+
+                    // cod.restante(2184607);
                     DCLE.SetFilter(SaldoRestante, '0');
                     DCLE.SetFilter("Entry Type", 'Initial Entry');
+                    DCLE.SetFilter("Document Type", 'Invoice');
                     //DCLE.SetFilter(PartialNo, '0');
                     //DCLE.SetFilter("Posting Date", '4/20/2020..today');
                     if DCLE.FindSet() then begin
